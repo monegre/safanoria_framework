@@ -1,0 +1,279 @@
+/* RESET + HTML5 */
+* {
+  margin: 0;
+  padding: 0; }
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, time, mark, audio, video {
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body {
+  line-height: 1; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none; }
+
+ins {
+  text-decoration: none; }
+
+del {
+  text-decoration: line-through; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+ol, ul {
+  list-style: none; }
+
+img, object, embed, iframe {
+  max-width: 100%; }
+
+section, article, aside, details, figcaption, figure, header, hgroup, menu, nav, footer, small {
+  display: block; }
+
+/*MIXINS */
+/*VARIABLES */
+/*MIXINS */
+/*GLOBALS */
+body {
+  background: #eaf2f5;
+  font: normal 100% "Helvetica Neue", Helvetica, Geneva, Arial, sans-serif;
+  color: #4d4d4d; }
+
+p {
+  margin-bottom: 1em; }
+
+a {
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+
+.button,
+#submit {
+  padding: 0.5em 1em;
+  font-family: "Helvetica Neue", Helvetica, Geneva, Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1;
+  color: #444444;
+  border: none;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.85);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#bbbbbb));
+  background-image: -moz-linear-gradient(0% 100% 90deg, #bbbbbb, white);
+  background-color: #bbbbbb;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); }
+
+.button:hover,
+#submit:hover {
+  text-decoration: none;
+  cursor: pointer;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#cccccc));
+  background-image: -moz-linear-gradient(0% 100% 90deg, #cccccc, white);
+  background-color: #cccccc; }
+
+.button.alert:hover {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff4500), to(#cc3700));
+  background-image: -moz-linear-gradient(0% 100% 90deg, #cc3700, #ff4500);
+  background-color: #cc3700;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85); }
+
+.success {
+  background: yellowgreen; }
+
+.error {
+  background: #ff4500; }
+
+.alert {
+  color: #ff4500; }
+
+.current {
+  text-decoration: underline; }
+
+.nolist li {
+  float: left; }
+
+.form_error {
+  color: #ff4500; }
+
+.clear:after,
+.nolist:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+/*STRUCTURE */
+#wrapper {
+  margin: 0 auto;
+  padding: 1em; }
+
+#page {
+  padding: 0; }
+
+/*NAV */
+ul li {
+  list-style-type: none;
+  margin: 0 0 1em; }
+
+.admin_located {
+  font-size: 12px;
+  color: #aaaaaa;
+  padding: 6px 0 0 20px;
+  height: 24px;
+  background: url("/public/resources/admin/img/location-icon.png") no-repeat; }
+
+ul#nav-top {
+  text-align: right; }
+  ul#nav-top a {
+    color: #4d4d4d; }
+  ul#nav-top li {
+    display: inline-block; }
+    ul#nav-top li:after {
+      content: "|";
+      padding: 0 0.3em; }
+    ul#nav-top li:last-child:after {
+      content: none; }
+
+form#nav-select div {
+  position: relative;
+  margin-bottom: 1em; }
+
+select.nav-select {
+  position: relative;
+  z-index: 10;
+  width: 100% !important;
+  height: auto !important;
+  padding: 1em 0 !important; }
+
+span.select {
+  position: absolute;
+  bottom: 0;
+  float: left;
+  left: 0;
+  width: 100%;
+  height: auto;
+  padding: 0.5em 0;
+  text-indent: 0.5em;
+  border: 1px solid #cccccc;
+  background: #f5f5f5;
+  cursor: default;
+  z-index: 1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px; }
+
+/*DASHBOARD */
+.dashboard-list {
+  margin-bottom: 1.5em;
+  border: 1px solid #cccccc; }
+  .dashboard-list > li {
+    background: white;
+    margin: 0;
+    border-bottom: 1px solid #cccccc;
+    padding: 1em 0.5em 0; }
+    .dashboard-list > li.draft {
+      background: lightyellow; }
+    .dashboard-list > li img, .dashboard-list > li h2, .dashboard-list > li p {
+      margin-right: 1em; }
+    .dashboard-list > li:last-child {
+      border-bottom: none; }
+    .dashboard-list > li.trash {
+      opacity: 0.5; }
+    .dashboard-list > li img {
+      width: 100%; }
+
+#item-actions {
+  margin-top: 1.5em; }
+  #item-actions li {
+    margin-right: 0.5em; }
+
+/*FORMS */
+.lang-fieldset,
+.general-fieldset {
+  border: 1px solid #cccccc;
+  padding: 1em;
+  margin-bottom: 1em;
+  background: white; }
+  .lang-fieldset legend,
+  .general-fieldset legend {
+    background: white;
+    padding: 0.5em 0.5em 0;
+    margin: 1em 0;
+    border-left: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    border-right: 1px solid #cccccc; }
+  .lang-fieldset label,
+  .general-fieldset label {
+    display: block;
+    margin: 0.5em 0; }
+
+input[type=text],
+input[type=password],
+textarea {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0 -0.5em 2em;
+  border: 1px solid #cccccc;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px; }
+
+#img_fieldset > div {
+  background: #cccccc;
+  padding: 1em;
+  margin-bottom: 0.5em; }
+
+input[type="text"]:focus,
+textarea:focus {
+  background: lightyellow; }
+
+/*GLOBAL MESSAGES */
+#global-message {
+  padding: 0.5em;
+  margin-bottom: 1em; }
+  #global-message p {
+    color: white;
+    font-weight: bold;
+    margin: 0; }
+
+/*FOOTER */
+#page-footer {
+  border-top: 1px solid #cccccc;
+  padding: 1em 0;
+  margin-top: 2em; }
+  #page-footer p.copyright {
+    font: normal 0.5em "Andale Mono", "Courier New", Courier, monospace; }
+
+/*TIPOGRAPHY */
+.instruction {
+  font: bold 0.6em Calibri, Optima, Arial, sans-serif;
+  color: #747474;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none; }
+
+#page h1 {
+  font: bold 2em "Helvetica Neue", Helvetica, Geneva, Arial, sans-serif;
+  margin-bottom: 0.5em; }
+
+/*DISPLAY */
+.desktop {
+  display: none; }

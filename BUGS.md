@@ -1,0 +1,6 @@
+#BUGS
+
+##ActiveRecord
+- Description: When attempting to save a duplicated item to the database
+- Error: Fatal error: Uncaught exception 'ActiveRecord\DatabaseException' with message '23000, 1062, Duplicate entry 'en-farem-en-cara-un-altre-posts' for key 'nice_url'' in /Users/carlesjovebuxeda/MAMP/safanoria/pro/system/database/Connection.php:276 Stack trace: #0 /Users/carlesjovebuxeda/MAMP/safanoria/pro/system/database/Table.php(317): ActiveRecord\Connection->query('INSERT INTO `me...', Array) #1 /Users/carlesjovebuxeda/MAMP/safanoria/pro/system/database/Model.php(803): ActiveRecord\Table->insert(Array) #2 /Users/carlesjovebuxeda/MAMP/safanoria/pro/system/database/Model.php(758): ActiveRecord\Model->insert(true) #3 /Users/carlesjovebuxeda/MAMP/safanoria/pro/system/libraries/cms.php(123): ActiveRecord\Model->save() #4 /Users/carlesjovebuxeda/MAMP/safanoria/pro/app/controllers/admin.php(214): Cms->add('post') #5 /Users/carlesjovebuxeda/MAMP/safanoria/pro/app/controllers/admin.php(39): Admin->posts(Array) #6 /Users/carlesjovebuxeda/MAMP/safanoria/pro/system/core/routing.php(34): Admin->__construct('posts', Array) #7 /Users/carl in /Users/carlesjovebuxeda/MAMP/safanoria/pro/system/database/Connection.php on line 276
+

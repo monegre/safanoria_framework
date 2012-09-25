@@ -1,0 +1,111 @@
+/* RESET + HTML5 */
+* {
+  margin: 0;
+  padding: 0; }
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, time, mark, audio, video {
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+body {
+  line-height: 1; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none; }
+
+ins {
+  text-decoration: none; }
+
+del {
+  text-decoration: line-through; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+ol, ul {
+  list-style: none; }
+
+img, object, embed, iframe {
+  max-width: 100%; }
+
+section, article, aside, details, figcaption, figure, header, hgroup, menu, nav, footer, small {
+  display: block; }
+
+/*MIXINS */
+/*VARIABLES */
+/*MIXINS */
+/*GLOBALS */
+body {
+  background: #eaf2f5;
+  font: normal 100% "Helvetica Neue", Helvetica, Geneva, Arial, sans-serif;
+  color: #4d4d4d; }
+
+#login {
+  background: white;
+  max-width: 20em;
+  margin: 5em auto 1em;
+  padding: 1em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #cccccc; }
+
+h1 {
+  font: bold 2em "Helvetica Neue", Helvetica, Geneva, Arial, sans-serif;
+  margin-bottom: 0.5em; }
+
+p.copyright {
+  font: normal 0.5em "Andale Mono", "Courier New", Courier, monospace;
+  text-align: center; }
+
+/*FORMS */
+input[type=text],
+input[type=password] {
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #cccccc; }
+
+fieldset {
+  margin: 0 0 1em; }
+
+form.login {
+  text-align: center;
+  width: 100%; }
+
+form.login label {
+  display: none; }
+
+input[type=submit] {
+  width: auto;
+  text-align: center;
+  padding: 0.5em;
+  border: none;
+  background: #4d4d4d;
+  color: white;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer; }
+
+input[type=submit]:hover {
+  border: none;
+  box-shadow: 0px 2px 3em 1px rgba(0, 0, 0, 0.2) inset;
+  color: white;
+  text-decoration: none;
+  background: black; }

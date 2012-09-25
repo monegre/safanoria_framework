@@ -1,0 +1,80 @@
+/*MIXINS */
+/*VARIABLES */
+/*MIXINS */
+/*DISPLAY */
+.desktop {
+  display: block; }
+
+.mobile {
+  display: none; }
+
+/*STRUCTURE */
+#wrapper {
+  max-width: 960px; }
+
+/*DASHBOARD */
+ul#nav-list {
+  background-color: #4d4d4d;
+  margin-bottom: 1em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#bbbbbb));
+  background-image: -moz-linear-gradient(0% 100% 90deg, #bbbbbb, white);
+  background-color: #bbbbbb;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.85); }
+  ul#nav-list li {
+    float: left;
+    margin: 0;
+    padding: 0.5em;
+    border-right: 1px solid #cccccc;
+    position: relative; }
+    ul#nav-list li a {
+      color: #4d4d4d; }
+      ul#nav-list li a:hover {
+        text-decoration: none; }
+    ul#nav-list li:hover {
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#cccccc));
+      background-image: -moz-linear-gradient(0% 100% 90deg, #cccccc, white);
+      background-color: #cccccc; }
+    ul#nav-list li ul.dropdown {
+      display: none;
+      position: absolute;
+      top: 2em;
+      left: 0;
+      margin-left: -1px;
+      border: 1px solid #cccccc;
+      z-index: 99;
+      background: white; }
+      ul#nav-list li ul.dropdown li {
+        display: list-item;
+        width: 10em;
+        margin: 0 0 0.5em;
+        border-right: none;
+        border-bottom: 1px solid #cccccc; }
+        ul#nav-list li ul.dropdown li:hover {
+          background: transparent; }
+        ul#nav-list li ul.dropdown li:last-child {
+          border: none; }
+        ul#nav-list li ul.dropdown li:first-child {
+          margin-top: 0.5em; }
+    ul#nav-list li:hover ul, ul#nav-list li.over ul {
+      display: block; }
+
+.dashboard-list > li img, .dashboard-list > li h2, .dashboard-list > li p {
+  float: left;
+  margin-right: 1em; }
+.dashboard-list > li ul {
+  float: right; }
+.dashboard-list > li img {
+  max-height: 1.5em;
+  width: auto; }
+
+#item-actions {
+  margin-top: 0; }

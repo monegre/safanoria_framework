@@ -1,0 +1,17 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+
+/* TEAM */
+  Designer & Developer:
+  Site: 
+  Twitter: 
+  Location:
+
+/* THANKS */
+  
+/* SITE */
+  Site launched:
+  Standards: HTML5, CSS3
+  Components: Safanoria framework
+  Software:
