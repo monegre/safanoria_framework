@@ -42,16 +42,7 @@ class Cms extends Safanoria
 				 	'trash' => '/admin/trash',
 				 	
 				 	'publish' => '/admin/publish',
-				 	'edit' => '/admin/edit',
-				 	
-				 	// Custom
-				 	'collaborators' => '/admin/collaborators',
-				 	'add-collaborator' => '/admin/collaborators/add',
-				 	'edit-collaborator' => '/admin/collaborators/edit',
-				 	'projects' => '/admin/projects',
-				 	'add-project' => '/admin/projects/add',
-				 	'edit-project' => '/admin/projects/edit',
-				 	
+				 	'edit' => '/admin/edit',		 	
 				  ];
 	
 	public $post_status = [
