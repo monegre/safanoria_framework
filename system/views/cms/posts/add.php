@@ -35,6 +35,10 @@
 		<select name="section" id="section"> 
 			<?php foreach($sections as $section): ?>
 				<option value="<?php echo $section->id; ?>"><?php echo $section->title; ?></option>
+				<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->administrator->clean['lang'])); ?>
+				<?php foreach ($sublists as $sublist): ?>
+					<option value="<?php echo $sublist->id; ?>">– <?php echo $sublist->title; ?></option>
+				<?php endforeach; ?>
 			<?php endforeach; ?>
 		</select>
 		

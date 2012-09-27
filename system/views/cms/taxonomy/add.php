@@ -18,6 +18,17 @@
 	</fieldset>
 <?php endforeach; ?>
 	<fieldset class="general-fieldset">
+		<div class="<?php echo $this->cms->error_class('parent'); ?>">
+			<label for="parent"><?php echo $this->cms->message('parent'); ?></label>
+				<div class="form_error"><?php echo $this->cms->error_for('parent'); ?></div>
+				<select name="parent" id="parent"> 
+					<option value="0">Top level</option>
+					<?php foreach($sections as $section): ?>
+						<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
+					<?php endforeach; ?>
+				</select>
+		</div>
+		
 		<div class="<?php echo $this->cms->error_class('display_order'); ?>">
 			<label for="display_order"><?php echo $this->cms->message('order'); ?></label>
 				<div class="form_error"><?php echo $this->cms->error_for('display_order'); ?></div>

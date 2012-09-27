@@ -85,6 +85,7 @@ $safanoria['field_images'] = "Imatges";
 $safanoria['sections'] = "Seccions";
 $safanoria['categories'] = "Categories";
 $safanoria['order'] = "Ordre";
+$safanoria['parent'] = "Pare";
 $safanoria['select_file'] = "Selecciona un arxiu";
 $safanoria['alternative_text'] = "Text alternatiu";
 $safanoria['file_name'] = "Nom de l'arxiu";

@@ -109,8 +109,6 @@ class Posts extends SF_Controller
 							}
 						}
 					}
-					// We're done
-					$this->performance->free($data);
 					$this->redirect_with_message(array('url'=>$this->cms->url['media'], 'message'=>'post_created'));
 					exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 				}
@@ -122,7 +120,7 @@ class Posts extends SF_Controller
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('add_post');					
 		// Data
-		$sections = Section::all(array('lang'=>$this->administrator->clean['lang']));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
 		$langs = $this->lang->get_active();
 		$cats = Category::all(array('lang'=>$this->administrator->clean['lang']));
 		require $this->view('_header', 'cms');

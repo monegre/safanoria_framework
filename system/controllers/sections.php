@@ -50,11 +50,10 @@ class Sections extends SF_Controller
 	 */
 	private function index($query=null) 
 	{
-		$list = Section::all(array('lang'=>$this->administrator->clean['lang']));
+		$list = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
 		$this->current['new_item'] = $this->cms->url['add-section'];
-		
 		require $this->view('_header', 'cms');
-		require $this->view('list', 'cms');
+		require $this->view('list', 'cms/taxonomy');
 		require $this->view('_footer', 'cms');
 		$this->performance->free($list,$this->current);
 	}
@@ -79,7 +78,7 @@ class Sections extends SF_Controller
 		$this->current['next_action'] = $this->cms->url['add-section'];
 		// Data
 		$langs = $this->lang->get_active();
-		
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
 		require $this->view('_header', 'cms');
 		require $this->view('add', 'cms/taxonomy');
 		require $this->view('_footer', 'cms');
