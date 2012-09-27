@@ -2,4 +2,5 @@
 .sass-cache
 tests
 public/resources/uploads
+_distribute
 safanoria.esproj
