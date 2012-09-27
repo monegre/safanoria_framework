@@ -23,30 +23,6 @@
 
 <!-- Camps generals -->
 <?php foreach($list as $item): if ($item === reset($list)): ?>	
-	<fieldset class="general-fieldset" id="img_fieldset">
-		<legend>Imatges del projecte:</legend>
-			<!-- Developer note: all this code should not reside here -->
-			<?php 
-			$images = explode(",", $item->related_img);
-			$medias = Media::find('all', array('conditions' => array('identifier in (?) AND lang = ?', $images, 'lang'=>$this->administrator->clean['lang'])));
-			 ?>
-			 <!-- /Developer note -->
-			<?php if($medias > 0): ?>
-			<ul class="nolist">
-			<?php foreach($medias as $media): ?>
-				<li>
-					<img src="/public/resources/uploads/thumbs/<?php echo $media->nice_url; ?>" alt="" />
-					<p><?php echo $media->nice_url; ?></p>
-				</li>
-			<?php endforeach; ?>
-			</ul>
-			<?php endif; ?>
-			
-			<div><input type="file" name="related_img[]" id="related_img" value="" /></div>
-			<p id="add_images" class="button"><?php echo $this->cms->message('more_images'); ?></p>
-	</fieldset>
-	
-
 	<fieldset class="general-fieldset">
 		<legend><?php echo $this->cms->message('field_admin'); ?></legend>
 		<label for="section"><?php echo $this->cms->message('post_section'); ?></label>
@@ -90,6 +66,29 @@
 				<input type="text" name="nice_url" id="nice_url" value="<?php echo $this->cms->input_for('nice_url', $item->nice_url); ?>"/>
 			<?php echo $this->cms->error_for('nice_url'); ?>
 		</div>
+	</fieldset>
+	
+	<fieldset class="general-fieldset" id="img_fieldset">
+		<legend>Imatges del projecte:</legend>
+			<!-- Developer note: all this code should not reside here -->
+			<?php 
+			$images = explode(",", $item->related_img);
+			$medias = Media::find('all', array('conditions' => array('identifier in (?) AND lang = ?', $images, 'lang'=>$this->administrator->clean['lang'])));
+			 ?>
+			 <!-- /Developer note -->
+			<?php if($medias > 0): ?>
+			<ul class="nolist">
+			<?php foreach($medias as $media): ?>
+				<li>
+					<img src="/public/resources/uploads/thumbs/<?php echo $media->nice_url; ?>" alt="" />
+					<p><?php echo $media->nice_url; ?></p>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+			<?php endif; ?>
+			
+			<div><input type="file" name="related_img[]" id="related_img" value="" /></div>
+			<p id="add_images" class="button"><?php echo $this->cms->message('more_images'); ?></p>
 	</fieldset>
 	
 <?php endif; endforeach; ?>

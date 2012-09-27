@@ -23,12 +23,6 @@
 			<?php echo $this->cms->error_for('description'); ?>
 	</fieldset>
 <?php endforeach; ?>
-	<fieldset class="general-fieldset" id="img_fieldset">
-		<legend>Imatges del projecte:</legend>
-			<div><input type="file" name="related_img[]" id="related_img" value="" /></div>
-			<p id="add_images" class="button"><?php echo $this->cms->message('more_images'); ?></p>
-	</fieldset>
-
 	<fieldset class="general-fieldset">
 		<legend><?php echo $this->cms->message('field_admin'); ?></legend>
 		<label for="section"><?php echo $this->cms->message('post_section'); ?></label>
@@ -74,6 +68,12 @@
 			<input type="text" name="nice_url" id="nice_url" value="" />
 			<?php echo $this->cms->error_for('nice_url'); ?>
 		<?php endif; ?>
+	</fieldset>
+	
+	<fieldset class="general-fieldset" id="img_fieldset">
+		<legend>Imatges del projecte:</legend>
+			<div><input type="file" name="related_img[]" id="related_img" value="" /></div>
+			<p id="add_images" class="button"><?php echo $this->cms->message('more_images'); ?></p>
 	</fieldset>
 		
 	<div>
