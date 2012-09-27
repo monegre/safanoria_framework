@@ -2,6 +2,11 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.4.1
+- Support for two level sections (parent and one child)
+- Fixed bug that was storing post sections by id instead of the proper meta identifier
+
+
 ##Version 0.4
 - Created a Lang model according to AR
 - Langs are usable now
