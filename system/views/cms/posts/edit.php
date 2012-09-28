@@ -70,12 +70,6 @@
 	
 	<fieldset class="general-fieldset" id="img_fieldset">
 		<legend>Imatges del projecte:</legend>
-			<!-- Developer note: all this code should not reside here -->
-			<?php 
-			$images = explode(",", $item->related_img);
-			$medias = Media::find('all', array('conditions' => array('identifier in (?) AND lang = ?', $images, 'lang'=>$this->administrator->clean['lang'])));
-			 ?>
-			 <!-- /Developer note -->
 			<?php if($medias > 0): ?>
 			<ul class="nolist">
 			<?php foreach($medias as $media): ?>

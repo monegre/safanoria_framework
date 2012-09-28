@@ -84,11 +84,12 @@ CREATE TABLE meta_contents (
 
 # Create User Levels   ! IMPORTANT
 # ------------------------------------------------------------
-
-INSERT INTO admin_users_levels VALUES ('','1','Super Admin');
-INSERT INTO admin_users_levels VALUES ('','2','Admin');
-INSERT INTO admin_users_levels VALUES ('','3','Editor');
-INSERT INTO admin_users_levels VALUES ('','4','Contributor');
+INSERT INTO `admin_users_levels` (`id`, `level`, `level_name`)
+VALUES
+	(1,1,'Super Admin'),
+	(2,2,'Admin'),
+	(3,3,'Editor'),
+	(4,4,'Contributor');
 
 # Create a user for admin purposes
 # ------------------------------------------------------------
@@ -121,3 +122,9 @@ VALUES
 	''
 	);
 
+# Create some langs for testing purposes
+# ------------------------------------------------------------
+INSERT INTO `langs` (`id`, `name`, `code`, `regional`, `created_at`, `updated_at`)
+VALUES
+	(1,'Català','ca','es_ca','0000-00-00 00:00:00','0000-00-00 00:00:00'),
+	(2,'English','en','en_us','0000-00-00 00:00:00','0000-00-00 00:00:00');

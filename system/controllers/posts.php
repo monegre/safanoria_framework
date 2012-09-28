@@ -80,6 +80,9 @@ class Posts extends SF_Controller
 							$data = $this->upload->data();
 							$img = $this->lang->get_lang_fields_off($_POST);
 							$img["nice_url"] = $data["file_name"];
+							$img["file_name"] = $data["file_name"];
+							$img["file_type"] = $data["file_type"];
+							$img["parent"] = $post->id;
 							
 							if ($media = $this->cms->add('media', $img)) 
 							{
@@ -92,20 +95,6 @@ class Posts extends SF_Controller
 								$this->image->resize_to_width(200);
 								$this->image->save($data['file_name'], 'resources/uploads/thumbs');
 								$this->image->destroy();
-								
-								$entries = Post::all(array('identifier'=>$post->id));
-								foreach ($entries as $entry) 
-								{
-									$imgs = array();
-									if ( ! empty($entry->related_img)) 
-									{
-										$imgs = explode(',', $entry->related_img);
-									}	
-									$imgs[] = $media->id;// We get the meta model, not the item's!
-									$imgs = implode(',', $imgs);
-									$entry->related_img = $imgs;
-									$entry->save();
-								}
 							}
 						}
 					}
@@ -150,6 +139,9 @@ class Posts extends SF_Controller
 							$data = $this->upload->data();
 							$img = $this->lang->get_lang_fields_off($_POST);
 							$img["nice_url"] = $data["file_name"];
+							$img["file_name"] = $data["file_name"];
+							$img["file_type"] = $data["file_type"];
+							$img["parent"] = $query[1];
 							
 							if ($media = $this->cms->add('media', $img)) 
 							{
@@ -162,25 +154,11 @@ class Posts extends SF_Controller
 								$this->image->resize_to_width(200);
 								$this->image->save($data['file_name'], 'resources/uploads/thumbs');
 								$this->image->destroy();
-								
-								$entries = Post::all(array('identifier'=>$query[1]));
-								foreach ($entries as $entry) 
-								{
-									$imgs = array();
-									if ( ! empty($entry->related_img)) 
-									{
-										$imgs = explode(',', $entry->related_img);
-									}	
-									$imgs[] = $media->id; // We get the meta model, not the item's!
-									$imgs = implode(',', $imgs);
-									$entry->related_img = $imgs;
-									$entry->save();
-								}
-								$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_updated'));
-								exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 							}
 						}
 					}
+					$this->redirect_with_message(array('url'=>$this->cms->url['media'], 'message'=>'post_created'));
+					exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 				}
 				$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_updated_files_not_uploaded'));
 				exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
@@ -190,6 +168,7 @@ class Posts extends SF_Controller
 		$list = $this->cms->find('Post','all', array('identifier'=>$query[1]));
 		$sections = Section::all(array('lang'=>$this->administrator->clean['lang']));
 		$cats = Category::all(array('lang'=>$this->administrator->clean['lang']));
+		$medias = Media::all(array('parent'=>$query[1],'lang'=>$this->administrator->clean['lang']));
 		// Define current states
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('edit_post');
