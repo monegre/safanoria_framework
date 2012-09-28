@@ -64,7 +64,7 @@ class Posts extends SF_Controller
 	{
 		if ($this->post_has_token()) 
 		{						
-			$_POST['categories'] = isset($_POST['categories']) ? implode(',', $_POST['categories']) : '';
+			$_POST['categories'] = isset($_POST['categories']) ? implode(',', $_POST['categories']) : '0';
 						
 			if ($post = $this->cms->add('post', $_POST)) 
 			{	
@@ -124,7 +124,7 @@ class Posts extends SF_Controller
 	{
 		if ($this->post_has_token()) 
 		{
-			$_POST['categories'] = isset($_POST['categories']) ? implode(',', $_POST['categories']) : '';
+			$_POST['categories'] = isset($_POST['categories']) ? implode(',', $_POST['categories']) : '0';
 			if ($this->cms->edit('post', $query[1], $_POST)) 
 			{
 				$img_key = 'related_img';
