@@ -33,15 +33,13 @@
 			<?php endforeach; ?>
 		</select>
 				
-		<label for="categories"><?php echo $this->cms->message('categories'); ?></label>
 		<?php $a = explode(',', $item->categories); $count = count($a); ?>			
 		<?php if($this->have($cats)): ?>
+		<label for="categories"><?php echo $this->cms->message('categories'); ?></label>
 			<?php foreach($cats as $cat): ?>
 				<input type="checkbox" name="categories[]" value="<?php echo $cat->identifier; ?>" 
 				<?php for ($i = 0; $i < $count; $i++) {if($a[$i] == $cat->identifier) echo "checked";} ?>/> <?php echo $cat->title; ?>
 			<?php endforeach; ?>
-		<?php else: ?>
-			<input type="text" name="categories[]" value="<?php echo $this->cms->input_for('categories', 'Uncategorized'); ?>" />
 		<?php endif; ?>
 		
 		<label for="author"><?php echo $this->cms->message('author'); ?></label>

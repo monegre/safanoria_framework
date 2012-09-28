@@ -2,7 +2,11 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
-##Version 0.4.1
+##Version 0.4.3
+- Fixes bug #1 (couldn't upload files when no categories were selected)
+- Cms post forms only show existing categories
+
+##Version 0.4.2
 - Related media has been removed from posts table, and a parent field added to the medias table
 - Adapted uploads code to the new DB schema.
 - Fixes bug #7 (uploading multiples files when editing a post)
