@@ -3,9 +3,13 @@
 This is not a full changelog, but just to keep a lil bit of a track
 
 ##Version 0.4.1
+- Related media has been removed from posts table, and a parent field added to the medias table
+- Adapted uploads code to the new DB schema.
+- Fixes bug #7 (uploading multiples files when editing a post)
+
+##Version 0.4.1
 - Support for two level sections (parent and one child)
 - Fixed bug that was storing post sections by id instead of the proper meta identifier
-
 
 ##Version 0.4
 - Created a Lang model according to AR
