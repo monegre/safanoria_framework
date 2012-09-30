@@ -2,6 +2,10 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.4.4
+- Added new Cms method add_post_files(), which centralizes file uploading and resizing when creating or editing a post
+- Closes issue #6 (lighter controllers)
+
 ##Version 0.4.3
 - Fixes bug #1 (couldn't upload files when no categories were selected)
 - Cms post forms only show existing categories
