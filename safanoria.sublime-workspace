@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"is",
+				"is_array"
+			],
+			[
 				"current",
 				"current_state"
 			],
@@ -48,8 +52,8 @@
 	},
 	"file_history":
 	[
-		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/libraries/Cms.php",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/controllers/posts.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/libraries/Cms.php",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/controllers/arquitectura.php",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/views/noticies/index.php",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/views/noticies/view.php",
@@ -72,6 +76,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"$this->image",
+			"$img_key",
 			"$_SESSION['lang']"
 		],
 		"highlight": true,
@@ -80,6 +86,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"$file_key",
 			"$this->user_nav_lang"
 		],
 		"reverse": false,
