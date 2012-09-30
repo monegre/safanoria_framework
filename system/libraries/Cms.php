@@ -62,6 +62,8 @@ class Cms extends Safanoria
 		$this->security = $SF->security;
 		$this->upload = $SF->upload;
 		$this->administrator = $SF->administrator;
+		// Load Image processing class
+		$this->image = $this->load_class('Image', 'system/libraries');
 		// Load database manually
 		// This should be improved in futre versions
 		$this->DB = $this->load_class('Database', 'system/core');
@@ -169,6 +171,82 @@ class Cms extends Safanoria
 			}
 			return FALSE;	
 //		}
+	}
+
+	/**
+	 * Adds and Uploads post attached files
+	 *
+	 */
+	public function add_post_files($parent, $file_key='file', $options=[])
+	{
+		/*
+		NEED TO KNOW
+		1. $parent (id)
+		2. $file_key = 'related_img'
+		
+		OPTIONS
+		1. new sizes + storing directories
+		2. memory limit
+		*/
+
+		// Validate	
+		$id = (int) $parent;
+
+		$defaults = [
+			'memory' => 64,
+			'sizes' => [
+				'200' => 'resources/uploads/thumbs',
+				'1000' => 'resources/uploads',
+			],
+		];
+
+		foreach ($defaults as $key => $value) 
+		{
+			if (isset($options[$key])) 
+			{
+				$options[$key] = $options[$key];
+			}
+			else
+			{
+				$options[$key] = $defaults[$key];
+			}
+		}
+
+		if (isset($_FILES[$file_key]) && !empty($_FILES[$file_key])) 
+		{	
+			ini_set('memory_limit', $options['memory'].'M');
+			$newfiles = $this->upload->normalize_file_array();
+			for ($i = 0; $i < count($newfiles[$file_key]); $i++) 
+			{
+				if ($this->upload->upload($file_key,$newfiles[$file_key][$i])) 
+				{
+					$data = $this->upload->data();
+					$img = $this->lang->get_lang_fields_off($_POST);
+					$img["nice_url"] = $data["file_name"];
+					$img["file_name"] = $data["file_name"];
+					$img["file_type"] = $data["file_type"];
+					$img["parent"] = $id;
+							
+					if ($media = $this->add('media', $img)) 
+					{
+						// Process image
+						$this->image->load($data['file_name'], 'resources/uploads');
+
+						foreach ($options['sizes'] as $key => $value) 
+						{
+							$size = (int) $key;
+							$dir = isset($value) ? $value : $size;
+
+							$this->image->resize_to_width($size);
+							$this->image->save($data['file_name'], $dir);	
+						}
+						$this->image->destroy();
+					}
+					return TRUE;
+				}
+			}
+		}
+		return FALSE;
 	}
 		
 	/**
