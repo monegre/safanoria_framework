@@ -69,35 +69,8 @@ class Posts extends SF_Controller
 			if ($post = $this->cms->add('post', $_POST)) 
 			{	
 				$img_key = 'related_img';
-				if (isset($_FILES[$img_key]) && !empty($_FILES[$img_key])) 
-				{	
-					ini_set('memory_limit', '64M');
-					$newfiles = $this->upload->normalize_file_array();
-					for ($i = 0; $i < count($newfiles[$img_key]); $i++) 
-					{
-						if ($this->upload->upload($img_key,$newfiles[$img_key][$i])) 
-						{
-							$data = $this->upload->data();
-							$img = $this->lang->get_lang_fields_off($_POST);
-							$img["nice_url"] = $data["file_name"];
-							$img["file_name"] = $data["file_name"];
-							$img["file_type"] = $data["file_type"];
-							$img["parent"] = $post->id;
-							
-							if ($media = $this->cms->add('media', $img)) 
-							{
-								// Load Image processing class
-								$this->image = $this->load_class('Image', 'system/libraries');
-								// Process image
-								$this->image->load($data['file_name'], 'resources/uploads');
-								$this->image->resize_to_width(1000);
-								$this->image->save($data['file_name'], 'resources/uploads');
-								$this->image->resize_to_width(200);
-								$this->image->save($data['file_name'], 'resources/uploads/thumbs');
-								$this->image->destroy();
-							}
-						}
-					}
+				if ($this->cms->add_post_files($post->id,$img_key)) 
+				{
 					$this->redirect_with_message(array('url'=>$this->cms->url['media'], 'message'=>'post_created'));
 					exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 				}
@@ -128,35 +101,8 @@ class Posts extends SF_Controller
 			if ($this->cms->edit('post', $query[1], $_POST)) 
 			{
 				$img_key = 'related_img';
-				if (isset($_FILES[$img_key]) && !empty($_FILES[$img_key])) 
-				{	
-					ini_set('memory_limit', '64M');
-					$newfiles = $this->upload->normalize_file_array();
-					for ($i = 0; $i < count($newfiles[$img_key]); $i++) 
-					{
-						if ($this->upload->upload($img_key,$newfiles[$img_key][$i])) 
-						{
-							$data = $this->upload->data();
-							$img = $this->lang->get_lang_fields_off($_POST);
-							$img["nice_url"] = $data["file_name"];
-							$img["file_name"] = $data["file_name"];
-							$img["file_type"] = $data["file_type"];
-							$img["parent"] = $query[1];
-							
-							if ($media = $this->cms->add('media', $img)) 
-							{
-								// Load Image processing class
-								$this->image = $this->load_class('Image', 'system/libraries');
-								// Process image
-								$this->image->load($data['file_name'], 'resources/uploads');
-								$this->image->resize_to_width(1000);
-								$this->image->save($data['file_name'], 'resources/uploads');
-								$this->image->resize_to_width(200);
-								$this->image->save($data['file_name'], 'resources/uploads/thumbs');
-								$this->image->destroy();
-							}
-						}
-					}
+				if ($this->cms->add_post_files($query[1],$img_key)) 
+				{
 					$this->redirect_with_message(array('url'=>$this->cms->url['media'], 'message'=>'post_created'));
 					exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 				}
