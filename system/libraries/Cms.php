@@ -179,38 +179,24 @@ class Cms extends Safanoria
 	 */
 	public function add_post_files($parent, $file_key='file', $options=[])
 	{
-		/*
-		NEED TO KNOW
-		1. $parent (id)
-		2. $file_key = 'related_img'
-		
-		OPTIONS
-		1. new sizes + storing directories
-		2. memory limit
-		*/
-
-		// Validate	
-		$id = (int) $parent;
-
 		$defaults = [
 			'memory' => 64,
 			'sizes' => [
-				'200' => 'resources/uploads/thumbs',
-				'1000' => 'resources/uploads',
+				200 => 'resources/uploads/thumbs',
+				1000 => 'resources/uploads',
 			],
 		];
 
 		foreach ($defaults as $key => $value) 
 		{
-			if (isset($options[$key])) 
-			{
-				$options[$key] = $options[$key];
-			}
-			else
+			if ( ! isset($options[$key])) 
 			{
 				$options[$key] = $defaults[$key];
 			}
 		}
+
+		// Validate	
+		$id = (int) $parent;
 
 		if (isset($_FILES[$file_key]) && !empty($_FILES[$file_key])) 
 		{	
@@ -238,13 +224,13 @@ class Cms extends Safanoria
 							$dir = isset($value) ? $value : $size;
 
 							$this->image->resize_to_width($size);
-							$this->image->save($data['file_name'], $dir);	
+							$this->image->save($data['file_name'], $dir);
 						}
 						$this->image->destroy();
 					}
-					return TRUE;
 				}
 			}
+			return TRUE;
 		}
 		return FALSE;
 	}
