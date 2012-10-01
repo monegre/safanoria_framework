@@ -86,6 +86,12 @@ class Cms extends Safanoria
 //		{
 			// We no longer need 'em
 			unset($data['token'], $data['submit'], $_SESSION['token']);
+
+			// You didn't turn off magic_quotes? Fuck off.
+			if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
+			{
+			    $data = array_map( 'stripslashes_deep', $data );
+			}
 			
 			$this->post = $data;
 						
@@ -247,18 +253,19 @@ class Cms extends Safanoria
 			 && $data['token'] == $_SESSION['token'] ) 
 		{
 			unset($data['token'], $data['submit'], $_SESSION['token']);
+
+			// You didn't turn off magic_quotes? Fuck off.
+			if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
+			{
+			    $data = array_map( 'stripslashes_deep', $data );
+			}
+
 			$this->post = $data;
 			// We need 'em for meta content
 			if (isset($this->post['nice_url'])) 
 			{
 				$this->post['nice_url'] = to_friendly_url($this->post['nice_url']);
 			} 
-			/* I think this is completely useless
-			if( ! isset($this->post['nice_url']) && isset($this->post['title_'.$this->administrator->clean['lang'].''])) 
-			{
-				$args['nice_url'] = to_friendly_url($this->post['title_'.$this->administrator->clean['lang'].'']);
-			}
-			*/
 			
 			// Read the meta model
 			$meta = Meta_content::find($this->identifier);
