@@ -3,7 +3,7 @@
 <IfModule mod_rewrite.c>
 	Options +FollowSymlinks
 	RewriteEngine On
-	
+	RewriteBase /
 	# Adaptive-Images -----------------------------------------------------------------------------------
 	
 	# Add any directories you wish to omit from the Adaptive-Images process on a new line, as follows:
