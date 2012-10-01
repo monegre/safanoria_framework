@@ -20,7 +20,7 @@ class Categories extends SF_Controller
 	/**
 	 * 
 	 */
-	function __construct($query=[]) 
+	function __construct($query=array()) 
 	{
 		parent::__construct();
 		

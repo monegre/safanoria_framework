@@ -14,7 +14,7 @@
 class Upload extends Safanoria
 {
 	// Some settings
-	private $allowed_types 		= ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/png'];	
+	private $allowed_types 		= array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png');	
 	private $max_width 			= 1500; // Max width for regular images
 	private $thumb_width 		= 350; // Max width for thumb images
 	

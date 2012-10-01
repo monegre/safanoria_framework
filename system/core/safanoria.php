@@ -43,15 +43,15 @@ class Safanoria
 		self::$instance =& $this;
 		
 		// Manually load classes
-		$this->lang = $this->load_class('Lang', 'system/models');
-		$this->messenger = $this->load_class('Messenger', 'system/core');
-		$this->security = $this->load_class('Security', 'system/core');
-		$this->performance = $this->load_class('Performance', 'system/core');
+		$this->lang = $this->load_class('lang', 'system/models');
+		$this->messenger = $this->load_class('messenger', 'system/core');
+		$this->security = $this->load_class('security', 'system/core');
+		$this->performance = $this->load_class('performance', 'system/core');
 		
-		$this->upload = $this->load_class('Upload', 'system/libraries');
+		$this->upload = $this->load_class('upload', 'system/libraries');
 		
-		$this->administrator = $this->load_class('Admin_user', 'system/models');
-		$this->cms = $this->load_class('Cms', 'system/libraries');
+		$this->administrator = $this->load_class('admin_user', 'system/models');
+		$this->cms = $this->load_class('cms', 'system/libraries');
 	}
 	
 	public static function &get_instance() {
@@ -145,27 +145,6 @@ class Safanoria
 				$a = set_index($_POST, $field);
 				return h($a);
 			}
-//			if ($alternate!=null && $global!=null) 
-//			{
-//				if (isset($alternate->clean[$field])) 
-//				{
-//					return h($alternate->clean[$field]);
-//				}
-//				return h($alternate->info($field));
-//			} 
-//			elseif ( $global!=null ) 
-//			{
-//				if (isset($global->clean[$field])) 
-//				{
-//					return h($global->clean[$field]);
-//				}
-//				return h($global->info($field));
-//			}
-//			else 
-//			{
-//				$a = set_index($_POST, $field);
-//				return h($a);
-//			}
 		}
 	}
 

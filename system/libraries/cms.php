@@ -10,47 +10,47 @@
 
 class Cms extends Safanoria
 {			
-	public $url = [
-				 	'index'	=> '/admin',
-				 	'login'	=> '/admin/login',
-				 	'logout'	=> '/admin/logout',
-				 	'login-error'	=> '/admin/login/error',
+	public $url = array(
+				'index'	=> '/admin',
+				'login'	=> '/admin/login',
+				'logout'	=> '/admin/logout',
+				'login-error'	=> '/admin/login/error',
+					
+			 	'sections' => '/admin/sections',
+			 	'add-section' => '/admin/sections/add',
+			 	'edit-section' => '/admin/sections/edit',
 				 	
-				 	'sections' => '/admin/sections',
-				 	'add-section' => '/admin/sections/add',
-				 	'edit-section' => '/admin/sections/edit',
+				'categories' => '/admin/categories',
+			 	'add-category' => '/admin/categories/add',
+			 	'edit-category' => '/admin/categories/edit',
+			 	
+			 	'posts' => '/admin/posts',
+			 	'add-post' => '/admin/posts/add',
+			 	'edit-post' => '/admin/posts/edit',
+			 	
+			 	'media' => '/admin/medias',
+			 	'add-media' => '/admin/medias/add',
+			 	'edit-media' => '/admin/medias/edit',
 				 	
-				 	'categories' => '/admin/categories',
-				 	'add-category' => '/admin/categories/add',
-				 	'edit-category' => '/admin/categories/edit',
+			 	'add_lang' => '/admin/langs/add',
+			 	'edit_lang' => '/admin/langs/edit',
 				 	
-				 	'posts' => '/admin/posts',
-				 	'add-post' => '/admin/posts/add',
-				 	'edit-post' => '/admin/posts/edit',
+			 	'settings' => '/admin/settings',
+			 	'users' => '/admin/users',
+			 	'profile' => '/admin/profile',
 				 	
-				 	'media' => '/admin/medias',
-				 	'add-media' => '/admin/medias/add',
-				 	'edit-media' => '/admin/medias/edit',
+			 	'trash' => '/admin/trash',
 				 	
-				 	'add_lang' => '/admin/langs/add',
-				 	'edit_lang' => '/admin/langs/edit',
-				 	
-				 	'settings' => '/admin/settings',
-				 	'users' => '/admin/users',
-				 	'profile' => '/admin/profile',
-				 	
-				 	'trash' => '/admin/trash',
-				 	
-				 	'publish' => '/admin/publish',
-				 	'edit' => '/admin/edit',		 	
-				  ];
+			 	'publish' => '/admin/publish',
+				'edit' => '/admin/edit',
+			);
 	
-	public $post_status = [
-						'draft' 	=> 'draft',
-						'public' 	=> 'public',
-						'private' 	=> 'private',
-						'trash' 	=> 'trash'
-					 ];
+	public $post_status = array(
+				'draft' 	=> 'draft',
+				'public' 	=> 'public',
+				'private' 	=> 'private',
+				'trash' 	=> 'trash'
+			);
 	
 	/**
 	 * 
@@ -63,10 +63,10 @@ class Cms extends Safanoria
 		$this->upload = $SF->upload;
 		$this->administrator = $SF->administrator;
 		// Load Image processing class
-		$this->image = $this->load_class('Image', 'system/libraries');
+		$this->image = $this->load_class('image', 'system/libraries');
 		// Load database manually
 		// This should be improved in futre versions
-		$this->DB = $this->load_class('Database', 'system/core');
+		$this->DB = $this->load_class('database', 'system/core');
 		$this->DB = $this->DB->connect();	
 	}
 	
@@ -78,7 +78,7 @@ class Cms extends Safanoria
 	 * @param $type the type of content to be added (i.e. section, post, etc)
 	 * @param $data an array containing the data to be inserted. I.e. $_POST
 	 */
-	public function add($type, $data=[])
+	public function add($type, $data=array())
 	{
 //		if ( $_SERVER['REQUEST_METHOD'] == 'POST' 
 //			 && isset($_SESSION['token']) 
@@ -177,15 +177,15 @@ class Cms extends Safanoria
 	 * Adds and Uploads post attached files
 	 *
 	 */
-	public function add_post_files($parent, $file_key='file', $options=[])
+	public function add_post_files($parent, $file_key='file', $options=array())
 	{
-		$defaults = [
+		$defaults = array(
 			'memory' => 64,
-			'sizes' => [
+			'sizes' => array(
 				200 => 'resources/uploads/thumbs',
 				1000 => 'resources/uploads',
-			],
-		];
+			),
+		);
 
 		foreach ($defaults as $key => $value) 
 		{
@@ -238,7 +238,7 @@ class Cms extends Safanoria
 	/**
 	 * 
 	 */
-	public function edit($type, $id, $data=[]) 
+	public function edit($type, $id, $data=array()) 
 	{
 		$this->identifier = (int) $id;
 		
@@ -463,20 +463,5 @@ class Cms extends Safanoria
 	public function version() 
 	{
 		return $this->version;	
-	}
-	
-###############################################################
-# 
-# HERE START THE NEW FUNCTIONS THAT WILL ABSTRACT ACTIVERECORD
-#
-###############################################################
-	
-	/**
-	 * Very very simple function to mediate
-	 * between the app and AR
-	 */
-	function find($model,$i='all', $array=[]) 
-	{
-		return $model::find($i, $array);
 	}
 }

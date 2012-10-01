@@ -18,7 +18,7 @@ class Image
 	/**
 	 *
 	 */
-	function __construct($args=[]) 
+	function __construct($args=array()) 
 	{
 		if (count($args) > 0) 
 		{
@@ -29,7 +29,7 @@ class Image
 	/**
 	 * Not in use
 	 */
-	function initialize($args=[]) 
+	function initialize($args=array()) 
 	{
 		/*
 		
@@ -143,7 +143,6 @@ class Image
 		}
 	
 		return TRUE;
-//		return FALSE;
 	}
 	
 	/**

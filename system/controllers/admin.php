@@ -10,17 +10,15 @@ class Admin extends SF_Controller
 	/**
 	 * 
 	 */
-	public $current = [
-	
+	public $current = array(
 		   'edit' => FALSE,
 		   'page_title' => 'A healthy way to manage content',
-		   
-		   ];
+		   );
 		
 	/**
 	 * 
 	 */
-	function __construct($method, $query=[]) 
+	function __construct($method, $query=array()) 
 	{
 		parent::__construct();
 		
