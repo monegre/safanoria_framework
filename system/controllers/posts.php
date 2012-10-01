@@ -109,7 +109,7 @@ class Posts extends SF_Controller
 			}
 		}
 		// Data
-		$list = $this->cms->find('Post','all', array('identifier'=>$query[1]));
+		$list = Post::all(array('identifier'=>$query[1]));
 		$sections = Section::all(array('lang'=>$this->administrator->clean['lang']));
 		$cats = Category::all(array('lang'=>$this->administrator->clean['lang']));
 		$medias = Media::all(array('parent'=>$query[1],'lang'=>$this->administrator->clean['lang']));
