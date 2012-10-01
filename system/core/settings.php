@@ -45,8 +45,8 @@ require ( ROOT . SYS . CORE . 'functions.php');
 require ( ROOT . CONFIG . '/routing.php');
 
 /** Include core classes */
-require ( ROOT . SYS . CORE . 'Safanoria.php');
-require ( ROOT . SYS . CORE . 'Controller.php');
+require ( ROOT . SYS . CORE . 'safanoria.php');
+require ( ROOT . SYS . CORE . 'controller.php');
 
 /** Include Active Record files */
 require ( ROOT . SYS . DATABASE . 'Singleton.php');
