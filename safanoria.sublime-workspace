@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"var",
+				"var_dump"
+			],
+			[
 				"is",
 				"is_array"
 			],
@@ -52,9 +56,15 @@
 	},
 	"file_history":
 	[
-		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/controllers/posts.php",
-		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/libraries/Cms.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/core/Safanoria.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/CHANGELOG.md",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/controllers/arquitectura.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/controllers/paysage.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/controllers/projects.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/libraries/Cms.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/system/controllers/posts.php",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/.gitignore",
+		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/safanoria.sublime-workspace",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/views/noticies/index.php",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/views/noticies/view.php",
 		"/Users/carlesjovebuxeda/MAMP/safanoria/pro/app/views/projectes/view.php",
@@ -76,6 +86,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"$item->team",
+			"$_SESSION['lang']",
 			"$this->image",
 			"$img_key",
 			"$_SESSION['lang']"
@@ -86,6 +98,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"$this->user_nav_lang",
 			"$file_key",
 			"$this->user_nav_lang"
 		],
