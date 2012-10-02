@@ -10,12 +10,10 @@ class Categories extends SF_Controller
 	/**
 	 * 
 	 */
-	public $current = [
-	
-		   'edit' => FALSE,
-		   'page_title' => __CLASS__,
-		   
-		   ];
+	public $current = array(
+				'edit' => FALSE,
+				'page_title' => __CLASS__,
+			);
 	
 	/**
 	 * 
