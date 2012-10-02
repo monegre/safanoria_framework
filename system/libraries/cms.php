@@ -80,103 +80,101 @@ class Cms extends Safanoria
 	 */
 	public function add($type, $data=array())
 	{
-//		if ( $_SERVER['REQUEST_METHOD'] == 'POST' 
-//			 && isset($_SESSION['token']) 
-//			 && $data['token'] == $_SESSION['token'] ) 
-//		{
-			// We no longer need 'em
+		// We no longer need 'em
+		if (isset($data['token'], $data['submit'], $_SESSION['token'])) 
+		{
 			unset($data['token'], $data['submit'], $_SESSION['token']);
+		}
 
-			// You didn't turn off magic_quotes? Fuck off.
-			if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
-			{
-			    $data = array_map( 'stripslashes_deep', $data );
+		// You didn't turn off magic_quotes? Fuck off.
+		if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
+		{
+		    $data = array_map( 'stripslashes_deep', $data );
+		}
+		
+		$this->post = $data;
+					
+		// We need 'em for meta content
+		if (isset($this->post['nice_url'])) // This is a too poor method
+		{
+			$args['nice_url'] = to_friendly_url($this->post['nice_url']);	
+		}
+		if( ! isset($this->post['nice_url']) && isset($this->post['title_'.$this->administrator->clean['lang'].''])) 
+		{
+			$args['nice_url'] = to_friendly_url($this->post['title_'.$this->administrator->clean['lang'].'']);
+		}
+		
+		if (is_array($type)) // This is a too poor method
+		{
+			$args['in_table'] = $type[1];
+			$type = $type[0];
+		} 
+		else 
+		{
+			$args['in_table'] = $type.'s';
+		}
+		
+		// We need to create the model first, in order to validate data
+		$meta = new Meta_content($args);
+		// Now we can validate data
+		// NOTE: At this point, nice_url and in_table are being validated!
+		foreach ($args as $key => $value) 
+		{
+			if ($meta->is_invalid($key)) 
+			{ 
+				$this->errors[$key] = $meta->errors->on($key);
 			}
-			
-			$this->post = $data;
-						
-			// We need 'em for meta content
-			if (isset($this->post['nice_url'])) // This is a too poor method
+		}
+		
+		if(0 === count($this->errors)) 
+		{	
+			$model = ucfirst($type);
+			// Build the post array
+			$this->post = $this->create_lang_array($this->post);
+			// Create a model for each post language
+			foreach ($this->post as $this->key => $this->value) 
 			{
-				$args['nice_url'] = to_friendly_url($this->post['nice_url']);	
-			}
-			if( ! isset($this->post['nice_url']) && isset($this->post['title_'.$this->administrator->clean['lang'].''])) 
-			{
-				$args['nice_url'] = to_friendly_url($this->post['title_'.$this->administrator->clean['lang'].'']);
-			}
-			
-			if (is_array($type)) // This is a too poor method
-			{
-				$args['in_table'] = $type[1];
-				$type = $type[0];
-			} 
-			else 
-			{
-				$args['in_table'] = $type.'s';
-			}
-			
-			// We need to create the model first, in order to validate data
-			$meta = new Meta_content($args);
-			// Now we can validate data
-			// NOTE: At this point, nice_url and in_table are being validated!
-			foreach ($args as $key => $value) 
-			{
-				if ($meta->is_invalid($key)) 
-				{ 
-					$this->errors[$key] = $meta->errors->on($key);
+				$entry = new $model($this->post[$this->key]);
+				foreach ($this->post[$this->key] as $key => $value) 
+				{
+					// Validate each post language
+					if ($entry->is_invalid($key)) 
+					{
+						$this->errors[$key] = $entry->errors->on($key);
+					}
 				}
 			}
-			
+
 			if(0 === count($this->errors)) 
-			{	
-				$model = ucfirst($type);
-				// Build the post array
-				$this->post = $this->create_lang_array($this->post);
-				// Create a model for each post language
+			{
+				$saved = array();
+				$saved[] = $meta->save();
+				foreach (array_keys($this->post) as $lang) 
+				{ 
+				 	$this->post[$lang]['identifier'] = $meta->id; 
+				 	$this->post[$lang]['lang'] = $lang; 
+				 	$this->post[$lang]['nice_url'] = $meta->nice_url;
+				}
+				/*
+				Not sure if this is the only method.
+				If possible, should find a way not to
+				recreate the models again
+				*/
 				foreach ($this->post as $this->key => $this->value) 
 				{
 					$entry = new $model($this->post[$this->key]);
 					foreach ($this->post[$this->key] as $key => $value) 
 					{
-						// Validate each post language
-						if ($entry->is_invalid($key)) 
-						{
-							$this->errors[$key] = $entry->errors->on($key);
-						}
+						$saved[] = $entry->save();
 					}
 				}
-
-				if(0 === count($this->errors)) 
+				if (count($saved) > 0) 
 				{
-					$saved = array();
-					$saved[] = $meta->save();
-					foreach (array_keys($this->post) as $lang) 
-					{ 
-					 	$this->post[$lang]['identifier'] = $meta->id; 
-					 	$this->post[$lang]['lang'] = $lang; 
-					 	$this->post[$lang]['nice_url'] = $meta->nice_url;
-					}
-					/*
-					Not sure if this is the only method.
-					If possible, should find a way not to
-					recreate the models again
-					*/
-					foreach ($this->post as $this->key => $this->value) 
-					{
-						$entry = new $model($this->post[$this->key]);
-						foreach ($this->post[$this->key] as $key => $value) 
-						{
-							$saved[] = $entry->save();
-						}
-					}
-					if (count($saved) > 0) 
-					{
-						return $meta;	
-					}
+					return $meta;	
 				}
 			}
-			return FALSE;	
-//		}
+		}
+		return FALSE;	
 	}
 
 	/**
@@ -248,81 +246,80 @@ class Cms extends Safanoria
 	{
 		$this->identifier = (int) $id;
 		
-		if ( $_SERVER['REQUEST_METHOD'] == 'POST' 
-			 && isset($_SESSION['token']) 
-			 && $data['token'] == $_SESSION['token'] ) 
+		// We no longer need 'em
+		if (isset($data['token'], $data['submit'], $_SESSION['token'])) 
 		{
 			unset($data['token'], $data['submit'], $_SESSION['token']);
+		}
 
-			// You didn't turn off magic_quotes? Fuck off.
-			if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
+		// You didn't turn off magic_quotes? Fuck off.
+		if ( in_array( strtolower( ini_get( 'magic_quotes_gpc' ) ), array( '1', 'on' ) ) )
+		{
+		    $data = array_map( 'stripslashes_deep', $data );
+		}
+
+		$this->post = $data;
+		// We need 'em for meta content
+		if (isset($this->post['nice_url'])) 
+		{
+			$this->post['nice_url'] = to_friendly_url($this->post['nice_url']);
+		} 
+		
+		// Read the meta model
+		$meta = Meta_content::find($this->identifier);
+		// Pass the nice_url value in case it has changed
+		$meta->nice_url = isset($this->post['nice_url']) ? $this->post['nice_url'] : $meta->nice_url;
+		// Validate data
+		// ! At this point, only nice_url is being validated! 
+		// But leave the foreach in case we change it
+		foreach ($this->post as $key => $value) 
+		{
+			if ($meta->is_invalid($key)) 
 			{
-			    $data = array_map( 'stripslashes_deep', $data );
+				$this->errors[$key] = $meta->errors->on($key);
 			}
-
-			$this->post = $data;
-			// We need 'em for meta content
-			if (isset($this->post['nice_url'])) 
+		}
+		
+		if(0 === count($this->errors)) 
+		{				
+			$model = ucfirst($type);
+			// Build the post array
+			$this->post = $this->create_lang_array($this->post);
+			// Create a model for each post language for validating purposes
+			foreach ($this->post as $this->key => $this->value) 
 			{
-				$this->post['nice_url'] = to_friendly_url($this->post['nice_url']);
-			} 
-			
-			// Read the meta model
-			$meta = Meta_content::find($this->identifier);
-			// Pass the nice_url value in case it has changed
-			$meta->nice_url = isset($this->post['nice_url']) ? $this->post['nice_url'] : $meta->nice_url;
-			// Validate data
-			// ! At this point, only nice_url is being validated! 
-			// But leave the foreach in case we change it
-			foreach ($this->post as $key => $value) 
-			{
-				if ($meta->is_invalid($key)) 
+				$entry = new $model($this->post[$this->key]);
+				foreach ($this->post[$this->key] as $key => $value) 
 				{
-					$this->errors[$key] = $meta->errors->on($key);
+					// Validate each post language
+					if ($entry->is_invalid($key)) 
+					{
+						$this->errors[$key] = $entry->errors->on($key);
+					}
 				}
 			}
 			
 			if(0 === count($this->errors)) 
-			{				
-				$model = ucfirst($type);
-				// Build the post array
-				$this->post = $this->create_lang_array($this->post);
-				// Create a model for each post language for validating purposes
+			{
+				$saved = array();
+				$saved[] = $meta->save();
 				foreach ($this->post as $this->key => $this->value) 
 				{
-					$entry = new $model($this->post[$this->key]);
+					$entry = $model::find_by_identifier_and_lang($meta->id,$this->key);
+					// Assing new values to the model
 					foreach ($this->post[$this->key] as $key => $value) 
 					{
-						// Validate each post language
-						if ($entry->is_invalid($key)) 
-						{
-							$this->errors[$key] = $entry->errors->on($key);
-						}
+						$entry->$key = $this->post[$this->key][$key];
 					}
+					$saved[] = $entry->save();
 				}
-				
-				if(0 === count($this->errors)) 
+				if (count($saved) > 0) 
 				{
-					$saved = array();
-					$saved[] = $meta->save();
-					foreach ($this->post as $this->key => $this->value) 
-					{
-						$entry = $model::find_by_identifier_and_lang($meta->id,$this->key);
-						// Assing new values to the model
-						foreach ($this->post[$this->key] as $key => $value) 
-						{
-							$entry->$key = $this->post[$this->key][$key];
-						}
-						$saved[] = $entry->save();
-					}
-					if (count($saved) > 0) 
-					{
-						return TRUE;	
-					}
+					return TRUE;	
 				}
-				return FALSE;		
 			}
-		}	
+			return FALSE;		
+		}
 	}
 	
 	/**

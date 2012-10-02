@@ -142,6 +142,9 @@ $safanoria['post_trashed'] = "L'article ha estat dipositat a la paperera";
 $safanoria['post_untrashed'] = "L'article ha tornat al llistat. L'hem desat com a esborrany";
 $safanoria['item_updated'] = "L'element ha estat actualitzat";
 $safanoria['item_removed'] = "L'element seleccionat ha estat eliminat de la base de dades";
+$safanoria['post_created_media_added'] = "L'article s'ha creat correctament i les imatges han estat adjuntades";
+// Error
+$safanoria['post_not_created'] = "Alguna cosa ha anat malament. No hem pogut crear l'article.";
 $safanoria['post_created_files_not_uploaded'] = "L'article s'ha creat correctament, però no hem pogut adjuntar-hi els arxius corresponents. Si us plau, intenta-ho a l'apartat d'arxius";
 $safanoria['post_updated_files_not_uploaded'] = "L'article s'ha actualitzat correctament, però no hem pogut adjuntar-hi els arxius corresponents. Si us plau, intenta-ho a l'apartat d'arxius";
 

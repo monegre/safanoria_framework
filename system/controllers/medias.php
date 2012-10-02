@@ -112,7 +112,7 @@ class Medias extends SF_Controller
 				exit('This item was updated the database. Click <a href="/admin">here to go back to the dashboard</a>');
 			}
 		}
-		$list = $this->cms->find('Media','all', array('identifier'=>$query[1]));
+		$list = Media::all(array('identifier'=>$query[1]));
 		// Define current states
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('edit_media');
