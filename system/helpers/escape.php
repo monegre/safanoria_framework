@@ -16,6 +16,7 @@ function h($string) {
 
 /**  Just to escape strings easily */
 function escape($string) {
+	mysql_connect(DB_HOST, DB_USER, DB_PASS);
 	return mysql_real_escape_string($string);
 }
 
@@ -24,6 +25,7 @@ function sql($string) {
 	if (is_array($string)) {
 		return array_map('sql', $string);
 	}
+	mysql_connect(DB_HOST, DB_USER, DB_PASS);
 	return mysql_real_escape_string($string);
 }
 
