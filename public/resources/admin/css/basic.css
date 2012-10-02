@@ -240,6 +240,10 @@ textarea {
   background: #cccccc;
   padding: 1em;
   margin-bottom: 0.5em; }
+#img_fieldset p#add_images {
+  max-width: 3em;
+  text-align: center;
+  float: right; }
 
 input[type="text"]:focus,
 textarea:focus {

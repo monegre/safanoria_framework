@@ -71,7 +71,7 @@
 	<fieldset class="general-fieldset" id="img_fieldset">
 		<legend>Imatges del projecte:</legend>
 			<div><input type="file" name="related_img[]" id="related_img" value="" /></div>
-			<p id="add_images" class="button"><?php echo $this->cms->message('more_images'); ?></p>
+			<!--<p id="add_images" class="button"><?php echo $this->cms->message('more_images'); ?></p>-->
 	</fieldset>
 		
 	<div>
