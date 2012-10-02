@@ -2,6 +2,13 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.4.5
+- Improved JS to add img fields. Add a counter to limit number of new fields
+- Rm old cms->find() for AR finder
+- Now cms->add() and cms->edit() check if magic_quotes are On and stripslashes input before inserting it in the database
+- Removed PHP 5.4 array syntax for better compatibility with cheap hostings
+- Lowercased all file names
+
 ##Version 0.4.4
 - Added new Cms method add_post_files(), which centralizes file uploading and resizing when creating or editing a post
 - Closes issue #6 (lighter controllers)
