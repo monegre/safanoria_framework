@@ -2,6 +2,12 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.4.6
+- Fix bug that was causing images not to be attached to a post and resized when description field was empty
+- Fixed bug that was redirecting user before post model could return field errors
+- Improved error reporting in post forms
+- Improved JS add_img_fields
+
 ##Version 0.4.5
 - Improved JS to add img fields. Add a counter to limit number of new fields
 - Rm old cms->find() for AR finder
