@@ -13,20 +13,26 @@
  
  */
 
-DROP TABLE IF EXISTS config;
+DROP TABLE IF EXISTS meta_content;
 DROP TABLE IF EXISTS admin_users;
 DROP TABLE IF EXISTS admin_users_levels;
 DROP TABLE IF EXISTS langs;
-DROP TABLE IF EXISTS meta_content;
 
-CREATE TABLE config (
-	id int(1) NOT NULL auto_increment,
-	db_name VARCHAR(25) NOT NULL,
-	db_user VARCHAR(25) NOT NULL,
-	db_pass VARCHAR(40) NOT NULL,
-	db_host VARCHAR(25) NOT NULL,
-	db_charset VARCHAR(25) NOT NULL,
-	PRIMARY KEY (id)
+
+# This table is the glue between all the different language versions of a single content. 
+# A single content is a post, an article, a category or whatsoever.
+# 
+# Each of the id's listed in column post_id is a specific language version of the content.
+# The group of all of the id's listed in column post_id represent the single content. 
+CREATE TABLE meta_contents (
+	id INT(5) NOT NULL auto_increment,
+	nice_url VARCHAR(100) NOT NULL,
+	in_table VARCHAR(50) NOT NULL,
+	parent INT(5) NOT NULL DEFAULT '0',
+	created_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+	updated_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (id),
+	UNIQUE (nice_url, in_table, parent)
 )	ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE admin_users (
@@ -64,21 +70,6 @@ CREATE TABLE langs (
 	updated_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 	PRIMARY KEY (id),
 	UNIQUE (name, code, regional)
-)	ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-# This table is the glue between all the different language versions of a single content. 
-# A single content is a post, an article, a category or whatsoever.
-# 
-# Each of the id's listed in column post_id is a specific language version of the content.
-# The group of all of the id's listed in column post_id represent the single content. 
-CREATE TABLE meta_contents (
-	id INT(5) NOT NULL auto_increment,
-	nice_url VARCHAR(100) NOT NULL,
-	in_table VARCHAR(50) NOT NULL,
-	created_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
-	updated_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
-	PRIMARY KEY (id),
-	UNIQUE (nice_url, in_table)
 )	ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
