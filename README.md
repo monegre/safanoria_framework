@@ -14,3 +14,8 @@ Ha d'estar orientat a les especificitats del web adaptatiu i la filosofia de "pr
 3. Facilitar que l'usuari pugui estar centrat en la seva tasca
 	3.1. Crear	una interfície depurada, sense més opcions que les que l'usuari necessiti
 	3.2. Crear una interfície neta i clara
+
+##3. Típiques coses que toquen els ous quan fas un web
+- Haver de definir variables per entrar continguts a la BD
+- Gestionar varis idiomes
+- Escriure URLs
