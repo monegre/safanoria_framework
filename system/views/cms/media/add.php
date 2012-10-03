@@ -34,8 +34,6 @@
 			<div class="form_error"><?php echo $this->cms->error_for('description'); ?></div>
 				<input type="text" name="description_<?php echo $lang->code; ?>" id="description_<?php echo $lang->code; ?>" value="<?php echo $this->cms->input_for('description_'.$lang->code.''); ?>">		
 		</div>
-		
-		
 	</fieldset>
 <?php endforeach; ?>
 		

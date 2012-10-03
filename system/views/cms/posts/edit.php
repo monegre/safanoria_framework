@@ -6,18 +6,18 @@
 		<legend><?php echo $this->lang->get_name($item->lang); ?></legend>
 		
 		<label for="title_<?php echo $item->lang; ?>"><?php echo $this->cms->message('title'); ?></label>
+			<div class="form_error"><?php echo $this->cms->error_for('title'); ?></div>
 			<input type="text" name="title_<?php echo $item->lang; ?>" id="title_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('title_'.$item->lang.'', $item->title); ?>"/>
-			<?php echo $this->cms->error_for('title_'.$item->lang.''); ?>
 			
 		<label for="content_<?php echo $item->lang; ?>"><?php echo $this->cms->message('content'); ?></label>
+			<div class="form_error"><?php echo $this->cms->error_for('content'); ?></div>
 			<textarea name="content_<?php echo $item->lang; ?>" id="content_<?php echo $item->lang; ?>">
 				<?php echo $this->cms->input_for('content_'.$item->lang.'', $item->content); ?>
 			</textarea>
-			<?php echo $this->cms->error_for('content_'.$item->lang.''); ?>
 			
 		<label for="description_<?php echo $item->lang; ?>"><?php echo $this->cms->message('excerpt'); ?></label>
+			<div class="form_error"><?php echo $this->cms->error_for('description'); ?></div>
 			<input type="text" name="description_<?php echo $item->lang; ?>" id="description_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('description_'.$item->lang.'', $item->description); ?>" />
-			<?php echo $this->cms->error_for('description_'.$item->lang.''); ?>
 	</fieldset>
 <?php endforeach; ?>
 
@@ -43,6 +43,7 @@
 		<?php endif; ?>
 		
 		<label for="author"><?php echo $this->cms->message('author'); ?></label>
+			<div class="form_error"><?php echo $this->cms->error_for('author'); ?></div>
 			<input type="text" name="author" id="author" value="<?php echo $this->cms->input_for('author', $item->author); ?>" />
 		
 		<label for="status"><?php echo $this->cms->message('status'); ?></label>
@@ -57,10 +58,12 @@
 	<fieldset class="general-fieldset">	
 		<legend>SEO</legend>	
 		<label for="tags"><?php echo $this->cms->message('tags'); ?> <b><?php echo $this->cms->message('comma_separated'); ?></b></label>
+			<div class="form_error"><?php echo $this->cms->error_for('tags'); ?></div>
 			<input type="text" name="tags" id="tags" maxlength="150" value="<?php echo $this->cms->input_for('tags', $item->tags); ?>" />
 		
 		<div class="<?php echo $this->cms->error_class('nice_url'); ?>">
 			<label for="nice_url"><?php echo $this->cms->message('nice_url'); ?></label>
+				<div class="form_error"><?php echo $this->cms->error_for('nice_url'); ?></div>
 				<input type="text" name="nice_url" id="nice_url" value="<?php echo $this->cms->input_for('nice_url', $item->nice_url); ?>"/>
 			<?php echo $this->cms->error_for('nice_url'); ?>
 		</div>

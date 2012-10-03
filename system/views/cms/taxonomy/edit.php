@@ -23,7 +23,7 @@
 <?php foreach($list as $item): if ($item === reset($list)): ?>
 	<fieldset class="general-fieldset">
 		<div class="<?php echo $this->cms->error_class('nice_url'); ?>">
-			<label for="nice_url"><?php echo $this->cms->message('nice_url'); ?></label>
+			<label for="nice_url"><?php echo $this->cms->message('nice_url'); ?> <em class="instruction"><?php echo $this->cms->message('can_generate_error'); ?></em></label>
 				<input type="text" name="nice_url" id="nice_url" value="<?php echo $this->cms->input_for('nice_url', $item->nice_url); ?>"/>
 			<?php echo $this->cms->error_for('nice_url'); ?>
 		</div>
