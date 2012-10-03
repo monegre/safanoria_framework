@@ -127,6 +127,7 @@ $safanoria['submit_post'] = "Publica-ho";
 $safanoria['comma_separated'] = "Separades per comes";
 $safanoria['cannot_be_edited'] = "No és modificable";
 $safanoria['meta_description_limit'] = "màxim 150 caràcters";
+$safanoria['can_generate_error'] = "Modificar aquest camp pot generar problemes de funcionament";
 
 /** 
  * UI Messages
