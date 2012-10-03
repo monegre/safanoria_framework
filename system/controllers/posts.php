@@ -75,8 +75,6 @@ class Posts extends SF_Controller
 				$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_created'));
 				exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 			}
-			$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_not_created'));
-			exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 		}
 		// Pass some vars
 		$this->current['token'] = $this->tokenize();
