@@ -17,6 +17,6 @@ class Url extends Safanoria
 	 */
 	public function full_path_to()
 	{
-		
+		return $_SESSION['lang'];
 	}
 }
