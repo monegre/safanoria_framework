@@ -1,6 +1,7 @@
 .DS_Store
 .sass-cache
 tests
+app
 public/resources/uploads
 safanoria.esproj
 safanoria.sublime-workspace
