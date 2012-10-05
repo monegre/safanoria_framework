@@ -461,6 +461,22 @@ class Cms extends Safanoria
 	}
 	
 	/**
+	 * Returns the current URL with the requested language
+	 */
+	function switch_lang($lang) {
+		// Check current URI
+		$current_url = $_SERVER["REQUEST_URI"];	
+		// Get path beyond language mark /ca/
+		$path = substr($current_url, 4);
+		
+		if (self::is_active($lang)) 
+		{
+			return '/'.$lang.'/'.$path;
+		}
+		exit('The language you requested is not available');
+	}
+	
+	/**
 	 * Returns this library version, 
 	 * as defined at the top of this document
 	 */
