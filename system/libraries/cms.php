@@ -469,7 +469,7 @@ class Cms extends Safanoria
 		// Get path beyond language mark /ca/
 		$path = substr($current_url, 4);
 		
-		if (Lang::is_active($lang)) 
+		if ($this->lang->is_active($lang)) 
 		{
 			return '/'.$lang.'/'.$path;
 		}
