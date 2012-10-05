@@ -27,7 +27,7 @@ class Pagination
 		}
 		else 
 		{
-			$this->get = is_int($this->parameter) ? $this->parameter : 1;
+			$this->get = is_int((int)$this->parameter) && $this->parameter != 0 ? $this->parameter : 1;
 		}
 
 	}
