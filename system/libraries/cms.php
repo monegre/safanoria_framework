@@ -410,30 +410,7 @@ class Cms extends Safanoria
 		
 		return '/resources/'.$kind.'/'.$data->file_name;
 	}
-			
-// ! USELESS ???
-	/**
-	 * 
-	 */
-	public function url($action, $id) 
-	{
-		$conn = new PDO( DB_DSN, DB_USER, DB_PASS );
-		
-		// TOTES LES ENTRADES D'UN DETERMINAT TIPUS
-		$query = "SELECT in_table 
-				  FROM 	 meta_contents
-				  WHERE  id = '$id'";
-				
-		$st = $conn->prepare($query);
-		$st->execute();
-		
-		if ($row = $st->fetch()) 
-		{
-		 	return '/admin/' . $row['in_table'] . '/' . $action . '/' . $id;
-		}
-		return FALSE;
-	}
-			
+						
 	/**
 	 * Returns an array with languages
 	 */
