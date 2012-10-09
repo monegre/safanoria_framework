@@ -26,9 +26,9 @@ class Search
 		array_unshift($this->terms, $this->query);
 		
 		// Columns
-		if (is_array($$conditions)) 
+		if (is_array($conditions)) 
 		{
-			foreach ($$conditions as $column) 
+			foreach ($conditions as $column) 
 			{
 				$this->columns[] = $column;
 			}
@@ -41,9 +41,7 @@ class Search
 			}
 		}
 
-		var_dump($this->columns);
-
-		// Generem condicions
+		// Generate SQL query
 		foreach ($this->terms as $term) 
 		{
 			foreach ($this->columns as $column) 
@@ -57,23 +55,26 @@ class Search
 	/**
 	 *
 	 */
-	public function get_results_for($model) 
+	public function get_results_for($model, $args) 
 	{
 		$model = ucfirst($model);
+		$this->user_nav_lang = isset($args['lang'] 
+								? $args['lang'] 
+								: $_SESSION['lang']; // Safanòria has a lang stored in SESSION by default
 		
-		// Cerquem a TOTS els projectes, independentment de la llengua	
+		// Get all models nevermind the language
 		$results = $model::all(array('conditions' => array($this->cond)));
 		
-		// Fem un grupe amb els identificadors
+		// Get identifiers for new query
 		foreach ($results as $result) 
 		{
 			$matches[] = $result->identifier;
 		}
-		
-		// Recerca final filtrada ja per l'idioma
-		$results = $model::all(array(
-									'conditions' => array('lang=? AND identifier in(?)', $this->user_nav_lang, $matches)
-									)
-								);
+
+		// Filter matches by lang
+		return $model::all(array(
+								'conditions' => array('lang=? AND identifier in(?)', $this->user_nav_lang, $matches)
+								)
+						);
 	}
 }
