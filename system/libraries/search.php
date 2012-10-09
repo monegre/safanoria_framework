@@ -58,7 +58,7 @@ class Search
 	public function get_results_for($model, $args) 
 	{
 		$model = ucfirst($model);
-		$this->user_nav_lang = isset($args['lang'] 
+		$this->user_nav_lang = isset($args['lang']) 
 								? $args['lang'] 
 								: $_SESSION['lang']; // Safanòria has a lang stored in SESSION by default
 		
