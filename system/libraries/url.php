@@ -27,7 +27,7 @@ class Url
 
 		$this->segments[] = $meta->nice_url;
 		$this->segments = self::get_parent_urls($meta->parent);
-		array_unshift($this->segments, $_SESSION['lang']);
+		$this->segments = self::check_lang();
 		
 		$this->full_path = implode('/', $this->segments);
 
@@ -52,6 +52,27 @@ class Url
 			$meta = Meta_content::find($parent);
 			array_unshift($this->segments, $meta->nice_url);
 			return self::get_parent_urls($meta->parent);
+		}
+		return $this->segments;
+	}
+
+	/**
+	 * Checks whether a URL requires language flag
+	 *
+	 * This method counts the active languages in the
+	 * database. If more than one, a language flag will
+	 * be pushed as the first segment of the URL. 
+	 * Otherwise, the URL will be returned as is.
+	 */
+	private function check_lang()
+	{
+		$lang = new Lang;
+		
+		$count = count($lang->get_active());
+
+		if ($count > 1 && $lang->is_active($_SESSION['lang'])) 
+		{
+			array_unshift($this->segments, $_SESSION['lang']);
 		}
 		return $this->segments;
 	}
