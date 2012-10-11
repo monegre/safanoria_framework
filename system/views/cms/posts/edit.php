@@ -29,7 +29,7 @@
 		<select name="section" id="section"> 
 			<option value="<?php echo $item->section; ?>"><?php echo $item->section; ?></option>
 			<?php foreach($sections as $section): ?>
-				<option value="<?php echo $section->id; ?>"><?php echo $section->title; ?></option>
+				<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
 			<?php endforeach; ?>
 		</select>
 				

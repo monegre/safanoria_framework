@@ -276,15 +276,23 @@ class Cms extends Safanoria
 		if (isset($this->post['nice_url'])) 
 		{
 			$this->post['nice_url'] = to_friendly_url($this->post['nice_url']);
-		} 
-		
+		}
+
 		// Read the meta model
 		$meta = Meta_content::find($this->identifier);
-		// Pass the nice_url value in case it has changed
+		// Assing new values
 		$meta->nice_url = isset($this->post['nice_url']) ? $this->post['nice_url'] : $meta->nice_url;
-		// Validate data
+		foreach ($this->parents as $parent) 
+		{
+			if (isset($this->post[$parent])) 
+			{
+				$meta->parent = $this->post[$parent];
+				break;
+			}
+			continue;
+		}
+		// Validate
 		// ! At this point, only nice_url is being validated! 
-		// But leave the foreach in case we change it
 		foreach ($this->post as $key => $value) 
 		{
 			if ($meta->is_invalid($key)) 
