@@ -97,6 +97,7 @@ class Sections extends SF_Controller
 			}
 		}
 		$list = Section::all(array('identifier'=>$query[1]));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
 
 		// Define current states
 		$this->current['token'] = $this->tokenize();
