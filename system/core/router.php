@@ -39,6 +39,7 @@ class Router
 
 		$this->controller = $this->set_controller();
 		$this->method = $this->set_method();
+		$this->query = $this->set_query();
 	}
 
 	/** 
