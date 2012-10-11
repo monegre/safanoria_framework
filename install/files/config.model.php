@@ -24,10 +24,10 @@ define ('DB_TABLE_PREFIX', '[db_table_prefix]'); // Tables prefix
 
 /** Configurations ends here. Go have a tea */
 /** Sets common variables and paths to directories **/
-$filename = 'settings.php';
-if(file_exists($filename))
+$filename = '/settings.php';
+if(file_exists(dirname(__FILE__).$filename))
 {
-	require_once($filename);
+	require_once(dirname(__FILE__).$filename);
 }
 else
 {
