@@ -2,6 +2,14 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.5.0
+- Method Url::full_path_to() will return full path to database objects
+- Config file can define some configurations with $config[]
+- Moved non configurable code to settings.php
+- Moved settings.php to the config directory, to help prevent system directory to be edited by developers
+- Added new core class Router, which improves the good ol' routing system
+- Removed config/routing.php as useless
+
 ##Version 0.4.6
 - Fix bug that was causing images not to be attached to a post and resized when description field was empty
 - Fixed bug that was redirecting user before post model could return field errors
