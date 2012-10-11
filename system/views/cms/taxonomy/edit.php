@@ -22,6 +22,18 @@
 
 <?php foreach($list as $item): if ($item === reset($list)): ?>
 	<fieldset class="general-fieldset">
+		<div class="<?php echo $this->cms->error_class('parent'); ?>">
+			<label for="parent"><?php echo $this->cms->message('parent'); ?></label>
+				<div class="form_error"><?php echo $this->cms->error_for('parent'); ?></div>
+				<select name="parent" id="parent"> 
+					<option value="<?php echo $item->parent; ?>"><?php echo $item->parent; ?></option>
+					<?php foreach($sections as $section): ?>
+						<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
+					<?php endforeach; ?>
+					<option value="0">Top level</option>
+				</select>
+		</div>
+
 		<div class="<?php echo $this->cms->error_class('nice_url'); ?>">
 			<label for="nice_url"><?php echo $this->cms->message('nice_url'); ?> <em class="instruction"><?php echo $this->cms->message('can_generate_error'); ?></em></label>
 				<input type="text" name="nice_url" id="nice_url" value="<?php echo $this->cms->input_for('nice_url', $item->nice_url); ?>"/>

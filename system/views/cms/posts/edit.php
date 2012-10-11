@@ -27,6 +27,7 @@
 		<legend><?php echo $this->cms->message('field_admin'); ?></legend>
 		<label for="section"><?php echo $this->cms->message('post_section'); ?></label>
 		<select name="section" id="section"> 
+			<option value="<?php echo $item->section; ?>"><?php echo $item->section; ?></option>
 			<?php foreach($sections as $section): ?>
 				<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
 				<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->administrator->clean['lang'])); ?>

@@ -110,7 +110,7 @@ class Posts extends SF_Controller
 		}
 		// Data
 		$list = Post::all(array('identifier'=>$query[1]));
-		$sections = Section::all(array('lang'=>$this->administrator->clean['lang']));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
 		$cats = Category::all(array('lang'=>$this->administrator->clean['lang']));
 		$medias = Media::all(array('parent'=>$query[1],'lang'=>$this->administrator->clean['lang']));
 		// Define current states
