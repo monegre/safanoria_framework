@@ -13,7 +13,7 @@
 class Url
 {
 	public $full_path;
-	public $segments = array();	
+	public $segments;	
 
 	/**
 	 * Returns the full path to a database object
@@ -21,10 +21,11 @@ class Url
 	 * @param bool
 	 * @return string
 	 */
-	public function full_path_to($id, $absolute = TRUE)
+	public function full_path_to($identifier, $absolute = TRUE)
 	{
-		$meta = Meta_content::find($id);
+		$meta = Meta_content::find($identifier);
 
+		$this->segments = array();
 		$this->segments[] = $meta->nice_url;
 		$this->segments = self::get_parent_urls($meta->parent);
 		$this->segments = self::check_lang();
