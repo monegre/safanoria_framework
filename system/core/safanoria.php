@@ -47,10 +47,9 @@ class Safanoria
 		$this->messenger = $this->load_class('messenger', 'system/core');
 		$this->security = $this->load_class('security', 'system/core');
 		$this->performance = $this->load_class('performance', 'system/core');
-		
-		$this->upload = $this->load_class('upload', 'system/libraries');
-		
+		$this->upload = $this->load_class('upload', 'system/libraries');		
 		$this->administrator = $this->load_class('admin_user', 'system/models');
+		$this->url = $this->load_class('url', 'system/libraries');
 		$this->cms = $this->load_class('cms', 'system/libraries');
 	}
 	
