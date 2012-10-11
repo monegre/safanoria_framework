@@ -65,7 +65,6 @@ require ( ROOT . SYS . HELPS . 'filter.php');
 require ( ROOT . SYS . HELPS . 'escape.php');
 require ( ROOT . SYS . HELPS . 'clean.php');
 require ( ROOT . SYS . CORE . 'functions.php');
-require ( ROOT . CONFIG . '/routing.php');
 
 /** Include core classes */
 require ( ROOT . SYS . CORE . 'safanoria.php');
