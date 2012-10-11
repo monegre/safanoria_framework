@@ -52,6 +52,8 @@ class Cms extends Safanoria
 				'trash' 	=> 'trash'
 			);
 	
+	private $parents = array('parent','section');
+
 	/**
 	 * 
 	 */
@@ -113,7 +115,18 @@ class Cms extends Safanoria
 		{
 			$args['in_table'] = $type.'s';
 		}
-		
+
+		// Assign a parent to the post
+		foreach ($this->parents as $parent) 
+		{
+			if (isset($this->post[$parent])) 
+			{
+				$args['parent'] = $this->post[$parent];
+				break;
+			}
+			continue;
+		}
+
 		// We need to create the model first, in order to validate data
 		$meta = new Meta_content($args);
 		// Now we can validate data
