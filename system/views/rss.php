@@ -19,7 +19,7 @@ foreach($list as $item):
 		<title>'.$item->title.'</title>
 		<description>'.htmlentities($item->content).'</description>
 		<guid>'.$this->current['site_url'].$this->url->full_path_to($item->identifier).'</guid>
-		<link>'.$this->current['site_url'].'</link>
+		<link>'.$this->current['site_url'].$this->url->full_path_to($item->identifier).'</link>
 		<pubDate>'.$item->updated_at->format("r").'</pubDate>
 	</item>
 	');
