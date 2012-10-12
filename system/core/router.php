@@ -51,14 +51,18 @@ class Router
 		{
 			return array_shift($this->url_parts);
 		}
-
-		foreach ($this->lang->get_user_agent_langs() as $array) 
+		
+		if($this->lang->get_user_agent_langs())
 		{
-			if ($this->lang->is_active($array[1])) 
+			foreach ($this->lang->get_user_agent_langs() as $array) 
 			{
-				return $array[1];
+				if ($this->lang->is_active($array[1])) 
+				{
+					return $array[1];
+				}
 			}
 		}
+		
 		if ( ! isset($_SESSION['lang'])) 
 		{
 			$a = Lang::first();
