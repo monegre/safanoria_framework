@@ -10,7 +10,8 @@ class Search
 {
 	public $terms = array();
 	private $cond;
-	private $default_columns =array('title', 'content');
+	private $default_columns = array('title', 'content');
+	private $matches;
 
 	/**
 	 * @param string | Words to look matches for
@@ -68,12 +69,12 @@ class Search
 		// Get identifiers for new query
 		foreach ($results as $result) 
 		{
-			$matches[] = $result->identifier;
+			$this->matches[] = $result->identifier;
 		}
 
 		// Filter matches by lang
 		return $model::all(array(
-								'conditions' => array('lang=? AND identifier in(?)', $this->user_nav_lang, $matches)
+								'conditions' => array('lang=? AND identifier in(?)', $this->user_nav_lang, $this->matches)
 								)
 						);
 	}
