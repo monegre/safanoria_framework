@@ -2,6 +2,10 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.5.2
+- Custom routes can be defined to remap class/method requests
+- Fixed some issues that were throwing a warning
+
 ##Version 0.5.0
 - Method Url::full_path_to() will return full path to database objects
 - Config file can define some configurations with $config[]
