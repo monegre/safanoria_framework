@@ -18,7 +18,7 @@ class Search
 	 * @param array | Database columns to check
 	 * @return string
 	 */
-	public function generate_conditions($query, $conditions=null)
+	public function set_query($query, $conditions=null)
 	{	
 		$this->query = $query;
 
@@ -56,26 +56,39 @@ class Search
 	/**
 	 *
 	 */
-	public function get_results_for($model, $args) 
+	public function results($models, $args) 
 	{
-		$model = ucfirst($model);
+		//$model = ucfirst($model);
 		$this->user_nav_lang = isset($args['lang']) 
 								? $args['lang'] 
 								: $_SESSION['lang']; // Safanòria has a lang stored in SESSION by default
 		
-		// Get all models nevermind the language
-		$results = $model::all(array('conditions' => array($this->cond)));
-		
-		// Get identifiers for new query
-		foreach ($results as $result) 
+		if ( ! is_array($models)) 
 		{
-			$this->matches[] = $result->identifier;
+			$models = explode('.',$models);
 		}
+		// Get all models nevermind the language
 
-		// Filter matches by lang
-		return $model::all(array(
-								'conditions' => array('lang=? AND identifier in(?)', $this->user_nav_lang, $this->matches)
-								)
-						);
+		foreach ($models as $model) 
+		{
+			$results = $model::all(array('conditions' => array($this->cond)));
+			// Get identifiers for new query
+			foreach ($results as $result) 
+			{
+				$this->matches[] = $result->identifier;
+			}
+			// Filter matches by lang
+			$finds[] = $model::all(array(
+									'conditions' => array('lang=? AND identifier in(?)', $this->user_nav_lang, $this->matches)
+									)
+							);
+		}
+		
+		foreach ($finds as $a) 
+		{
+			$list = $a;
+		}
+		
+		return $list;
 	}
 }
