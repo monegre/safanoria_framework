@@ -84,9 +84,15 @@ class Search
 							);
 		}
 		
-		foreach ($finds as $a) 
+		// $finds is a multilevel array 
+		// with a key for each model
+		// Two models => count($finds) = 2
+		for ($i = 0; $i < count($finds); $i++) 
 		{
-			$list = $a;
+			foreach ($finds[$i] as $k) 
+			{
+				$list[] = $k;
+			}
 		}
 		
 		return $list;
