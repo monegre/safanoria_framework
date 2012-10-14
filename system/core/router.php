@@ -95,6 +95,7 @@ class Router
 				return explode('/', clean_path($val));
 			}
 		}
+		return $this->url_parts;
 	}
 
 	/** 
@@ -104,7 +105,7 @@ class Router
 	{
 		if ($this->first_segment_is_lang()) 
 		{
-			return array_shift($this->segments);
+			return array_shift($this->url_parts);
 		}
 		
 		if($this->lang->get_user_agent_langs())
