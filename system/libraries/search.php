@@ -52,6 +52,19 @@ class Search
 		}
 		return $this->cond = implode(" OR ", $this->cond);
 	}
+	
+	/**
+	 * Sets conditions
+	 * 
+	 * This functions is an alternative to set_query in case you 
+	 * do not want to get results() with a SQL LIKE
+	 * 
+	 * @param array | Database query
+	 */
+	public function set_conditions($condtions)
+	{	
+		return $this->cond = $condtions;
+	}
 
 	/**
 	 *
