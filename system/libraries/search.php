@@ -84,7 +84,7 @@ class Search
 
 		foreach ($models as $model) 
 		{
-			$results = $model::all(array('conditions' => array($this->cond)));
+			$results = $model::all(array('conditions' => $this->cond));
 			// Get identifiers for new query
 			foreach ($results as $result) 
 			{
