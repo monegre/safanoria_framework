@@ -27,6 +27,6 @@ class Home extends SF_Controller
 	 */
 	function error() 
 	{
-		require $this->view('error');
+		require $this->view('404');
 	}	
 }

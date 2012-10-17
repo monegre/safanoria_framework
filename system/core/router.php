@@ -192,6 +192,17 @@ class Router
 	 */
 	private function calling()
 	{
+		
+		$this->error = new Error;
+		if ($this->error->has_error($this->controller, $this->method, $this->query)) 
+		{
+			if (class_exists($this->routes['default_controller']))
+			{
+				return new $this->routes['default_controller']('error');	
+			}
+			return new SF_Controller('error');
+		}
+		
 		return new $this->controller($this->method, $this->query);
 	}
 }

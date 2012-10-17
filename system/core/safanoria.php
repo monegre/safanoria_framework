@@ -51,6 +51,7 @@ class Safanoria
 		$this->administrator = $this->load_class('admin_user', 'system/models');
 		$this->url = $this->load_class('url', 'system/libraries');
 		$this->cms = $this->load_class('cms', 'system/libraries');
+		$this->error = $this->load_class('error', 'system/core');
 	}
 	
 	public static function &get_instance() {

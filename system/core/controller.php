@@ -9,4 +9,12 @@ class SF_Controller extends Safanoria
 	{
 		parent::__construct();
 	}
+	
+	/**
+	 * 
+	 */
+	public function error() 
+	{
+		require $this->view('error');
+	}
 }
