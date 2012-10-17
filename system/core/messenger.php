@@ -16,7 +16,7 @@ class Messenger
 	{
 		$this->message 	= $message;
 		$this->gender 	= $gender;
-		$this->lang 	= isset($lang) ? $lang : 'ca';
+		$this->lang 	= isset($_SESSION['lang']) ? $_SESSION['lang'] : 'ca';
 		
 		$sf_general = ROOT. SYS . LANG . $this->lang . '/general.php';
 		$app_general = ROOT. APP . LANG . $this->lang . '/general.php';
