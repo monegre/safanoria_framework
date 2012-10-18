@@ -220,17 +220,20 @@ class Router
 		// No controllers? 
 		if ( ! $classes > 0) 
 		{
-			new SF_Controller('error');
+			$error = new SF_Controller;
+			return $error->show_404();
+			//throw new Exception('URL segment is not an existing controller');
 		}
 		
 		// Is next segment a method of the last class?
 		if ( isset($to_validate[$classes])
 			 && ! method_exists($to_validate[$classes-1], $to_validate[$classes]) )
 		{
-			new SF_Controller('error');
-			//$validated['method'][] = $to_validate[$classes];
+			$error = new SF_Controller;
+			return $error->show_404();
+			//throw new Exception('URL segment is not a method of the controller');
 		}
-		$methods = isset($validated['method']) ? count($validated['method']) : 0;
+		//$methods = isset($validated['method']) ? count($validated['method']) : 0;
 		
 		// No method?
 //		if ( ! $methods > 0) 
