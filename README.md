@@ -19,3 +19,5 @@ Ha d'estar orientat a les especificitats del web adaptatiu i la filosofia de "pr
 - Haver de definir variables per entrar continguts a la BD
 - Gestionar varis idiomes
 - Escriure URLs
+- Validar URLs
+- Fer formularis
