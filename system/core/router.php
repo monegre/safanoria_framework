@@ -46,7 +46,7 @@ class Router
 		$_SESSION['lang'] = $this->set_lang();
 		
 		// Is this a valid URL?		
-		$this->segments = $this->validate_url();
+		$this->segments = $this->check_routes();
 		
 		// Now we can set those
 		$this->controller = $this->set_controller();
@@ -87,19 +87,88 @@ class Router
 	 */
 	private function set_controller()
 	{
-		return isset($this->segments[0]) 
-					? $this->underscore(array_shift($this->segments)) 
-					: $this->routes['default_controller'];
+		// Is it a class (file)?
+		if ( isset($this->segments[0])
+			 && file_exists(ROOT.SYS.CONTROLS.$this->segments[0].'.php')
+			 OR file_exists(ROOT.APP.CONTROLS.$this->segments[0].'.php'))
+		{
+			return $this->underscore(array_shift($this->segments));
+		}
+		
+		if ( ! isset($this->segments[0]) OR empty($this->segments[0])) 
+		{
+			return $this->routes['default_controller'];	
+		}
+		$error = new SF_Controller;
+		return $error->show_404();
 	}
 
 	/** 
-	 * 
+	 * Set method
+	 * URL segments can either be a class, a class method, or a database object.
+	 *
+	 * /class/method/query
+	 * /class/class/method/query
+	 * /method/query
+	 * /query
 	 */
 	private function set_method()
-	{
-		return isset($this->segments[0]) 
-					? $this->underscore(array_shift($this->segments)) 
-					: $this->routes['default_method'];
+	{		
+		$to_validate = $this->segments;
+		
+		// Are any other of the segments controllers?
+		for ($i = 0; $i < count($to_validate); $i++) 
+		{
+			if ( file_exists(ROOT.SYS.CONTROLS.$to_validate[$i].'.php')
+				 OR file_exists(ROOT.APP.CONTROLS.$to_validate[$i].'.php'))
+			{
+				$validated['class'][] = $to_validate[$i];
+				continue;
+			}
+			break;
+		}
+		$classes = isset($validated['class']) ? count($validated['class']) : 0;
+		
+		// No 
+		if ($classes === 0 && isset($this->segments[0])) 
+		{
+			// Is it a method of the current controller?
+			if (method_exists($this->controller, $this->segments[0])) 
+			{
+				return $this->underscore(array_shift($this->segments));	
+			}
+		}
+		
+		// Yes
+		// Then let's assume the developer is sane and has a plan for that.
+		// Let's return the segment as a method so
+		// she can do her stuff ;-)
+		if ($classes > 0) 
+		{
+			// Is the segment after the last class a method of that class?
+			if ( isset($to_validate[$classes])
+				 && method_exists($to_validate[$classes-1], $to_validate[$classes]) )
+			{ 	
+				return $this->underscore(array_shift($this->segments));
+			}
+			elseif ( ! isset($to_validate[$classes]) OR empty($to_validate[$classes]))
+			{
+				if(method_exists($to_validate[$classes-1], $this->routes['default_method']))
+				{ 	
+					return $this->underscore(array_shift($this->segments));
+				}
+			}
+		}
+				
+		// Maybe we didn't even have a method passed?
+		if ( ! isset($this->segments[0]) OR empty($this->segments[0])) 
+		{
+			return $this->routes['default_method'];	
+		}
+		
+		// At this point, it'd be safer to display a 404
+		$error = new SF_Controller;
+		return $error->show_404();
 	}
 
 	/** 
@@ -144,7 +213,7 @@ class Router
 	}
 	
 	/**
-	 *  Check Routes
+	 * Check Routes
 	 *
 	 * This function matches any routes that may exist in
 	 * the config/routes.php file against the URI to
@@ -187,70 +256,6 @@ class Router
 		return $this->url_parts;
 	}
 	
-	/** 
-	 * URL segments can either be a class, a class method, or a database object.
-	 *
-	 * /class/method/query
-	 * /class/class/method/query
-	 * /method/query
-	 * /query
-	 *
-	 */
-	private function validate_url() 
-	{
-		$this->url_parts = $this->check_routes();
-		
-		$to_validate = $this->url_parts;
-		$validated = array();
-		$errors = array();
-		
-		// Validate controllers
-		for ($i = 0; $i < count($to_validate); $i++) 
-		{
-			if ( file_exists(ROOT.SYS.CONTROLS.$to_validate[$i].'.php')
-				 OR file_exists(ROOT.APP.CONTROLS.$to_validate[$i].'.php'))
-			{
-				$validated['class'][] = $to_validate[$i];
-				continue;
-			}
-			break;
-		}
-		$classes = isset($validated['class']) ? count($validated['class']) : 0;
-		
-		// No controllers? 
-		if ( ! $classes > 0) 
-		{
-			$error = new SF_Controller;
-			return $error->show_404();
-			//throw new Exception('URL segment is not an existing controller');
-		}
-		
-		// Is next segment a method of the last class?
-		if ( isset($to_validate[$classes])
-			 && ! method_exists($to_validate[$classes-1], $to_validate[$classes]) )
-		{
-			$error = new SF_Controller;
-			return $error->show_404();
-			//throw new Exception('URL segment is not a method of the controller');
-		}
-		//$methods = isset($validated['method']) ? count($validated['method']) : 0;
-		
-		// No method?
-//		if ( ! $methods > 0) 
-//		{
-//			echo '404';
-//		}
-			
-		// Collect everything else as the query
-//		for ($i = $classes + $methods; $i < count($to_validate); $i++) 
-//		{
-//			$validated['query'][] = $to_validate[$i];
-//		}	
-		
-		// At this point is ok to return the original array
-		return $this->url_parts;
-	}
-
 	/** 
 	 * 
 	 */
