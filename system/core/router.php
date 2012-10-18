@@ -45,57 +45,13 @@ class Router
 		// First deal with lang
 		$_SESSION['lang'] = $this->set_lang();
 		
-		// Is there a defined class/method map for this URL?		
-		$this->segments = $this->check_routes();
-
+		// Is this a valid URL?		
+		$this->segments = $this->validate_url();
+		
 		// Now we can set those
 		$this->controller = $this->set_controller();
 		$this->method = $this->set_method();
 		$this->query = $this->set_query();
-	}
-
-	/**
-	 *  Check Routes
-	 *
-	 * This function matches any routes that may exist in
-	 * the config/routes.php file against the URI to
-	 * determine if the class/method need to be remapped.
-	 *
-	 * This function is almost a copy/paste of CodeIgniter's _parse_routes
-	 *
-	 * @access	private
-	 * @return	array
-	 */
-	private function check_routes()
-	{
-		// Turn the segment array into a URI string
-		$uri = implode('/', $this->url_parts);
-
-		// Is there a literal match?  If so we're done
-		if (isset($this->routes[$uri]))
-		{
-			return explode('/', clean_path($this->routes[$uri]));
-		}
-
-		// Loop through the route array looking for wild-cards
-		foreach ($this->routes as $key => $val)
-		{
-			// Convert wild-cards to RegEx
-			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
-
-			// Does the RegEx match?
-			if (preg_match('#^'.$key.'$#', $uri))
-			{
-				// Do we have a back-reference?
-				if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
-				{
-					$val = preg_replace('#^'.$key.'$#', $val, $uri);
-				}
-
-				return explode('/', clean_path($val));
-			}
-		}
-		return $this->url_parts;
 	}
 
 	/** 
@@ -186,23 +142,117 @@ class Router
 		}
 		return $string;
 	}
+	
+	/**
+	 *  Check Routes
+	 *
+	 * This function matches any routes that may exist in
+	 * the config/routes.php file against the URI to
+	 * determine if the class/method need to be remapped.
+	 *
+	 * This function is almost a copy/paste of CodeIgniter's _parse_routes
+	 *
+	 * @access	private
+	 * @return	array
+	 */
+	private function check_routes()
+	{
+		// Turn the segment array into a URI string
+		$uri = implode('/', $this->url_parts);
+
+		// Is there a literal match?  If so we're done
+		if (isset($this->routes[$uri]))
+		{
+			return explode('/', clean_path($this->routes[$uri]));
+		}
+
+		// Loop through the route array looking for wild-cards
+		foreach ($this->routes as $key => $val)
+		{
+			// Convert wild-cards to RegEx
+			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
+
+			// Does the RegEx match?
+			if (preg_match('#^'.$key.'$#', $uri))
+			{
+				// Do we have a back-reference?
+				if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
+				{
+					$val = preg_replace('#^'.$key.'$#', $val, $uri);
+				}
+
+				return explode('/', clean_path($val));
+			}
+		}
+		return $this->url_parts;
+	}
+	
+	/** 
+	 * URL segments can either be a class, a class method, or a database object.
+	 *
+	 * /class/method/query
+	 * /class/class/method/query
+	 * /method/query
+	 * /query
+	 *
+	 */
+	private function validate_url() 
+	{
+		$this->url_parts = $this->check_routes();
+		
+		$to_validate = $this->url_parts;
+		$validated = array();
+		$errors = array();
+		
+		// Validate controllers
+		for ($i = 0; $i < count($to_validate); $i++) 
+		{
+			if ( file_exists(ROOT.SYS.CONTROLS.$to_validate[$i].'.php')
+				 OR file_exists(ROOT.APP.CONTROLS.$to_validate[$i].'.php'))
+			{
+				$validated['class'][] = $to_validate[$i];
+				continue;
+			}
+			break;
+		}
+		$classes = isset($validated['class']) ? count($validated['class']) : 0;
+		
+		// No controllers? 
+		if ( ! $classes > 0) 
+		{
+			new SF_Controller('error');
+		}
+		
+		// Is next segment a method of the last class?
+		if ( isset($to_validate[$classes])
+			 && ! method_exists($to_validate[$classes-1], $to_validate[$classes]) )
+		{
+			new SF_Controller('error');
+			//$validated['method'][] = $to_validate[$classes];
+		}
+		$methods = isset($validated['method']) ? count($validated['method']) : 0;
+		
+		// No method?
+//		if ( ! $methods > 0) 
+//		{
+//			echo '404';
+//		}
+			
+		// Collect everything else as the query
+//		for ($i = $classes + $methods; $i < count($to_validate); $i++) 
+//		{
+//			$validated['query'][] = $to_validate[$i];
+//		}	
+		
+		// At this point is ok to return the original array
+		return $this->url_parts;
+	}
 
 	/** 
 	 * 
 	 */
 	private function calling()
 	{
-		
-		$this->error = new Error;
-		if ($this->error->has_error($this->controller, $this->method, $this->query)) 
-		{
-			if (class_exists($this->routes['default_controller']))
-			{
-				return new $this->routes['default_controller']('error');	
-			}
-			return new SF_Controller('error');
-		}
-		
 		return new $this->controller($this->method, $this->query);
 	}
 }
