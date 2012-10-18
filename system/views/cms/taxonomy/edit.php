@@ -7,13 +7,13 @@
 		
 		<div class="<?php echo $this->cms->error_class('title_'.$item->lang.''); ?>">
 			<label for="title_<?php echo $item->lang; ?>">Nom</label>
-				<input type="text" name="title_<?php echo $item->lang; ?>" id="title_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('title_'.$item->lang.'', $item->title); ?>"/>
+				<input type="text" name="title_<?php echo $item->lang; ?>" id="title_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('title_'.$item->lang.'', stripslashes($item->title) ); ?>"/>
 			<?php echo $this->cms->error_for('title'); ?>
 		</div>
 		
 		<div class="<?php echo $this->cms->error_class('description_'.$item->lang.''); ?>">
 			<label for="description_<?php echo $item->lang; ?>">Descripció (per SEO i tal)</label>
-				<textarea class="no_editor" name="description_<?php echo $item->lang; ?>" id="description_<?php echo$item->lang; ?>"><?php echo $this->cms->input_for('description_'.$item->lang.'', $item->description); ?></textarea>
+				<textarea class="no_editor" name="description_<?php echo $item->lang; ?>" id="description_<?php echo$item->lang; ?>"><?php echo $this->cms->input_for('description_'.$item->lang.'', stripslashes($item->description) ); ?></textarea>
 			<?php echo $this->cms->error_for('description'); ?>
 		</div>
 	</fieldset>
@@ -28,7 +28,7 @@
 				<select name="parent" id="parent"> 
 					<option value="<?php echo $item->parent; ?>"><?php echo $item->parent; ?></option>
 					<?php foreach($sections as $section): ?>
-						<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
+						<option value="<?php echo $section->identifier; ?>"><?php echo stripslashes($section->title); ?></option>
 					<?php endforeach; ?>
 					<option value="0">Top level</option>
 				</select>

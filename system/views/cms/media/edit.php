@@ -8,19 +8,19 @@
 		<div class="<?php echo $this->cms->error_class('title'); ?>">
 			<label for="title_<?php echo $item->lang; ?>"><?php echo $this->cms->message('title'); ?></label>
 				<div class="form_error"><?php echo $this->cms->error_for('title'); ?></div>
-				<input type="text" name="title_<?php echo $item->lang; ?>" id="title_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('title_'.$item->lang.'', $item->title); ?>"/>
+				<input type="text" name="title_<?php echo $item->lang; ?>" id="title_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('title_'.$item->lang.'', stripslashes($item->title) ); ?>"/>
 		</div>
 		
 		<div class="<?php echo $this->cms->error_class('content'); ?>">
 			<label for="content_<?php echo $item->lang; ?>"><?php echo $this->cms->message('content'); ?></label>
 			<div class="form_error"><?php echo $this->cms->error_for('content'); ?></div>
-			<textarea class="no_editor" name="content_<?php echo $item->lang; ?>" id="content_<?php echo $item->lang; ?>"><?php echo $this->cms->input_for('content_'.$item->lang.'', $item->content); ?></textarea>
+			<textarea class="no_editor" name="content_<?php echo $item->lang; ?>" id="content_<?php echo $item->lang; ?>"><?php echo $this->cms->input_for('content_'.$item->lang.'', stripslashes($item->content) ); ?></textarea>
 		</div>
 		
 		<div class="<?php echo $this->cms->error_class('description'); ?>">
 			<label for="description_<?php echo $item->lang; ?>"><?php echo $this->cms->message('alternative_text'); ?></label>
 			<div class="form_error"><?php echo $this->cms->error_for('description'); ?></div>
-			<input type="text" name="description_<?php echo $item->lang; ?>" id="description_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('description_'.$item->lang.'', $item->description); ?>">		
+			<input type="text" name="description_<?php echo $item->lang; ?>" id="description_<?php echo $item->lang; ?>" value="<?php echo $this->cms->input_for('description_'.$item->lang.'', stripslashes($item->description) ); ?>">		
 		</div>
 	</fieldset>
 <?php endforeach; ?>

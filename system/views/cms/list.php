@@ -7,7 +7,7 @@
 <ul class="dashboard-list">
 	<?php foreach ($list as $item): if( ! isset($item->status) OR $item->status !== 'trash'): ?>
 	<li class="clear <?php echo isset($item->status) ? $item->status : ''; ?>">
-		<h2><?php echo $item->title; ?></h2>
+		<h2><?php echo stripslashes($item->title); ?></h2>
 		<ul id="item-actions" class="nolist clear">
 			<li><a class="button alert" href="<?php echo $this->cms->url('remove', $item->identifier); ?>">Eliminar</a></li>
 			<?php if(isset($item->status)): ?>
