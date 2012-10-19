@@ -24,8 +24,7 @@ class Url
 	public function link_to($identifier, $args=array())
 	{
 		$defaults = array(
-				'absolute' 	=> TRUE,
-				'http' 		=> FALSE,
+				'absolute' 	=> TRUE
 			);
 		
 		foreach ($defaults as $key => $value) 
@@ -50,11 +49,6 @@ class Url
 		$this->full_path = implode('/', $this->segments);
 
 		if ($option['absolute'] === TRUE) 
-		{
-			$this->full_path = '/'.$this->full_path;
-		}
-		
-		if ($option['http'] === TRUE) 
 		{
 			$this->full_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$this->full_path;
 		}

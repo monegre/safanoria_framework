@@ -135,7 +135,7 @@ class Router
 			// Is it a method of the current controller?
 			if (method_exists($this->controller, $this->underscore($this->segments[0]))) 
 			{
-				return $this->underscore($this->segments[0])(array_shift($this->segments));	
+				return $this->underscore(array_shift($this->segments));	
 			}
 		}
 		
