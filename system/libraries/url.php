@@ -21,8 +21,25 @@ class Url
 	 * @param bool
 	 * @return string
 	 */
-	public function link_to($identifier, $absolute = TRUE)
+	public function link_to($identifier, $args=array())
 	{
+		$defaults = array(
+				'absolute' 	=> TRUE,
+				'http' 		=> FALSE,
+			);
+		
+		foreach ($defaults as $key => $value) 
+		{
+			if (isset($args[$key])) 
+			{
+				$option[$key] = $args[$key];
+			}
+			else 
+			{
+				$option[$key] = $value;
+			}
+		}
+		
 		$meta = Meta_content::find($identifier);
 
 		$this->segments = array();
@@ -32,9 +49,14 @@ class Url
 		
 		$this->full_path = implode('/', $this->segments);
 
-		if ($absolute === TRUE) 
+		if ($option['absolute'] === TRUE) 
 		{
-			$this->full_path = $_SERVER['HTTP_HOST'].'/'.$this->full_path;
+			$this->full_path = '/'.$this->full_path;
+		}
+		
+		if ($option['http'] === TRUE) 
+		{
+			$this->full_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$this->full_path;
 		}
 
 		return $this->full_path;
