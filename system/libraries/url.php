@@ -21,7 +21,7 @@ class Url
 	 * @param bool
 	 * @return string
 	 */
-	public function full_path_to($identifier, $absolute = TRUE)
+	public function link_to($identifier, $absolute = TRUE)
 	{
 		$meta = Meta_content::find($identifier);
 
@@ -34,7 +34,7 @@ class Url
 
 		if ($absolute === TRUE) 
 		{
-			$this->full_path = '/'.$this->full_path;
+			$this->full_path = $_SERVER['HTTP_HOST'].'/'.$this->full_path;
 		}
 
 		return $this->full_path;
@@ -86,5 +86,28 @@ class Url
 	public function get_segments()
 	{
 		return $this->segments;
+	}
+	
+	/**
+	 * The very same function as link_to
+	 * @deprecated
+	 */
+	public function full_path_to($identifier, $absolute = TRUE)
+	{
+		$meta = Meta_content::find($identifier);
+
+		$this->segments = array();
+		$this->segments[] = $meta->nice_url;
+		$this->segments = self::get_parent_urls($meta->parent);
+		$this->segments = self::check_lang();
+		
+		$this->full_path = implode('/', $this->segments);
+
+		if ($absolute === TRUE) 
+		{
+			$this->full_path = $_SERVER['HTTP_HOST'].'/'.$this->full_path;
+		}
+
+		return $this->full_path;
 	}
 }
