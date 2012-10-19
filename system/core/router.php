@@ -89,8 +89,8 @@ class Router
 	{
 		// Is it a class (file)?
 		if ( isset($this->segments[0])
-			 && file_exists(ROOT.SYS.CONTROLS.$this->segments[0].'.php')
-			 OR file_exists(ROOT.APP.CONTROLS.$this->segments[0].'.php'))
+			 && file_exists(ROOT.SYS.CONTROLS.$this->underscore($this->segments[0]).'.php')
+			 OR file_exists(ROOT.APP.CONTROLS.$this->underscore($this->segments[0]).'.php'))
 		{
 			return $this->underscore(array_shift($this->segments));
 		}
@@ -119,8 +119,8 @@ class Router
 		// Are any other of the segments controllers?
 		for ($i = 0; $i < count($to_validate); $i++) 
 		{
-			if ( file_exists(ROOT.SYS.CONTROLS.$to_validate[$i].'.php')
-				 OR file_exists(ROOT.APP.CONTROLS.$to_validate[$i].'.php'))
+			if ( file_exists(ROOT.SYS.CONTROLS.$this->underscore($to_validate[$i]).'.php')
+				 OR file_exists(ROOT.APP.CONTROLS.$this->underscore($to_validate[$i]).'.php'))
 			{
 				$validated['class'][] = $to_validate[$i];
 				continue;
@@ -133,9 +133,9 @@ class Router
 		if ($classes === 0 && isset($this->segments[0])) 
 		{
 			// Is it a method of the current controller?
-			if (method_exists($this->controller, $this->segments[0])) 
+			if (method_exists($this->controller, $this->underscore($this->segments[0]))) 
 			{
-				return $this->underscore(array_shift($this->segments));	
+				return $this->underscore($this->segments[0])(array_shift($this->segments));	
 			}
 		}
 		
@@ -147,13 +147,13 @@ class Router
 		{
 			// Is the segment after the last class a method of that class?
 			if ( isset($to_validate[$classes])
-				 && method_exists($to_validate[$classes-1], $to_validate[$classes]) )
+				 && method_exists($this->underscore($to_validate[$classes-1]), $this->underscore($to_validate[$classes])) )
 			{ 	
 				return $this->underscore(array_shift($this->segments));
 			}
 			elseif ( ! isset($to_validate[$classes]) OR empty($to_validate[$classes]))
 			{
-				if(method_exists($to_validate[$classes-1], $this->routes['default_method']))
+				if(method_exists($this->underscore($to_validate[$classes-1]), $this->routes['default_method']))
 				{ 	
 					return $this->underscore(array_shift($this->segments));
 				}
