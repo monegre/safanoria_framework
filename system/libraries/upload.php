@@ -27,8 +27,8 @@ class Upload extends Safanoria
 	/*
 	 * You can set those, too.
 	 */
-	private $memory_limit 		= 12;
-	private $max_file_size 		= 5000000; // 4,8Mb aprox  | 5964148=6Mb
+	public $memory_limit 		= 12;
+	public $max_file_size 		= 1048576; // 1M // http://www.thebyteconverter.com/
 	
 	/**
 	 * These are just returned values. Don't edit.
@@ -57,6 +57,9 @@ class Upload extends Safanoria
 	{ 					
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 		{
+			// Store the requested URI in case we need a redirection
+			$_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
+
 			// Attempt to create file's directory if it doesn't exist
 			if ( ! file_exists($this->upload_path)) 
 			{
@@ -82,21 +85,25 @@ class Upload extends Safanoria
 				$this->file_size = $_FILES[$field]["size"];
 			}
 			
-			
+			if ( empty($this->file_name)) 
+			{
+				return FALSE;
+			}
+
 			// Validate file type
 			if ( ! in_array($this->file_type, $this->allowed_types)) 
 			{
-				$this->errors['type'] = "Invalid fyle type";
+				throw new Exception('error_invalid_file_type');
 			} 
 			// Validate file size
 			if ($this->file_size > $this->max_file_size) 
 			{
-				$this->errors['size'] = "File too big";
+				throw new Exception('error_file_too_big');
 			}
 			// Validate file exists
 			if (file_exists($this->upload_path.$this->file_name)) 
 			{
-				$this->errors[$field] = $this->file_name . " already exists. ";
+				throw new Exception($this->errors[$field] = $this->file_name . " already exists. ");
 			}
 			
 			// Is valid
