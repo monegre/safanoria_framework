@@ -6,7 +6,7 @@
 
 class Safanoria 
 {	
-	public $version = "0.5.2";
+	public $version = "0.5.3";
 	public $active_record = "1.0";
 	
 	/**
@@ -58,17 +58,6 @@ class Safanoria
 		return self::$instance;
 	}
 	
-	/**
-	 *
-	 */
-//	function class_loader($array) 
-//	{
-//		foreach ($array as $key => $class) 
-//		{
-//			$this->$key = $this->load_class($class);
-//		}
-//	}
-		
 	/**
 	 *
 	 */
@@ -228,7 +217,7 @@ class Safanoria
 	/**
 	 * 
 	 */
-	public function message($message, $gender=null, $lang=null) 
+	public function message($message) 
 	{
 		return new Messenger($message);
 	}
@@ -264,16 +253,11 @@ class Safanoria
 	 *
 	 * @param $args array
 	 */ 
-	public function redirect_with_message($args, $name=null)
-	{
-		if (isset($name) && is_name($name)) 
-		{
-			$_SESSION['global_message_name'] = $name;
-		}
-		
+	public function redirect_with_message($args)
+	{		
 		if (isset($args['message'])) 
 		{
-			$_SESSION['global_message'] = $args['message'];	
+			$_SESSION['global_message'] = $args['message'];
 			if (isset($args['url'])) 
 			{
 				header("Location: ".$args['url']."");
