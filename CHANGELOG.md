@@ -2,6 +2,9 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.5.4
+- Fixed language bug. Default SF language files are set if they're not available for the user_agent lang
+
 ##Version 0.5.3
 - Fixed bug that was causing methods with underscored names not to be validated
 - Checks if files were submitted prior to execute add_post_files
