@@ -33,17 +33,17 @@ class Messenger
 				2 => ROOT. APP . LANG
 			);
 
-		for ($i=1; $i < count($lang_dirs); $i++) 
-		{ 
-			if (file_exists($lang_dirs[$i].$this->lang)) 
+		foreach ($lang_dirs as $dir) 
+		{
+			if (file_exists($dir.$this->lang)) 
 			{
-				require ($lang_dirs[$i].$this->lang.'/general.php');
+				@include ($dir.'/'.$this->lang.'/general.php');
 			}
 			else
 			{
-				if (file_exists($lang_dirs[$i].$this->default_lang)) 
+				if (file_exists($dir.$this->default_lang)) 
 				{
-					require ($lang_dirs[$i].$this->default_lang.'/general.php');
+					@include ($dir.$this->default_lang.'/general.php');
 				}
 			}
 		}
@@ -52,7 +52,7 @@ class Messenger
 
 		if ( ! $this->safanoria) 
 		{
-			throw new Exception('We could not find the file for your current language. We are deeply sorry.');
+			throw new Exception('Files containing language variables could not be found. They should be place either at system/langs/[your language] or app/langs/[your language]');
 			
 		}
 	}
