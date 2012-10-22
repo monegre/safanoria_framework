@@ -67,10 +67,13 @@ class Posts extends SF_Controller
 			if ($post = $this->cms->add('post', $_POST)) 
 			{	
 				$img_key = 'related_img';
-				if ($this->cms->add_post_files($post->id,$img_key)) 
+				if ($this->cms->have_files($img_key))
 				{
-					$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_created_media_added'));
-					exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
+					if ($this->cms->add_post_files($post->id,$img_key)) 
+					{
+						$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_created_media_added'));
+						exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
+					}
 				}
 				$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_created'));
 				exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
@@ -99,12 +102,15 @@ class Posts extends SF_Controller
 			if ($this->cms->edit('post', $query[1], $_POST)) 
 			{
 				$img_key = 'related_img';
-				if ($this->cms->add_post_files($query[1],$img_key)) 
+				if ($this->cms->have_files($img_key))
 				{
-					$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_created_media_added'));
-					exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
+					if ($this->cms->add_post_files($query[1],$img_key)) 
+					{
+						$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_updated_media_added'));
+						exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
+					}
 				}
-				$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_updated_files_not_uploaded'));
+				$this->redirect_with_message(array('url'=>$this->cms->url['posts'], 'message'=>'post_updated'));
 				exit('This item was entered to the database. Click <a href="/admin">here to go back to the dashoard</a>');
 			}
 		}
