@@ -8,16 +8,17 @@ class Messenger
 	private $message;
 	private $gender;
 	private $lang;
+	public $message_class = 'success';
 	
 	/**
 	 * 
 	 */
-	function __construct($message=null, $gender=null, $lang=null) 
+	function __construct($message=null, $args=array()) 
 	{
 		$this->message 	= $message;
-		$this->gender 	= $gender;
+		$this->gender 	= isset($args['gender']) ? $args['gender'] : 'male';
 		$this->lang 	= isset($_SESSION['lang']) ? $_SESSION['lang'] : 'ca';
-		
+				
 		$sf_general = ROOT. SYS . LANG . $this->lang . '/general.php';
 		$app_general = ROOT. APP . LANG . $this->lang . '/general.php';
 		
@@ -38,12 +39,15 @@ class Messenger
 	 * 
 	 * @return boolean
 	 */
-	public static function got_global_message()
+	public function got_global_message()
 	{
 		if (isset($_SESSION['global_message']))
-		{		
+		{	
+			// Set the message class before we destroy the SESSION variable
+			$this->_set_message_class();
 			return TRUE;
-		} else
+		} 
+		else
 		{
 			return FALSE;
 		}
@@ -56,11 +60,11 @@ class Messenger
 	 * @requires $safanoria array
 	 * @return $message A male or female version of the global message after evaluating the Customer
 	 */
-	public function global_message($message=null, $gender=null, $lang=null) 
+	public function global_message($args=array()) 
 	{				
 		if (isset($_SESSION['global_message'])) 
 		{	
-			$gender = isset($gender) ? $gender : 'male';
+			$gender = isset($args['gender']) ? $args['gender'] : 'male';
 			
 			if ($gender = "female" && isset($this->safanoria["female"][$_SESSION['global_message']]))
 			{
@@ -68,12 +72,44 @@ class Messenger
 			}
 			else
 			{
-				$message = $this->safanoria[$_SESSION['global_message']];
+				if (isset($this->safanoria[$_SESSION['global_message']])) 
+				{
+					$message = $this->safanoria[$_SESSION['global_message']];
+				}
+				else 
+				{
+					$message = $_SESSION['global_message'];
+				}
 			}
+			
 			unset($_SESSION['global_message']);	
 			return $message;
 		}
 		return FALSE;
+	}
+	
+	/**
+	 * 
+	 */
+	private function _set_message_class() 
+	{
+		$class = explode('_', $_SESSION['global_message']);		
+		if (isset($class[0]) && $class[0] == 'error') 
+		{
+			$this->message_class = 'error';
+		}
+		else 
+		{
+			$this->message_class = 'success';	
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public function message_class() 
+	{	
+		return $this->message_class;
 	}
 	
 	/**
@@ -87,7 +123,7 @@ class Messenger
 	/**
 	 * 
 	 */
-	private function built_message($message=null, $gender=null, $lang=null) 
+	private function built_message($message=null) 
 	{
 		return $this->safanoria[$this->message];
 	}
