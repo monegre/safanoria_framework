@@ -19,3 +19,8 @@
 
 $route['default_controller'] = 'home';
 $route['default_method'] = 'index';
+
+// Custom routes
+$route['biografia'] = 'home/biografia';
+$route['terapia-individual'] = 'home/terapia';
+$route['grups-de-crianca'] = 'home/grupos';

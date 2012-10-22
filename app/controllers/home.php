@@ -9,12 +9,21 @@
  
 class Home extends SF_Controller
 {
+	public $user_nav_lang;
+	public $parent_section = 1;
+	public $news_section = 3;
+	public $projects_section = 4; 
+	
 	/**
 	 * 
 	 */
 	function __construct($method, $query=null) 
 	{
 		parent::__construct();
+		
+		$this->user_nav_lang = $_SESSION['lang'];
+		$this->menus = Section::all(array('lang'=>$this->user_nav_lang));
+		
 		return $this->$method();
 	}
 	
@@ -23,7 +32,39 @@ class Home extends SF_Controller
 	 */
 	public function index() 
 	{
-		require $this->view('benvinguda');
+		require $this->view('_header');
+		require $this->view('index');
+		require $this->view('_footer');
+	}
+	
+	/**
+	 * 
+	 */
+	public function biografia() 
+	{
+		require $this->view('_header');
+		require $this->view('bio');
+		require $this->view('_footer');
+	}
+	
+	/**
+	 * 
+	 */
+	public function terapia() 
+	{
+		require $this->view('_header');
+		require $this->view('terapia');
+		require $this->view('_footer');
+	}
+	
+	/**
+	 * 
+	 */
+	public function grupos() 
+	{
+		require $this->view('_header');
+		require $this->view('grupos');
+		require $this->view('_footer');
 	}
 	
 	/**

@@ -1,0 +1,61 @@
+/** MIXINS */
+@mixin radius($num: 5px)
+	-moz-border-radius: $num
+	-webkit-border-radius: $num
+	-o-border-radius: $num
+	border-radius: $num
+
+//@mixin radius($num: 5px)
+//	-moz-border-radius-topleft: $num
+//	-moz-border-radius-topright: $num
+//	-moz-border-radius-bottomleft: $num
+//	-moz-border-radius-bottomright: $num
+//	
+//	-webkit-border-top-left-radius: $num
+//	-webkit-border-top-right-radius: $num
+//	-webkit-border-bottom-left-radius: $num
+//	-webkit-border-bottom-right-radius: $num
+//
+//	border-top-left-radius: $num
+//	border-top-right-radius: $num
+//	border-bottom-left-radius: $num
+//	border-bottom-right-radius: $num
+
+@mixin boxshadow
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) 
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) 
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+
+@mixin gradient($from: #FFF, $to: #BBB)
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to)) 
+	background-image: -moz-linear-gradient(0% 100% 90deg, $to, $from) 
+	background-color: $to
+
+@mixin button($background: #4D4D4D, $color: #FFF, $radius: 5px)
+	width: auto
+	text-align: center
+	padding: 0.5em
+	border: none
+	background: $background
+	color: $color
+	@include radius($radius)
+
+@mixin button_hover($background: black)
+	border: none
+	box-shadow: 0px 2px 3em 1px rgba(0, 0, 0, 0.2) inset
+	color: white
+	text-decoration: none
+	background: $background
+
+@mixin button_gradient
+	padding: .5em 1em
+	font-family: $sans
+	font-weight: bold
+	line-height: 1
+	color: #444 
+	border: none 
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.85) 
+	@include gradient
+	@include radius
+	@include boxshadow
+	
