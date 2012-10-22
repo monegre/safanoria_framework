@@ -76,7 +76,7 @@
 				</p>
 				<h1><?php echo $this->current['page_title']; ?></h1>
 				<?php if($this->messenger->got_global_message()): ?>
-					<div id="global-message" class="success">
-						<p><?php echo $this->messenger->global_message($_SESSION['global_message'],'',$this->administrator->clean['lang']); ?></p>
+					<div id="global-message" class="<?php echo $this->messenger->message_class(); ?>">
+						<p><?php echo $this->messenger->global_message($this->administrator->clean['lang']); ?></p>
 					</div>
 				<?php endif; ?>
