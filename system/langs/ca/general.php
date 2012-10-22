@@ -133,7 +133,7 @@ $safanoria['can_generate_error'] = "Modificar aquest camp pot generar problemes 
  * UI Messages
  */
 $safanoria['post_created'] = "L'article s'ha creat correctament";
-$safanoria['post_updated'] = "L'article ha estat acutalitzat correctament";
+$safanoria['post_updated'] = "L'article s'ha acutalitzat correctament";
 $safanoria['post_error_updating'] = "No s'ha pogut actualitzar l'article. Si us plau, intenta-ho de nou.";
 $safanoria['cannot_modify'] = "No es pot modificar";
 $safanoria['password_characters'] = "Mínim 6 caràcters";
@@ -148,6 +148,8 @@ $safanoria['post_created_media_added'] = "L'article s'ha creat correctament i le
 $safanoria['post_not_created'] = "Alguna cosa ha anat malament. No hem pogut crear l'article.";
 $safanoria['post_created_files_not_uploaded'] = "L'article s'ha creat correctament, però no hem pogut adjuntar-hi els arxius corresponents. Si us plau, intenta-ho a l'apartat d'arxius";
 $safanoria['post_updated_files_not_uploaded'] = "L'article s'ha actualitzat correctament, però no hem pogut adjuntar-hi els arxius corresponents. Si us plau, intenta-ho a l'apartat d'arxius";
+$safanoria['error_file_too_big'] = "Ho sentim, però estàs intentant pujar imatges massa grans. La mida màxima permesa és <b>1M</b> (un mega).";
+$safanoria['error_invalid_file_type'] = "Format d'imatge no permès. Tan sols JPG, GIF o PNG.";
 
 
 /*
