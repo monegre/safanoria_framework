@@ -183,6 +183,7 @@ class Cms extends Safanoria
 				}
 				if (count($saved) > 0) 
 				{
+					$_SESSION['redirect_id'] = $meta->id;
 					return $meta;	
 				}
 			}
@@ -221,8 +222,9 @@ class Cms extends Safanoria
 			$newfiles = $this->upload->normalize_file_array();
 			for ($i = 0; $i < count($newfiles[$file_key]); $i++) 
 			{
-				if ($this->upload->upload($file_key,$newfiles[$file_key][$i])) 
+				try  
 				{
+					$this->upload->upload($file_key,$newfiles[$file_key][$i]);
 					$data = $this->upload->data();
 					$img = $this->lang->get_lang_fields_off($_POST);
 					$img["nice_url"] = $data["file_name"];
@@ -245,6 +247,23 @@ class Cms extends Safanoria
 						}
 						$this->image->destroy();
 					}
+				}
+				catch (Exception $e) 
+				{
+					// This will only get us the REQUESTED_URI
+					$redirect = isset($_SESSION['redirect']) ? $_SESSION['redirect'] : $this->url['admin'];					
+
+					// Is it a new post? Then rebuild the URI so it redirects us to *this* post edit form
+					if (isset($_SESSION['redirect_id']) && isset($redirect)) 
+					{
+						$redirect = str_replace('add', 'edit', $redirect);
+						$redirect .= '/'.$_SESSION['redirect_id'];
+					}
+
+					// Don't forget, porlagloriademimadre!
+					unset($_SESSION['redirect'],$_SESSION['redirect_id']);
+
+					$this->redirect_with_message(array('url'=>$redirect, 'message'=>$e->getMessage()));	
 				}
 			}
 			return TRUE;
@@ -410,6 +429,25 @@ class Cms extends Safanoria
 			if ($meta->delete()) 
 			{
 				return TRUE;	
+			}
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Have files?
+	 * Checks if a file has been submitted
+	 * whether in a regular or a multidimesional FILES array
+	 * 
+	 * @return bool
+	 */
+	public function have_files($img_key = 'file')
+	{
+		foreach ($_FILES[$img_key]['error'] as $ferror) 
+		{
+			if ($ferror != 4) // UPLOAD_ERR_NO_FILE
+			{
+				return TRUE;
 			}
 		}
 		return FALSE;
