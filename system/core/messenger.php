@@ -8,6 +8,7 @@ class Messenger
 	private $message;
 	private $gender;
 	private $lang;
+	public $default_lang = 'ca';
 	public $message_class = 'success';
 	
 	/**
@@ -17,22 +18,45 @@ class Messenger
 	{
 		$this->message 	= $message;
 		$this->gender 	= isset($args['gender']) ? $args['gender'] : 'male';
-		$this->lang 	= isset($_SESSION['lang']) ? $_SESSION['lang'] : 'ca';
-				
-		$sf_general = ROOT. SYS . LANG . $this->lang . '/general.php';
-		$app_general = ROOT. APP . LANG . $this->lang . '/general.php';
-		
-		if (file_exists($sf_general)) 
-		{
-			include ($sf_general);
-		}
-		if (file_exists($app_general)) 
-		{
-			include ($app_general);
-		}
-		
-		$this->safanoria = $safanoria;
+		$this->lang 	= isset($_SESSION['lang']) ? $_SESSION['lang'] : $this->default_lang;
+		// Attempt to get the lang variables
+		$this->_get_lang_files();
 	}
+
+	/**
+	 * 
+	 */
+	private function _get_lang_files()
+	{
+		$lang_dirs = array(
+				1 => ROOT. SYS . LANG,
+				2 => ROOT. APP . LANG
+			);
+
+		for ($i=1; $i < count($lang_dirs); $i++) 
+		{ 
+			if (file_exists($lang_dirs[$i].$this->lang)) 
+			{
+				require ($lang_dirs[$i].$this->lang.'/general.php');
+			}
+			else
+			{
+				if (file_exists($lang_dirs[$i].$this->default_lang)) 
+				{
+					require ($lang_dirs[$i].$this->default_lang.'/general.php');
+				}
+			}
+		}
+				
+		$this->safanoria = $safanoria;
+
+		if ( ! $this->safanoria) 
+		{
+			throw new Exception('We could not find the file for your current language. We are deeply sorry.');
+			
+		}
+	}
+
 	
 	/** 
 	 * Checks whether a global_message is stored in a session or not 
