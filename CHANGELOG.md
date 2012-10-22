@@ -2,6 +2,11 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
+##Version 0.5.3
+- Fixed bug that was causing methods with underscored names not to be validated
+- Checks if files were submitted prior to execute add_post_files
+- Improves error messaging on files submission
+
 ##Version 0.5.2
 - Custom routes can be defined to remap class/method requests
 - Fixed some issues that were throwing a warning
