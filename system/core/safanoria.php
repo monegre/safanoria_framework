@@ -6,7 +6,7 @@
 
 class Safanoria 
 {	
-	public $version = "0.5.3";
+	public $version = "0.5.4";
 	public $active_record = "1.0";
 	
 	/**
