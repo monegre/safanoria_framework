@@ -13,12 +13,12 @@ $config['underscore_routes'] = TRUE;
 $config['display_errors'] = TRUE;
 
 /** Database settings */
-define ('DB_NAME', 'guadalupe'); // Database name
+define ('DB_NAME', 'safanoria-pro'); // Database name
 define ('DB_USER', 'root'); // Database user
 define ('DB_PASS', 'root'); // Database pass
 define ('DB_HOST', 'localhost'); // Database host
 define ('DB_CHARSET', 'utf8'); // Character encoding
-define ('DB_DSN', 'mysql:host=localhost;dbname=guadalupe'); // If you're ever using a rough PDO connection
+define ('DB_DSN', 'mysql:host=localhost;dbname=safanoria-pro'); // If you're ever using a rough PDO connection
 define ('DB_TABLE_PREFIX', '[db_table_prefix]'); // Tables prefix
  
 

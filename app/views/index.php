@@ -1,2 +1,0 @@
-<p>Tras una crisis personal, en la que la muerte de mi padre tuvo un papel importante, empecé un trabajo de crecimiento personal que me llevó a conocer la terapia Gestalt primero como paciente y más adelante como terapeuta. He trabajado acompañando procesos personales desde diversas instituciones públicas y privadas. Mi experiencia ha pasado por varios grupos sociales (drogodependientes, inmigrantes, mujeres maltratadas) y diferentes grupos de edad (bebés, niños, adolescentes y adultos).</p>
-<img src="/public/resources/app/img/guadalupe.png" alt="" />
