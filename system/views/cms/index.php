@@ -1,4 +1,10 @@
-<h3>Benviguts a Safanòria!</h3>
-<p>El primer pas per gestionar el teu web és crear les seccions de que es composarà.</p>
-<p>Això es l'index.</p>
+<div class="hero-unit">
+  <h1>Benviguts a Safanòria!</h1>
+  <p>El primer pas per gestionar el teu web és crear les seccions de que es composarà.</p>
+  <p>
+    <a class="btn">
+      Som-hi!
+    </a>
+  </p>
+</div>
 

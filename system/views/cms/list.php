@@ -22,6 +22,4 @@
 
 <?php endif; ?>
 
-<ul id="actions">
-	<li><a href="<?php echo $this->current['new_item']; ?>" class="button">Nova publicació</a></li>
-</ul>
+<a href="<?php echo $this->current['new_item']; ?>" class="btn btn-primary btn-large">Nova publicació</a>

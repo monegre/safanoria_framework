@@ -7,11 +7,18 @@
 		<meta name="robots" content="noindex, nofollow, noarchive" />		
 		<meta name="viewport" content="width=device-width; initial-scale=1.0;" />
 		
-		<!-- css -->	
+		<!-- css 	
 		<link rel="stylesheet" type="text/css" media="screen, handheld" href="/public/resources/admin/css/basic.css" />
 		<link rel="stylesheet" type="text/css" href="/public/resources/admin/css/mobile.css" media="only screen and (min-width: 320px) and (max-width: 800px)" />
 		<link rel="stylesheet" type="text/css" href="/public/resources/admin/css/desktop.css" media="only screen and (min-width: 800px)" />
-		
+		-->
+
+		<link rel="stylesheet" type="text/css" media="screen, handheld" href="/public/resources/admin/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" media="screen, handheld" href="/public/resources/admin/css/bootstrap-responsive.css" />
+
+		<link rel="stylesheet" type="text/css" media="screen, handheld" href="/public/resources/admin/css/basic.css" />
+
+
 		<!-- Tiny MCE script -->
 		<script type="text/javascript" src="/public/resources/admin/js/tiny_mce/tiny_mce.js"></script>
 		<script type="text/javascript">
@@ -26,48 +33,45 @@
 		<!-- /Tiny MCE script -->
 	</head>
 	<body>
+		<header>
+			<nav class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div id="wrapper">
+						<a class="brand" href="/">My Website</a>
+						<ul class="nav">
+							<li class="dropdown">
+								<a href="<?php echo $this->cms->url['publish']; ?>" class="dropdown-toggle" data-toggle="dropdown">
+									Publicar
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li <?php echo $this->is_current('add-section', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-section']; ?>">Seccions</a></li>
+									<li <?php echo $this->is_current('add-post', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-post']; ?>">Posts</a></li>
+									<li <?php echo $this->is_current('add-category', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-category']; ?>">Categories</a></li>
+									<li <?php echo $this->is_current('add-media', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-media']; ?>">Media</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="<?php echo $this->cms->url['edit']; ?>" class="dropdown-toggle" data-toggle="dropdown">
+									Editar
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li <?php echo $this->is_current('sections', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['sections']; ?>">Seccions</a></li>
+									<li <?php echo $this->is_current('posts', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['posts']; ?>">Posts</a></li>
+									<li <?php echo $this->is_current('categories', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['categories']; ?>">Categories</a></li>
+									<li <?php echo $this->is_current('media', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['media']; ?>">Media</a></li>
+								</ul>
+							</li>
+							<li <?php echo $this->is_current('trash', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['trash']; ?>">Trash</a></li>
+							<li><a href="">Hola <?php echo $this->administrator->html['first_name']; ?></a></li>
+							<li class="pull-right"><a href="<?php echo $this->cms->url['logout']; ?>"><?php echo $this->message('logout'); ?></a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>	
 		<div id="wrapper">
-			<head>
-				<nav role="top navigation">
-					<ul id="nav-top">
-						<li>Hola <?php echo $this->administrator->html['first_name']; ?></li>
-						<li><a href="<?php echo $this->cms->url['logout']; ?>"><?php echo $this->message('logout'); ?></a></li>
-					</ul>
-				</nav>
-				<nav role="primary navigation">
-					<ul id="nav-list" class="desktop clear">
-						<li <?php echo $this->is_current('publish', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['publish']; ?>">Publicar</a>
-							<ul class="dropdown">
-								<li <?php echo $this->is_current('add-section', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-section']; ?>">Seccions</a></li>
-								<li <?php echo $this->is_current('add-post', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-post']; ?>">Posts</a></li>
-								<li <?php echo $this->is_current('add-category', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-category']; ?>">Categories</a></li>
-								<li <?php echo $this->is_current('add-media', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['add-media']; ?>">Media</a></li>
-							</ul>
-						</li>
-						<li <?php echo $this->is_current('edit', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['edit']; ?>">Editar</a>
-							<ul class="dropdown">
-								<li <?php echo $this->is_current('sections', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['sections']; ?>">Seccions</a></li>
-								<li <?php echo $this->is_current('posts', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['posts']; ?>">Posts</a></li>
-								<li <?php echo $this->is_current('categories', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['categories']; ?>">Categories</a></li>
-								<li <?php echo $this->is_current('media', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['media']; ?>">Media</a></li>
-							</ul>
-						</li>
-						<li <?php echo $this->is_current('trash', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['trash']; ?>">Trash</a></li>
-					</ul>
-					
-					<form id="nav-select" class="basic mobile" method="post" action="">
-						<select name="nav-select" class="nav-select">
-							<option selected="selected">Menú</option>
-							<option value="<?php echo $this->cms->url['sections']; ?>">Seccions</option>
-							<option value="<?php echo $this->cms->url['posts']; ?>">Posts</option>
-							<option value="<?php echo $this->cms->url['categories']; ?>">Categories</option>
-							<option value="<?php echo $this->cms->url['media']; ?>">Media</option>
-						</select>
-						<input type="submit" name="submit-nav" id="submit-nav" value="Ves" />
-					</form>
-					
-				</nav>	
-			</head>
 			<div id="page">
 				<p class="admin_located">
 					<a href="<?php echo $this->cms->url['index']; ?>">home</a>
