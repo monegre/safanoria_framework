@@ -39,6 +39,7 @@
 					<div id="wrapper">
 						<a class="brand" href="/">My Website</a>
 						<ul class="nav">
+							<?php if(count(Section::all()) > 0): ?>
 							<li class="dropdown">
 								<a href="<?php echo $this->cms->url['publish']; ?>" class="dropdown-toggle" data-toggle="dropdown">
 									Publicar
@@ -64,6 +65,8 @@
 								</ul>
 							</li>
 							<li <?php echo $this->is_current('trash', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['trash']; ?>">Trash</a></li>
+							
+							<?php endif; ?>
 							<li><a href="">Hola <?php echo $this->administrator->html['first_name']; ?></a></li>
 							<li class="pull-right"><a href="<?php echo $this->cms->url['logout']; ?>"><?php echo $this->message('logout'); ?></a></li>
 						</ul>
