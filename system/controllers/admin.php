@@ -28,9 +28,17 @@ class Admin extends SF_Controller
 		*/
 		$this->query[0] = isset($this->query[0]) && !empty($this->query[0]) ? $this->query[0] : 'index';
 		
+		$this->current['page'] = 'index';
+		$this->current['menu'] = TRUE;
+		
 		if ( ! Admin_user::is_logged()) 
 		{
 			return $this->login();
+		}
+		// Sections must be crated first
+		if (count(Section::all() === 0 )) 
+		{
+			return $this->index();	
 		}
 		
 		if (method_exists($this, $method)) 
@@ -45,9 +53,12 @@ class Admin extends SF_Controller
 	 * 
 	 */
 	private function index($query=null) 
-	{		
+	{	
 		// We want users to create sections first
-		if (0 == Section::all(array('lang'=>$this->administrator->clean['lang']))) 
+		$list = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
+		$this->current['new_item'] = $this->cms->url['add-section'];
+		
+		if( count($list) === 0 )
 		{
 			require $this->view('_header', 'cms');
 			require $this->view('index', 'cms');
