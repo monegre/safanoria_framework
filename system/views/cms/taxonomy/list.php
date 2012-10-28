@@ -1,9 +1,3 @@
-<?php if( ! isset($list) OR empty($list)): ?>
-
-<p>Actualment no hi ha cap contingut d'aquesta classe. Vols crear el primer?</p>
-
-<?php else: ?>
-
 <ul class="dashboard-list">
 	<?php foreach ($list as $item): ?>
 	<li class="clear <?php echo isset($item->status) ? $item->status : ''; ?>">
@@ -27,7 +21,6 @@
 	<?php endforeach; ?>
 </ul>
 
-<?php endif; ?>
-
-<a href="<?php echo $this->current['new_item']; ?>" class="btn btn-primary btn-large">Nova publicació</a>
-
+<a href="<?php echo $this->current['new_item']; ?>" class="btn btn-primary btn-large">
+	Nova publicació
+</a>
