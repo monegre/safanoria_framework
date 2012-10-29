@@ -17,6 +17,13 @@
 		<link rel="stylesheet" type="text/css" media="screen, handheld" href="/public/resources/admin/css/bootstrap-responsive.css" />
 
 		<link rel="stylesheet" type="text/css" media="screen, handheld" href="/public/resources/admin/css/basic.css" />
+		
+		<!-- Bootstrap Image Gallery styles -->
+		<link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
+		<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+		<link rel="stylesheet" href="/public/resources/admin/css/jquery.fileupload-ui.css">
+		<!-- CSS adjustments for browsers with JavaScript disabled
+		<noscript><link rel="stylesheet" href="/public/resources/admin/css/jquery.fileupload-ui-noscript.css"></noscript> -->
 
 
 		<!-- Tiny MCE script -->
@@ -83,7 +90,8 @@
 				</p>
 				<h1><?php echo $this->current['page_title']; ?></h1>
 				<?php if($this->messenger->got_global_message()): ?>
-					<div id="global-message" class="<?php echo $this->messenger->message_class(); ?>">
-						<p><?php echo $this->messenger->global_message($this->administrator->clean['lang']); ?></p>
+					<div id="global-message" class="alert <?php echo $this->messenger->message_class(); ?>">
+						<?php echo $this->messenger->global_message($this->administrator->clean['lang']); ?>
+						<button type="button" class="close" data-dismiss="alert">×</button>
 					</div>
 				<?php endif; ?>

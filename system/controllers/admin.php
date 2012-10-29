@@ -36,7 +36,8 @@ class Admin extends SF_Controller
 			return $this->login();
 		}
 		// Sections must be crated first
-		if (count(Section::all() === 0 )) 
+		if ( count(Section::all()) === 0
+			 && '/admin/'.$method.'/'.$query[0] != $this->cms->url['add-section']) 
 		{
 			return $this->index();	
 		}
