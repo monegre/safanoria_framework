@@ -35,55 +35,59 @@ else
  	define('ROOT', dirname(dirname(__FILE__)) . '/');
 
 /** Store first level directories */
-define ('APP'		, 'app');
-define ('CONFIG'	, 'config');
-define ('DB'		, 'db');
-define ('DOC'		, 'doc');
-define ('PUB'		, 'public');
-define ('SYS'		, 'system');
+define ('APP'		, 'app/');
+define ('CONFIG'	, 'config/');
+define ('DB'		, 'db/');
+//define ('DOC'		, 'doc/');
+define ('LIB'		, 'lib/');
+define ('PUB'		, 'public/');
 
 /** Store second level directories */
-define ('CLASSES'	, '/classes/');
-define ('CONTROLS'	, '/controllers/');
-define ('CORE'		, '/core/');
-define ('DATABASE'	, '/database/');
-define ('FALLS'		, '/fallbacks/');
-define ('HELPS'		, '/helpers/');
-define ('LANG'		, '/langs/');
-define ('LIBS'		, '/libraries/');
-define ('MODELS'	, '/models/');
-define ('MODULES'	, '/modules/');
-define ('VIEWS'		, '/views/');
+define ('AR'		, 'active_record/');
+define ('CMS'		, 'cms/');
+define ('SYS'		, 'safanoria/');
+
+/** Store third level directories */
+define ('CLASSES'	, 'classes/');
+define ('CONTROLS'	, 'controllers/');
+define ('CORE'		, 'core/');
+//define ('FALLS'		, 'fallbacks/');
+define ('HELPS'		, 'helpers/');
+define ('LANG'		, 'langs/');
+define ('LIBS'		, 'libraries/');
+define ('MODELS'	, 'models/');
+define ('MODULES'	, 'modules/');
+define ('VIEWS'		, 'views/');
 
 /** Include URLs for global usage */
-require ( ROOT . CONFIG . '/url.php');
-require ( ROOT . SYS . LIBS . 'memory.php');
+require ( ROOT . CONFIG . 'url.php');
+require ( ROOT . LIB . SYS . LIBS . 'memory.php');
 
 /** Include global functions */
-require ( ROOT . SYS . HELPS . 'setters.php');
-require ( ROOT . SYS . HELPS . 'filter.php');
-require ( ROOT . SYS . HELPS . 'escape.php');
-require ( ROOT . SYS . HELPS . 'clean.php');
-require ( ROOT . SYS . CORE . 'functions.php');
+require ( ROOT . LIB . SYS . HELPS . 'setters.php');
+require ( ROOT . LIB . SYS . HELPS . 'filter.php');
+require ( ROOT . LIB . SYS . HELPS . 'escape.php');
+require ( ROOT . LIB . SYS . HELPS . 'clean.php');
+require ( ROOT . LIB . SYS . CORE . 'functions.php');
 
 /** Include core classes */
-require ( ROOT . SYS . CORE . 'safanoria.php');
-require ( ROOT . SYS . CORE . 'controller.php');
+require ( ROOT . LIB . SYS . CORE . 'safanoria.php');
+require ( ROOT . LIB . SYS . CORE . 'controller.php');
 
 /** Include Active Record files */
-require ( ROOT . SYS . DATABASE . 'Singleton.php');
-require ( ROOT . SYS . DATABASE . 'Config.php');
-require ( ROOT . SYS . DATABASE . 'Utils.php');
-require ( ROOT . SYS . DATABASE . 'DateTime.php');
-require ( ROOT . SYS . DATABASE . 'Model.php');
-require ( ROOT . SYS . DATABASE . 'Table.php');
-require ( ROOT . SYS . DATABASE . 'ConnectionManager.php');
-require ( ROOT . SYS . DATABASE . 'Connection.php');
-require ( ROOT . SYS . DATABASE . 'SQLBuilder.php');
-require ( ROOT . SYS . DATABASE . 'Reflections.php');
-require ( ROOT . SYS . DATABASE . 'Inflector.php');
-require ( ROOT . SYS . DATABASE . 'CallBack.php');
-require ( ROOT . SYS . DATABASE . 'Exceptions.php');
+require ( ROOT . LIB . AR . 'Singleton.php');
+require ( ROOT . LIB . AR . 'Config.php');
+require ( ROOT . LIB . AR . 'Utils.php');
+require ( ROOT . LIB . AR . 'DateTime.php');
+require ( ROOT . LIB . AR . 'Model.php');
+require ( ROOT . LIB . AR . 'Table.php');
+require ( ROOT . LIB . AR . 'ConnectionManager.php');
+require ( ROOT . LIB . AR . 'Connection.php');
+require ( ROOT . LIB . AR . 'SQLBuilder.php');
+require ( ROOT . LIB . AR . 'Reflections.php');
+require ( ROOT . LIB . AR . 'Inflector.php');
+require ( ROOT . LIB . AR . 'CallBack.php');
+require ( ROOT . LIB . AR . 'Exceptions.php');
 
 spl_autoload_register('__autoload');
 
