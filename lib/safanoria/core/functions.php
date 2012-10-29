@@ -101,7 +101,7 @@ function &get_instance() {
  */
 function show_404($file='404') {
 	$views = ROOT . APP . VIEWS;
-	$falls = ROOT . SYS . VIEWS;
+	$falls = ROOT . LIB . CMS . VIEWS;
 	$ext = ".php";
 
 	$n_file = isset($folder) ? clean_path($folder) . '/' : false;
