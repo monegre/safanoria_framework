@@ -5,7 +5,7 @@
  * @subpackage Admin
  */
 
-class Categories extends SF_Controller
+class Categories extends Controller
 {
 	/**
 	 * 

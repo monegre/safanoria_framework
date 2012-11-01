@@ -5,7 +5,7 @@
  * @subpackage Admin
  */
 
-class Admin extends SF_Controller
+class Admin extends Controller
 {
 	/**
 	 * 
@@ -21,7 +21,7 @@ class Admin extends SF_Controller
 	function __construct($method, $query=array()) 
 	{
 		parent::__construct();
-		
+		$this->cms = $this->load_class('cms', 'lib/cms/core');
 		$this->query = $query;
 		/* Empty queries are set to 'index' for convenience, 
 			so invalid URLs like method/an-invalid-action can return an error page as a default case
@@ -56,14 +56,14 @@ class Admin extends SF_Controller
 	private function index($query=null) 
 	{	
 		// We want users to create sections first
-		$list = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
+		$list = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
 		$this->current['new_item'] = $this->cms->url['add-section'];
 		
 		if( count($list) === 0 )
 		{
-			require $this->view('_header', 'cms');
-			require $this->view('index', 'cms');
-			require $this->view('_footer', 'cms');
+			require $this->load->view('_header', 'views', 'lib/cms');
+			require $this->load->view('index', 'views', 'lib/cms');
+			require $this->load->view('_footer', 'views', 'lib/cms');
 		}
 		else 
 		{
@@ -80,9 +80,9 @@ class Admin extends SF_Controller
 		if (0 == Section::all(array('lang'=>$this->administrator->clean['lang']))) 
 		{
 			$this->current['page_title'] = "Publica";
-			require $this->view('_header', 'cms');
-			require $this->view('index', 'cms');
-			require $this->view('_footer', 'cms');
+			require $this->load->view('_header', 'cms');
+			require $this->load->view('index', 'cms');
+			require $this->load->view('_footer', 'cms');
 		}
 		else 
 		{
@@ -99,9 +99,9 @@ class Admin extends SF_Controller
 		if (0 == Section::all(array('lang'=>$this->administrator->clean['lang']))) 
 		{
 			$this->current['page_title'] = "Publica";
-			require $this->view('_header', 'cms');
-			require $this->view('index', 'cms');
-			require $this->view('_footer', 'cms');
+			require $this->load->view('_header', 'cms');
+			require $this->load->view('index', 'cms');
+			require $this->load->view('_footer', 'cms');
 		}
 		else 
 		{
@@ -123,9 +123,9 @@ class Admin extends SF_Controller
 					$list = Post::all(array('status'=>'trash', 'lang'=>$this->administrator->clean['lang']));
 					$this->current['new_item'] = $this->cms->url['add-post'];
 					$this->current['page'] = 'trash';
-					require $this->view('_header', 'cms');
-					require $this->view('trash', 'cms');
-					require $this->view('_footer', 'cms');
+					require $this->load->view('_header', 'cms');
+					require $this->load->view('trash', 'cms');
+					require $this->load->view('_footer', 'cms');
 					break;
 			}
 		}
@@ -162,7 +162,7 @@ class Admin extends SF_Controller
 			}
 			else 
 			{
-				require $this->view('login', 'cms');
+				require $this->load->view('login');
 			}	
 		}
 	}

@@ -30,6 +30,6 @@
 				<!--<p><a href="#">Forgot your password?</a></p>-->
 			</form>
 		</div>
-		<p class="copyright">Safanòria CMS © 2012 | <?php echo $this->cms->version(); ?></p>
+		<p class="copyright">Safanòria CMS © 2012 | <?php echo $this->version(); ?></p>
 	</body>
 </html>

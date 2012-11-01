@@ -29,15 +29,15 @@ class Messenger
 	private function _get_lang_files()
 	{
 		$lang_dirs = array(
-				1 => ROOT. SYS . LANG,
-				2 => ROOT. APP . LANG
+				1 => ROOT.LIB.SYS.LANG,
+				2 => ROOT.APP.LANG
 			);
 
 		foreach ($lang_dirs as $dir) 
 		{
 			if (file_exists($dir.$this->lang)) 
 			{
-				@include ($dir.'/'.$this->lang.'/general.php');
+				@include ($dir.$this->lang.'/general.php');
 			}
 			else
 			{

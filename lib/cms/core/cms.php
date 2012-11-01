@@ -60,16 +60,21 @@ class Cms extends Safanoria
 	function __construct() 
 	{
 		$SF =& get_instance();
-		$this->lang = $SF->lang;		
 		$this->security = $SF->security;
 		$this->upload = $SF->upload;
-		$this->administrator = $SF->administrator;
+		//$this->administrator = $SF->administrator;
 		// Load Image processing class
-		$this->image = $this->load_class('image', 'system/libraries');
+		//$this->image = $this->load_class('image', LIB.SYS.LIBS);
+		
+		$this->lang = $this->load_class('lang', LIB.CMS.MODELS);
+		$this->administrator = $this->load_class('admin_user', LIB.CMS.MODELS);
+		// $this->url = $this->load_class('url', LIB.SYS.LIBS);
+		// $this->error = $this->load_class('error', LIB.SYS.CORE);
+		
 		// Load database manually
 		// This should be improved in futre versions
-		$this->DB = $this->load_class('database', 'system/core');
-		$this->DB = $this->DB->connect();	
+		$this->DB = $this->load_class('database', LIB.SYS.CORE);
+		$this->DB = $this->DB->connect();
 	}
 	
 	/**
@@ -533,14 +538,5 @@ class Cms extends Safanoria
 			return '/'.$lang.'/'.$path;
 		}
 		exit('The language you requested is not available');
-	}
-	
-	/**
-	 * Returns this library version, 
-	 * as defined at the top of this document
-	 */
-	public function version() 
-	{
-		return $this->version;	
 	}
 }

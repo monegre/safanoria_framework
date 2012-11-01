@@ -43,15 +43,15 @@ class Safanoria
 		self::$instance =& $this;
 		
 		// Manually load classes
-		$this->lang = $this->load_class('lang', 'system/models');
-		$this->messenger = $this->load_class('messenger', 'system/core');
-		$this->security = $this->load_class('security', 'system/core');
-		$this->performance = $this->load_class('performance', 'system/core');
-		$this->upload = $this->load_class('upload', 'system/libraries');		
-		$this->administrator = $this->load_class('admin_user', 'system/models');
-		$this->url = $this->load_class('url', 'system/libraries');
-		$this->cms = $this->load_class('cms', 'system/libraries');
-		$this->error = $this->load_class('error', 'system/core');
+		$this->messenger = $this->load_class('messenger', LIB.SYS.CORE);
+		$this->security = $this->load_class('security', LIB.SYS.CORE);
+		$this->performance = $this->load_class('performance', LIB.SYS.CORE);
+		$this->load = $this->load_class('load', LIB.SYS.CORE);
+		$this->upload = $this->load_class('upload', LIB.SYS.LIBS);		
+		//$this->administrator = $this->load_class('admin_user', LIB.CMS.MODELS);
+		//$this->url = $this->load_class('url', LIB.SYS.LIBS);
+		//$this->cms = $this->load_class('cms', LIB.CMS.CORE);
+		//$this->error = $this->load_class('error', LIB.SYS.CORE);
 	}
 	
 	public static function &get_instance() {
@@ -64,6 +64,7 @@ class Safanoria
 	function load_class($class, $directory = 'models') 
 	{
 		static $_classes = array();
+		$class = strtolower($class);
 		
 		if (isset($_classes[$class])) 
 		{
@@ -72,20 +73,20 @@ class Safanoria
 		
 		$name = FALSE;
 		
-		$path = ROOT . $directory.'/';
-		
+		$path = ROOT.clean_path($directory).'/';
+				
 		if (file_exists($path.$class.'.php')) 
 		{
 			$name = ucfirst($class);
 			if (class_exists($name) === FALSE) 
 			{
-				require_once($path.$class.'.php');
+				require($path.$class.'.php');
 			}
 		}
 		
 		if ($name === FALSE) 
 		{
-			exit("Unable to locate the class $class at the directory $directory");
+			throw new Exception("Unable to load class {$class} at the directory {$directory}");
 		}
 		
 		$_classes[$class] = new $class();
@@ -101,33 +102,22 @@ class Safanoria
 	 * Please notice: $alternate is meant for forms that need to handle up to three different kinds of data: 
 	 * 		I.e: a new address form that shows $global['name'] by default, but that after submission needs to print $_POST['name'], and when retrieving from database for edition purposes needs to print $alternate['name']
 	 */
-	public function input_for($field, $global=null, $alternate=null) {
-	
-//		$clean = array();
-
-		// Post submitted => we want it
-		if ( isset($_POST[$field]) ) {
-			return h($_POST[$field]);
+	public function input_for($field, $global=null, $alternate=null) 
+	{
+		if ( isset($_POST[$field]) ) // Post submitted => we want it
+		{
+			return stripslashes(h($_POST[$field]));
 		}
-		
-		// $_POST not submited => try other options
-		else {
-			
-			/*
-				AIXÍ ELS INPUTS HAN D'ESTAR PASSATS PER VALOR.
-				SEMBLA UNA MANERA MOLT MÉS PRÀCTICA I MÉS AGNÒSTICA
-				QUE NO PAS LA QUE ESTÀ COMENTADA A BAIX
-			
-			*/
-			
+		else // Try other options 
+		{	
 			if ($alternate!=null) 
 			{
-				return h($alternate);
+				return stripslashes(h($alternate));
 			} 
 			elseif ( $global!=null ) 
 			{
 				
-				return h($global);
+				return stripslashes(h($global));
 			}
 			else 
 			{
@@ -187,29 +177,30 @@ class Safanoria
 	
 	/**
 	 * Checks wheteher a file exists and returns it, or an error page
+	 * @deprecated It now goes through Load class
 	 */
 	public static function view($file, $folder=null) 
 	{		
-		$views = ROOT . APP . VIEWS;
-		$falls = ROOT . SYS . VIEWS;
+		$app_views = ROOT.APP.VIEWS;
+		$defaults = ROOT.SYS.VIEWS;
 		$ext = ".php";
 
 		$n_file = isset($folder) ? clean_path($folder) . '/' : false;
 		$n_file .= $file.$ext;
 				
-		if (file_exists($views.$n_file)) 
+		if (file_exists($app_views.$n_file)) 
 		{
-			return $views.$n_file;
+			return $app_views.$n_file;
 		} 
 		else 
 		{	
-			if (file_exists($falls.$n_file)) 
+			if (file_exists($defaults.$n_file)) 
 			{ 
-				return ($falls.$n_file);
+				return ($defaults.$n_file);
 			}
 			else 
 			{
-				return ($falls . '404.php');
+				return ($defaults . '404.php');
 			}
 		}	
 	}

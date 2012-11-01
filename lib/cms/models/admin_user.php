@@ -122,7 +122,7 @@ class Admin_user extends Safanoria
 					  FROM {$this->table} 
 					  WHERE admin_id = '{$this->sql['admin_id']}'";
 			
-			$this->DB = $this->load_class('database', 'system/core');
+			$this->DB = $this->load_class('database', 'lib/safanoria/core');
 			$this->DB = $this->DB->connect();
 			$result = $this->DB->query($query);
 			

@@ -1,6 +1,6 @@
 <?php if (isset($_POST['nav-select'])) {header("Location: " . $_POST['nav-select']);} ?>
 <!doctype html>
-<html dir="ltr" lang="<?php echo $this->administrator->html['lang']; ?>">
+<html dir="ltr" lang="<?php echo $this->cms->administrator->html['lang']; ?>">
 	<head>
 		<meta charset="utf-8" />		
 		<title>Safanòria CMS<?php echo ' | ' . $this->current['page_title']; ?></title>
@@ -74,7 +74,7 @@
 							<li <?php echo $this->is_current('trash', array('class'=>'current')); ?>><a href="<?php echo $this->cms->url['trash']; ?>">Trash</a></li>
 							
 							<?php endif; ?>
-							<li><a href="">Hola <?php echo $this->administrator->html['first_name']; ?></a></li>
+							<li><a href="">Hola <?php echo $this->cms->administrator->html['first_name']; ?></a></li>
 							<li class="pull-right"><a href="<?php echo $this->cms->url['logout']; ?>"><?php echo $this->message('logout'); ?></a></li>
 						</ul>
 					</div>
@@ -91,7 +91,7 @@
 				<h1><?php echo $this->current['page_title']; ?></h1>
 				<?php if($this->messenger->got_global_message()): ?>
 					<div id="global-message" class="alert <?php echo $this->messenger->message_class(); ?>">
-						<?php echo $this->messenger->global_message($this->administrator->clean['lang']); ?>
+						<?php echo $this->messenger->global_message($this->cms->administrator->clean['lang']); ?>
 						<button type="button" class="close" data-dismiss="alert">×</button>
 					</div>
 				<?php endif; ?>

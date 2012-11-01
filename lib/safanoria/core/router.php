@@ -18,11 +18,17 @@ class Router
 	 */
 	function __construct($url)
 	{
-		$this->lang = new Lang;
+		global $config;
 
-		if ( ! session_id()) 
+		$this->config = $config;
+
+		if ($this->config['enable_database'] === TRUE) 
 		{
-			session_start();
+			$this->lang = new Lang;
+			if ( ! session_id()) 
+			{
+				session_start();
+			}
 		}
 
 		$this->url_parts = explode("/", clean_path($url));
@@ -43,8 +49,11 @@ class Router
 		unset($route);
 
 		// First deal with lang
-		$_SESSION['lang'] = $this->set_lang();
-		
+		if ($this->config['enable_database'] === TRUE) 
+		{
+			$_SESSION['lang'] = $this->set_lang();
+		}
+
 		// Is this a valid URL?		
 		$this->segments = $this->check_routes();
 		
@@ -89,7 +98,7 @@ class Router
 	{
 		// Is it a class (file)?
 		if ( isset($this->segments[0])
-			 && file_exists(ROOT.SYS.CONTROLS.$this->underscore($this->segments[0]).'.php')
+			 && file_exists(ROOT.LIB.CMS.CONTROLS.$this->underscore($this->segments[0]).'.php')
 			 OR file_exists(ROOT.APP.CONTROLS.$this->underscore($this->segments[0]).'.php'))
 		{
 			return $this->underscore(array_shift($this->segments));
@@ -99,7 +108,7 @@ class Router
 		{
 			return $this->routes['default_controller'];	
 		}
-		$error = new SF_Controller;
+		$error = new Controller;
 		return $error->show_404();
 	}
 
@@ -167,7 +176,7 @@ class Router
 		}
 		
 		// At this point, it'd be safer to display a 404
-		$error = new SF_Controller;
+		$error = new Controller;
 		return $error->show_404();
 	}
 

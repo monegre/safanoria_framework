@@ -5,7 +5,7 @@
  * @subpackage Admin
  */
 
-class Langs extends SF_Controller
+class Langs extends Controller
 {
 	/**
 	 * 

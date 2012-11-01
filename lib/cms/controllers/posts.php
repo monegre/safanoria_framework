@@ -5,7 +5,7 @@
  * @subpackage Admin
  */
 
-class Posts extends SF_Controller
+class Posts extends Controller
 {
 	/**
 	 * 

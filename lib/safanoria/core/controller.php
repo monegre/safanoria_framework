@@ -6,7 +6,7 @@
  * that can be overrided by the app's controllers.
  */
  
-class SF_Controller extends Safanoria
+class Controller extends Safanoria
 {
 	function __construct() 
 	{
@@ -40,7 +40,7 @@ class SF_Controller extends Safanoria
 			}
 		}
 		// No options left. Return the default 404 error.
-		require $this->view('404');
+		require $this->load->view('404');
 		exit;
 	}
 	
@@ -71,7 +71,7 @@ class SF_Controller extends Safanoria
 			}
 		}
 		// No options left. Return the default 404 error.
-		require $this->view('error');
+		require $this->load->view('error');
 		exit;
 	}
 }

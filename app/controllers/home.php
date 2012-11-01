@@ -7,7 +7,7 @@
  * It comes with customizable show_404() and error() methods.
  */
  
-class Home extends SF_Controller
+class Home extends Controller
 {
 	/**
 	 * 
@@ -23,7 +23,7 @@ class Home extends SF_Controller
 	 */
 	public function index() 
 	{
-		require $this->view('benvinguda');
+		require $this->load->view('benvinguda');
 	}
 
 	/**
@@ -33,7 +33,7 @@ class Home extends SF_Controller
 	 */
 	public function show_404() 
 	{
-		require $this->view('404');
+		require $this->load->view('404', 'error');
 		exit;
 	}
 
@@ -44,7 +44,7 @@ class Home extends SF_Controller
 	 */
 	public function error() 
 	{
-		require $this->view('error');
+		require $this->view('error', 'error');
 		exit;
 	}	
 }

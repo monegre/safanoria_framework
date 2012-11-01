@@ -5,7 +5,7 @@
  * @subpackage Admin
  */
 
-class Medias extends SF_Controller
+class Medias extends Controller
 {
 	/**
 	 * 

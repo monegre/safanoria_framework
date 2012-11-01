@@ -38,7 +38,6 @@ else
 define ('APP'		, 'app/');
 define ('CONFIG'	, 'config/');
 define ('DB'		, 'db/');
-//define ('DOC'		, 'doc/');
 define ('LIB'		, 'lib/');
 define ('PUB'		, 'public/');
 
@@ -51,7 +50,6 @@ define ('SYS'		, 'safanoria/');
 define ('CLASSES'	, 'classes/');
 define ('CONTROLS'	, 'controllers/');
 define ('CORE'		, 'core/');
-//define ('FALLS'		, 'fallbacks/');
 define ('HELPS'		, 'helpers/');
 define ('LANG'		, 'langs/');
 define ('LIBS'		, 'libraries/');
@@ -61,7 +59,8 @@ define ('VIEWS'		, 'views/');
 
 /** Include URLs for global usage */
 require ( ROOT . CONFIG . 'url.php');
-require ( ROOT . LIB . SYS . LIBS . 'memory.php');
+require ( ROOT . CONFIG . 'database.php');
+require ( ROOT . CONFIG . 'bootstrap.php');
 
 /** Include global functions */
 require ( ROOT . LIB . SYS . HELPS . 'setters.php');
@@ -70,30 +69,30 @@ require ( ROOT . LIB . SYS . HELPS . 'escape.php');
 require ( ROOT . LIB . SYS . HELPS . 'clean.php');
 require ( ROOT . LIB . SYS . CORE . 'functions.php');
 
-/** Include core classes */
-require ( ROOT . LIB . SYS . CORE . 'safanoria.php');
-require ( ROOT . LIB . SYS . CORE . 'controller.php');
-
-/** Include Active Record files */
-require ( ROOT . LIB . AR . 'Singleton.php');
-require ( ROOT . LIB . AR . 'Config.php');
-require ( ROOT . LIB . AR . 'Utils.php');
-require ( ROOT . LIB . AR . 'DateTime.php');
-require ( ROOT . LIB . AR . 'Model.php');
-require ( ROOT . LIB . AR . 'Table.php');
-require ( ROOT . LIB . AR . 'ConnectionManager.php');
-require ( ROOT . LIB . AR . 'Connection.php');
-require ( ROOT . LIB . AR . 'SQLBuilder.php');
-require ( ROOT . LIB . AR . 'Reflections.php');
-require ( ROOT . LIB . AR . 'Inflector.php');
-require ( ROOT . LIB . AR . 'CallBack.php');
-require ( ROOT . LIB . AR . 'Exceptions.php');
-
-spl_autoload_register('__autoload');
-
-ActiveRecord\Config::initialize(function($cfg)
+if($config['enable_database'] === TRUE)
 {
-	$cfg->set_model_directory(ROOT . APP . MODELS);
-	// $cfg->set_connections(array('development' => 'mysql://user:pass@localhost/mydb;charset=utf8'));
-	$cfg->set_connections(array('development' => 'mysql://'.DB_USER.':'.DB_PASS.'@'.DB_HOST.'/'.DB_NAME.';charset='.DB_CHARSET.''));
-});
+	/** Include Active Record files */
+	/** http://www.phpactiverecord.org/ */
+	require ( ROOT . LIB . AR . 'Singleton.php');
+	require ( ROOT . LIB . AR . 'Config.php');
+	require ( ROOT . LIB . AR . 'Utils.php');
+	require ( ROOT . LIB . AR . 'DateTime.php');
+	require ( ROOT . LIB . AR . 'Model.php');
+	require ( ROOT . LIB . AR . 'Table.php');
+	require ( ROOT . LIB . AR . 'ConnectionManager.php');
+	require ( ROOT . LIB . AR . 'Connection.php');
+	require ( ROOT . LIB . AR . 'SQLBuilder.php');
+	require ( ROOT . LIB . AR . 'Reflections.php');
+	require ( ROOT . LIB . AR . 'Inflector.php');
+	require ( ROOT . LIB . AR . 'CallBack.php');
+	require ( ROOT . LIB . AR . 'Exceptions.php');
+
+	spl_autoload_register('__autoload');
+
+	ActiveRecord\Config::initialize(function($cfg)
+	{
+		$cfg->set_model_directory(ROOT.APP.MODELS);
+		// $cfg->set_connections(array('development' => 'mysql://user:pass@localhost/mydb;charset=utf8'));
+		$cfg->set_connections(array('development' => 'mysql://'.DB_USER.':'.DB_PASS.'@'.DB_HOST.'/'.DB_NAME.';charset='.DB_CHARSET.''));
+	});	
+}

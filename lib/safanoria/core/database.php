@@ -1,14 +1,12 @@
 <?php 
 /**
- * Defines an array with table names
- * Connects to the database 
- *
- * @package
+ * Safanoria uses PHP ActiveRecord
+ * This is here just meanwhile we make a new user model
  */
 
 class Database 
 {
-	/** Array of table names */
+	// Array of table names
 	public $sf_table = array(
 		"admin" 					=> "sf_admin_users",
 		"product_images" 			=> "product_images",
