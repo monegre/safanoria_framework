@@ -21,7 +21,7 @@ class Categories extends Controller
 	function __construct($query=array()) 
 	{
 		parent::__construct();
-		
+		$this->cms = $this->load_class('cms', 'lib/cms/core');
 		$this->query = $query;
 		/* Empty queries are set to 'index' for convenience, 
 			so invalid URLs like method/an-invalid-action can return an error page as a default case
@@ -40,7 +40,7 @@ class Categories extends Controller
 		{
 			return $this->$method($this->query);
 		}
-		require $this->view('404');
+		require $this->load->view('404');
 	}
 	
 	/**
@@ -48,12 +48,12 @@ class Categories extends Controller
 	 */
 	private function index($query=null) 
 	{
-		$list = Category::all(array('lang'=>$this->administrator->clean['lang']));
+		$list = Category::all(array('lang'=>$this->cms->administrator->clean['lang']));
 		$this->current['new_item'] = $this->cms->url['add-category'];
 		
-		require $this->view('_header', 'cms');
-		require $this->view('list', 'cms');
-		require $this->view('_footer', 'cms');
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->layout('list', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 	
 	/**
@@ -74,10 +74,10 @@ class Categories extends Controller
 		$this->current['page_title'] = $this->cms->message('add_category');
 		$this->current['next_action'] = $this->cms->url['add-category'];
 		// Data
-		$langs = $this->lang->get_active();
-		require $this->view('_header', 'cms');
-		require $this->view('add', 'cms/taxonomy');
-		require $this->view('_footer', 'cms');
+		$langs = $this->cms->lang->get_active();
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('add', 'taxonomy', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 	
 	/**
@@ -100,9 +100,9 @@ class Categories extends Controller
 		$this->current['page_title'] = $this->cms->message('edit_category');
 		$this->current['next_action'] = $this->cms->url['edit-category'].'/'.$query[1];
 		
-		require $this->view('_header', 'cms');
-		require $this->view('edit', 'cms/taxonomy');
-		require $this->view('_footer', 'cms');
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('edit', 'taxonomy', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 	
 	/**

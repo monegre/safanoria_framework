@@ -11,7 +11,7 @@
 
 $config['underscore_routes'] = TRUE;
 $config['display_errors'] = TRUE;
-$config['enable_database'] = TRUE;
+$config['uses_database'] = TRUE;
 
 
 /** Configurations ends here. Go have a tea */

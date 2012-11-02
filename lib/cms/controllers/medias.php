@@ -21,7 +21,7 @@ class Medias extends Controller
 	function __construct($query=array()) 
 	{
 		parent::__construct();
-		
+		$this->cms = $this->load_class('cms', 'lib/cms/core');
 		$this->query = $query;
 		/* Empty queries are set to 'index' for convenience, 
 			so invalid URLs like method/an-invalid-action can return an error page as a default case
@@ -40,7 +40,7 @@ class Medias extends Controller
 		{
 			return $this->$method($this->query);
 		}
-		require $this->view('404');
+		require $this->load->view('404');
 	}
 	
 	/**
@@ -48,11 +48,11 @@ class Medias extends Controller
 	 */
 	private function index($query=null) 
 	{
-		$list = Media::all(array('lang'=>$this->administrator->clean['lang']));
+		$list = Media::all(array('lang'=>$this->cms->administrator->clean['lang']));
 		$this->current['new_item'] = $this->cms->url['add-media'];
-		require $this->view('_header', 'cms');
-		require $this->view('list', 'cms/media');
-		require $this->view('_footer', 'cms');
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('list', 'media', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 		$this->performance->free($list);
 	}
 	
@@ -74,7 +74,7 @@ class Medias extends Controller
 			if ($this->cms->add('media', $data)) 
 			{
 				// Load Image processing class
-				$this->image = $this->load_class('Image', 'system/libraries');
+				$this->image = $this->load_class('image', 'lib/safanoria/libraries');
 				// Process image
 				$this->image->load($data['file_name'], 'resources/uploads');
 				$this->image->resize_to_width(1000);
@@ -92,10 +92,10 @@ class Medias extends Controller
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('add_media');
 		// Data
-		$langs = $this->lang->get_active();				
-		require $this->view('_header', 'cms');
-		require $this->view('add', 'cms/media');
-		require $this->view('_footer', 'cms');
+		$langs = $this->cms->lang->get_active();				
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('add', 'media', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 	
 	/**
@@ -118,9 +118,9 @@ class Medias extends Controller
 		$this->current['page_title'] = $this->cms->message('edit_media');
 		$this->current['is_edit'] = TRUE;
 		$this->current['next_action'] = $this->cms->url['edit-media'].'/'.$query[1];
-		require $this->view('_header', 'cms');
-		require $this->view('edit', 'cms/media');
-		require $this->view('_footer', 'cms');
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('edit', 'media', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 	
 	/**

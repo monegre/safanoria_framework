@@ -61,9 +61,9 @@ class Admin extends Controller
 		
 		if( count($list) === 0 )
 		{
-			require $this->load->view('_header', 'views', 'lib/cms');
-			require $this->load->view('index', 'views', 'lib/cms');
-			require $this->load->view('_footer', 'views', 'lib/cms');
+			require $this->load->layout('header', 'lib/cms');
+			require $this->load->view('index', null, 'lib/cms');
+			require $this->load->layout('footer', 'lib/cms');
 		}
 		else 
 		{
@@ -80,9 +80,9 @@ class Admin extends Controller
 		if (0 == Section::all(array('lang'=>$this->administrator->clean['lang']))) 
 		{
 			$this->current['page_title'] = "Publica";
-			require $this->load->view('_header', 'cms');
-			require $this->load->view('index', 'cms');
-			require $this->load->view('_footer', 'cms');
+			require $this->load->view('header', null,  'lib/cms');
+			require $this->load->view('index', null, 'lib/cms');
+			require $this->load->view('footer', 'layouts',  'lib/cms');
 		}
 		else 
 		{
@@ -99,9 +99,9 @@ class Admin extends Controller
 		if (0 == Section::all(array('lang'=>$this->administrator->clean['lang']))) 
 		{
 			$this->current['page_title'] = "Publica";
-			require $this->load->view('_header', 'cms');
-			require $this->load->view('index', 'cms');
-			require $this->load->view('_footer', 'cms');
+			require $this->load->view('header', null,  'lib/cms');
+			require $this->load->view('index', null, 'lib/cms');
+			require $this->load->view('footer', 'layouts',  'lib/cms');
 		}
 		else 
 		{
@@ -120,12 +120,12 @@ class Admin extends Controller
 			switch ($query[0]) 
 			{ 
 				case 'index':
-					$list = Post::all(array('status'=>'trash', 'lang'=>$this->administrator->clean['lang']));
+					$list = Post::all(array('status'=>'trash', 'lang'=>$this->cms->administrator->clean['lang']));
 					$this->current['new_item'] = $this->cms->url['add-post'];
 					$this->current['page'] = 'trash';
-					require $this->load->view('_header', 'cms');
-					require $this->load->view('trash', 'cms');
-					require $this->load->view('_footer', 'cms');
+					require $this->load->layout('header', 'lib/cms');
+					require $this->load->view('trash', null, 'lib/cms');
+					require $this->load->layout('footer', 'lib/cms');
 					break;
 			}
 		}
@@ -162,7 +162,7 @@ class Admin extends Controller
 			}
 			else 
 			{
-				require $this->load->view('login');
+				require $this->load->view('login', null, 'lib/cms');
 			}	
 		}
 	}

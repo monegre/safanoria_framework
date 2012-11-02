@@ -21,7 +21,7 @@ class Langs extends Controller
 	function __construct($query=array()) 
 	{
 		parent::__construct();
-		
+		$this->cms = $this->load_class('cms', 'lib/cms/core');
 		$this->query = $query;
 		/* Empty queries are set to 'index' for convenience, 
 			so invalid URLs like method/an-invalid-action can return an error page as a default case
@@ -50,7 +50,7 @@ class Langs extends Controller
 	{
 		if ($this->post_has_token()) 
 		{
-			$langs = $this->lang->get_list();
+			$langs = $this->cms->lang->get_list();
 			
 			foreach ($langs as $code => $name) 
 			{
@@ -75,10 +75,10 @@ class Langs extends Controller
 		$this->current['page_title'] = $this->cms->message('add_lang');
 		$this->current['next_action'] = $this->cms->url['add_lang'];
 		// Fields
-		$langs = $this->lang->get_list();
+		$langs = $this->cms->lang->get_list();
 		
-		require $this->view('_header', 'cms');
-		require $this->view('add', 'cms/langs');
-		require $this->view('_footer', 'cms');
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('add', 'langs', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 }

@@ -12,14 +12,6 @@ class Lang extends ActiveRecord\Model
 //	public function __construct() 
 //	{
 //		
-//		
-//		
-//		$this->nav = array(
-//							 	'id' => '1',
-//							 	'name' => 'català',
-//							 	'code' => 'ca',
-//							 	'regional' => 'es_ca',
-//							 );
 //	}
 	
 	/**

@@ -209,7 +209,7 @@
 				<select name="section" id="section"> 
 					<?php foreach($sections as $section): ?>
 						<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
-						<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->administrator->clean['lang'])); ?>
+						<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->cms->administrator->clean['lang'])); ?>
 						<?php foreach ($sublists as $sublist): ?>
 							<option value="<?php echo $sublist->identifier; ?>">– <?php echo $sublist->title; ?></option>
 						<?php endforeach; ?>
@@ -225,7 +225,7 @@
 						
 				<label for="author"><?php echo $this->cms->message('author'); ?></label>
 					<div class="form_error"><?php echo $this->cms->error_for('author'); ?></div>
-					<input type="text" name="author" id="author" value="<?php echo $this->cms->input_for('author', $this->administrator->html['username']); ?>" />
+					<input type="text" name="author" id="author" value="<?php echo $this->cms->input_for('author', $this->cms->administrator->html['username']); ?>" />
 				
 				<label for="status"><?php echo $this->cms->message('status'); ?></label>
 				<select name="status" id="status">

@@ -3,7 +3,7 @@
 <!-- Un dallonses per cada idioma -->
 <?php foreach($list as $item): ?>
 	<fieldset class="lang-fieldset">	
-		<legend><?php echo $this->lang->get_name($item->lang); ?></legend>
+		<legend><?php echo $this->cms->lang->get_name($item->lang); ?></legend>
 		
 		<div class="<?php echo $this->cms->error_class('title_'.$item->lang.''); ?>">
 			<label for="title_<?php echo $item->lang; ?>">Nom</label>

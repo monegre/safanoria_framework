@@ -3,7 +3,7 @@
 <!-- Camps per idioma -->
 <?php foreach($list as $item): ?>
 	<fieldset class="lang-fieldset">
-		<legend><?php echo $this->lang->get_name($item->lang); ?></legend>
+		<legend><?php echo $this->cms->lang->get_name($item->lang); ?></legend>
 		
 		<label for="title_<?php echo $item->lang; ?>"><?php echo $this->cms->message('title'); ?></label>
 			<div class="form_error"><?php echo $this->cms->error_for('title'); ?></div>
@@ -30,7 +30,7 @@
 			<option value="<?php echo $item->section; ?>"><?php echo $item->section; ?></option>
 			<?php foreach($sections as $section): ?>
 				<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
-				<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->administrator->clean['lang'])); ?>
+				<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->cms->administrator->clean['lang'])); ?>
 				<?php foreach ($sublists as $sublist): ?>
 					<option value="<?php echo $sublist->identifier; ?>">– <?php echo $sublist->title; ?></option>
 				<?php endforeach; ?>

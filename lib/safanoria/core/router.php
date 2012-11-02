@@ -22,7 +22,7 @@ class Router
 
 		$this->config = $config;
 
-		if ($this->config['enable_database'] === TRUE) 
+		if ($this->config['uses_database'] === TRUE) 
 		{
 			$this->lang = new Lang;
 			if ( ! session_id()) 
@@ -49,7 +49,7 @@ class Router
 		unset($route);
 
 		// First deal with lang
-		if ($this->config['enable_database'] === TRUE) 
+		if ($this->config['uses_database'] === TRUE) 
 		{
 			$_SESSION['lang'] = $this->set_lang();
 		}
@@ -128,7 +128,7 @@ class Router
 		// Are any other of the segments controllers?
 		for ($i = 0; $i < count($to_validate); $i++) 
 		{
-			if ( file_exists(ROOT.SYS.CONTROLS.$this->underscore($to_validate[$i]).'.php')
+			if ( file_exists(ROOT.LIB.CMS.CONTROLS.$this->underscore($to_validate[$i]).'.php')
 				 OR file_exists(ROOT.APP.CONTROLS.$this->underscore($to_validate[$i]).'.php'))
 			{
 				$validated['class'][] = $to_validate[$i];

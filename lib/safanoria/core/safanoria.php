@@ -48,10 +48,6 @@ class Safanoria
 		$this->performance = $this->load_class('performance', LIB.SYS.CORE);
 		$this->load = $this->load_class('load', LIB.SYS.CORE);
 		$this->upload = $this->load_class('upload', LIB.SYS.LIBS);		
-		//$this->administrator = $this->load_class('admin_user', LIB.CMS.MODELS);
-		//$this->url = $this->load_class('url', LIB.SYS.LIBS);
-		//$this->cms = $this->load_class('cms', LIB.CMS.CORE);
-		//$this->error = $this->load_class('error', LIB.SYS.CORE);
 	}
 	
 	public static function &get_instance() {

@@ -21,7 +21,7 @@ class Posts extends Controller
 	function __construct($query=array()) 
 	{
 		parent::__construct();
-		
+		$this->cms = $this->load_class('cms', 'lib/cms/core');
 		$this->query = $query;
 		/* Empty queries are set to 'index' for convenience, 
 			so invalid URLs like method/an-invalid-action can return an error page as a default case
@@ -48,11 +48,11 @@ class Posts extends Controller
 	 */
 	private function index($query=null) 
 	{
-		$list = Post::all(array('lang'=>$this->administrator->clean['lang']));
+		$list = Post::all(array('lang'=>$this->cms->administrator->clean['lang']));
 		$this->current['new_item'] = $this->cms->url['add-post'];
-		require $this->view('_header', 'cms');
-		require $this->view('list', 'cms');
-		require $this->view('_footer', 'cms');
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->layout('list', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 	
 	/**
@@ -83,12 +83,12 @@ class Posts extends Controller
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('add_post');					
 		// Data
-		$sections = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
-		$langs = $this->lang->get_active();
-		$cats = Category::all(array('lang'=>$this->administrator->clean['lang']));
-		require $this->view('_header', 'cms');
-		require $this->view('add', 'cms/posts');
-		require $this->view('_footer', 'cms');	
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
+		$langs = $this->cms->lang->get_active();
+		$cats = Category::all(array('lang'=>$this->cms->administrator->clean['lang']));
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('add', 'posts', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');	
 	}
 	
 	/**
@@ -116,17 +116,17 @@ class Posts extends Controller
 		}
 		// Data
 		$list = Post::all(array('identifier'=>$query[1]));
-		$sections = Section::all(array('parent'=>0,'lang'=>$this->administrator->clean['lang']));
-		$cats = Category::all(array('lang'=>$this->administrator->clean['lang']));
-		$medias = Media::all(array('parent'=>$query[1],'lang'=>$this->administrator->clean['lang']));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
+		$cats = Category::all(array('lang'=>$this->cms->administrator->clean['lang']));
+		$medias = Media::all(array('parent'=>$query[1],'lang'=>$this->cms->administrator->clean['lang']));
 		// Define current states
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('edit_post');
 		$this->current['is_edit'] = TRUE;
 		$this->current['next_action'] = $this->cms->url['edit-post'].'/'.$query[1];
-		require $this->view('_header', 'cms');
-		require $this->view('edit', 'cms/posts');
-		require $this->view('_footer', 'cms');
+		require $this->load->layout('header', 'lib/cms');
+		require $this->load->view('edit', 'posts', 'lib/cms');
+		require $this->load->layout('footer', 'lib/cms');
 	}
 	
 	/**
