@@ -1,24 +1,236 @@
+@import "reset"
+@import "globals"
+@import "app"
+
+/** GLOBALS */
 body
-	padding: 40px 0 0
+	background: $background
+	font: normal 100% $sans
+	color: $gris-fosc
 
-#wrapper
-	max-width: 70em
-	margin: 0 auto
+p
+	margin-bottom: 1em
 
-#page
-	margin: 2em 0
-
-#page-footer
-	background: #4d4d4d
-	clear: both
-	padding: 2em 0
+a
+	text-decoration: none
 	
+a:hover
+	text-decoration: underline
+
+.button,
+#submit
+	@include button_gradient
+
+.button:hover,
+#submit:hover
+	text-decoration: none
+	cursor: pointer
+	@include gradient(#fff, #ccc)
+
+.button.alert:hover
+	@include gradient($clr_alert, darken($clr_alert,10%)) 
+	color: white
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85) 
+
+.success
+	background: yellowgreen
+.error
+	background: $clr_alert 
+
+.alert
+	color: $clr_alert 
+
+.current
+	text-decoration: underline
+
+.nolist
+	li
+		float: left
+
+.form_error
+	color: $clr_alert 
+
+.clear:after,
+.nolist:after
+	content: "."
+	display: block
+	height: 0
+	clear: both
+	visibility: hidden
+
+/** STRUCTURE */
+#wrapper
+	margin: 0 auto
+	padding: 1em
+#page
+	padding: 0
+
+/** NAV */
+ul
+	li
+		list-style-type: none
+		margin: 0 0 1em
+
+.admin_located
+	font-size: 12px
+	color: #aaa
+	padding: 6px 0 0 20px
+	height: 24px
+	background: url('/public/resources/admin/img/location-icon.png') no-repeat
+
+ul#nav-top
+	text-align: right
+	a
+		color: $text
+	li
+		display: inline-block
+		&:after
+			content: "|"
+			padding: 0 .3em
+		&:last-child:after
+			content: none
+
+form#nav-select div
+	position: relative
+	margin-bottom: 1em
+ 
+select.nav-select
+	position: relative
+	z-index: 10
+	width: 100% !important
+	height: auto !important
+	padding: 1em 0 !important	
+
+// dynamically created SPAN, placed below the SELECT
+span.select
+	position: absolute
+	bottom: 0
+	float: left
+	left: 0
+	width: 100%
+	height: auto
+	padding: 0.5em 0
+	text-indent: 0.5em
+	border: 1px solid #ccc
+	background: #f5f5f5
+	cursor: default
+	z-index: 1
+	@include radius
+
+/** DASHBOARD */
+.dashboard-list
+	margin-bottom: 1.5em
+	border: 1px solid $gris-clar
+	&>li 
+		background: white
+		margin: 0
+		border-bottom: 1px solid $gris-clar
+		padding: 1em .5em 0
+		&.draft
+			background: lightyellow
+		img, h2, p
+			margin-right: 1em
+		&:last-child
+			border-bottom: none
+		&.trash
+			opacity: 0.5
+		img
+			width: 100%
+
+#item-actions
+	margin-top: 1.5em
+	li
+		margin-right: .5em
+
 /** FORMS */
-input[type="text"],
+.lang-fieldset,
+.general-fieldset 
+	border: 1px solid $gris-clar
+	padding: 1em
+	margin-bottom: 1em
+	background: white
+	legend
+		background: white
+		padding: .5em .5em 0
+		margin: 1em 0
+		border-left: 1px solid $gris-clar
+		border-top: 1px solid $gris-clar
+		border-right: 1px solid $gris-clar
+	label
+		display: block
+		margin: .5em 0
+
+input[type=text],
+input[type=password],
 textarea
 	width: 100%
+	padding: .5em
+	margin: 0 -0.5em 2em
+	border: 1px solid $gris-clar
+	@include radius
 
 textarea
-	height: 20em
-	
-/** MODALS */
+	height: 40em
+
+#img_fieldset 
+	&> div
+		background: #ccc
+		padding: 1em
+		margin-bottom: .5em
+	p#add_images
+		max-width: 3em
+		text-align: center
+		float: right
+
+//#submit
+//	@include button_gradient
+//	width: 10em
+//	cursor: pointer
+//	&:hover
+//		background: $clr_success
+
+#loading
+	text-align: center
+	padding: 2em
+	border: 1px solid #ccc
+	margin-bottom: 2em
+	background: white
+	display: none
+	p 
+		font-size: 1.5em
+
+input[type="text"]:focus,
+textarea:focus
+	background: lightyellow
+
+/** GLOBAL MESSAGES */
+#global-message
+	padding: .5em
+	margin-bottom: 1em
+	p 
+		color: white
+		font-weight: bold
+		margin: 0
+
+/** FOOTER */
+#page-footer
+	border-top: 1px solid $gris-clar
+	padding: 1em 0
+	margin-top: 2em
+	p.copyright
+		font: normal .5em $mono
+
+/** TIPOGRAPHY */
+.instruction
+	font: bold 0.6em $detail 
+	color: #747474
+	letter-spacing: 0.15em 
+	text-transform: uppercase 
+	text-decoration: none
+#page
+	h1
+		font: bold 2em $sans
+		margin-bottom: 0.5em
+/** DISPLAY */
+.desktop
+	display: none

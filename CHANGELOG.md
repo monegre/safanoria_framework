@@ -2,8 +2,7 @@
 
 This is not a full changelog, but just to keep a lil bit of a track
 
-##Version 0.6
-This version introduces major changes and should not be blindly dropped in into previous versions. Really bad things could happen.
+##Version 0.5.5
 - New Framework tree. System directory has been replaced by lib/ directory, and Safanoria framework, CMS and ActiveRecord have been separated into its own independent directories. Now it's possible to use Safanoria framework without the CMS nor ActiveRecord, or you can build your own CMS in top of Safanoria framework.
 
 ##Version 0.5.4

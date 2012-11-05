@@ -3,7 +3,7 @@
 	<p>El primer pas per gestionar el teu web és crear les seccions de que es composarà.</p>
 	<p>Vols crear la primera?</p>
 	<p>
-		<a href="<?php echo $this->current['new_item']; ?>" class="btn btn-primary btn-large">
+		<a href="<?php echo $this->current['new_item']; ?>" class="button">
 		Som-hi!
 		</a>
 	</p>

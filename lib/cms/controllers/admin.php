@@ -77,7 +77,7 @@ class Admin extends Controller
 	private function publish($query=null) 
 	{		
 		// We want users to create sections first
-		if (0 == Section::all(array('lang'=>$this->administrator->clean['lang']))) 
+		if (0 == Section::all(array('lang'=>$this->cms->administrator->clean['lang']))) 
 		{
 			$this->current['page_title'] = "Publica";
 			require $this->load->view('header', null,  'lib/cms');
@@ -96,7 +96,7 @@ class Admin extends Controller
 	private function edit($query=null) 
 	{		
 		// We want users to create sections first
-		if (0 == Section::all(array('lang'=>$this->administrator->clean['lang']))) 
+		if (0 == Section::all(array('lang'=>$this->cms->administrator->clean['lang']))) 
 		{
 			$this->current['page_title'] = "Publica";
 			require $this->load->view('header', null,  'lib/cms');
