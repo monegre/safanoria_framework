@@ -31,7 +31,7 @@ class Sections extends Controller
 		
 		$this->current['page'] = 'sections';
 		
-		if ( ! Admin_user::is_logged()) 
+		if ( ! Admin_session::is_logged()) 
 		{
 			return $this->login();
 		}
@@ -48,7 +48,7 @@ class Sections extends Controller
 	 */
 	private function index($query=null) 
 	{
-		$list = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
+		$list = Section::all(array('parent'=>0,'lang'=>$this->cms->admin->lang));
 		$this->current['new_item'] = $this->cms->url['add-section'];
 		require $this->load->layout('header', 'lib/cms');
 		require $this->load->layout('list', 'lib/cms');
@@ -76,7 +76,7 @@ class Sections extends Controller
 		$this->current['next_action'] = $this->cms->url['add-section'];
 		// Data
 		$langs = $this->cms->lang->get_active();
-		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->admin->lang));
 		require $this->load->layout('header', 'lib/cms');
 		require $this->load->view('add', 'taxonomy', 'lib/cms');
 		require $this->load->layout('footer', 'lib/cms');
@@ -97,7 +97,7 @@ class Sections extends Controller
 			}
 		}
 		$list = Section::all(array('identifier'=>$query[1]));
-		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->admin->lang));
 
 		// Define current states
 		$this->current['token'] = $this->tokenize();

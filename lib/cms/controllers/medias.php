@@ -29,7 +29,7 @@ class Medias extends Controller
 		$this->query[0] = isset($this->query[0]) && !empty($this->query[0]) ? $this->query[0] : 'index';
 		$method	= $this->query[0];
 		
-		if ( ! Admin_user::is_logged()) 
+		if ( ! Admin_session::is_logged()) 
 		{
 			return $this->login();
 		}
@@ -48,7 +48,7 @@ class Medias extends Controller
 	 */
 	private function index($query=null) 
 	{
-		$list = Media::all(array('lang'=>$this->cms->administrator->clean['lang']));
+		$list = Media::all(array('lang'=>$this->cms->admin->lang));
 		$this->current['new_item'] = $this->cms->url['add-media'];
 		require $this->load->layout('header', 'lib/cms');
 		require $this->load->view('list', 'media', 'lib/cms');

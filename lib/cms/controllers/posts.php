@@ -29,7 +29,7 @@ class Posts extends Controller
 		$this->query[0] = isset($this->query[0]) && !empty($this->query[0]) ? $this->query[0] : 'index';
 		$method	= $this->query[0];
 		
-		if ( ! Admin_user::is_logged()) 
+		if ( ! Admin_session::is_logged()) 
 		{
 			return $this->login();
 		}
@@ -48,7 +48,7 @@ class Posts extends Controller
 	 */
 	private function index($query=null) 
 	{
-		$list = Post::all(array('lang'=>$this->cms->administrator->clean['lang']));
+		$list = Post::all(array('lang'=>$this->cms->admin->lang));
 		$this->current['new_item'] = $this->cms->url['add-post'];
 		require $this->load->layout('header', 'lib/cms');
 		require $this->load->layout('list', 'lib/cms');
@@ -83,9 +83,9 @@ class Posts extends Controller
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('add_post');					
 		// Data
-		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->admin->lang));
 		$langs = $this->cms->lang->get_active();
-		$cats = Category::all(array('lang'=>$this->cms->administrator->clean['lang']));
+		$cats = Category::all(array('lang'=>$this->cms->admin->lang));
 		require $this->load->layout('header', 'lib/cms');
 		require $this->load->view('add', 'posts', 'lib/cms');
 		require $this->load->layout('footer', 'lib/cms');	
@@ -116,9 +116,9 @@ class Posts extends Controller
 		}
 		// Data
 		$list = Post::all(array('identifier'=>$query[1]));
-		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
-		$cats = Category::all(array('lang'=>$this->cms->administrator->clean['lang']));
-		$medias = Media::all(array('parent'=>$query[1],'lang'=>$this->cms->administrator->clean['lang']));
+		$sections = Section::all(array('parent'=>0,'lang'=>$this->cms->admin->lang));
+		$cats = Category::all(array('lang'=>$this->cms->admin->lang));
+		$medias = Media::all(array('parent'=>$query[1],'lang'=>$this->cms->admin->lang));
 		// Define current states
 		$this->current['token'] = $this->tokenize();
 		$this->current['page_title'] = $this->cms->message('edit_post');

@@ -69,6 +69,8 @@ require ( ROOT . LIB . SYS . HELPS . 'escape.php');
 require ( ROOT . LIB . SYS . HELPS . 'clean.php');
 require ( ROOT . LIB . SYS . CORE . 'functions.php');
 
+require ( ROOT . LIB . CMS . CORE . 'exceptions.php');
+
 if($config['uses_database'] === TRUE)
 {
 	/** Include Active Record files */

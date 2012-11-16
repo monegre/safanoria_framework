@@ -31,10 +31,11 @@ class Admin extends Controller
 		$this->current['page'] = 'index';
 		$this->current['menu'] = TRUE;
 		
-		if ( ! Admin_user::is_logged()) 
+		if ( ! Admin_session::is_logged()) 
 		{
 			return $this->login();
 		}
+				
 		// Sections must be crated first
 		if ( count(Section::all()) === 0
 			 && '/admin/'.$method.'/'.$query[0] != $this->cms->url['add-section']) 
@@ -56,7 +57,7 @@ class Admin extends Controller
 	private function index($query=null) 
 	{	
 		// We want users to create sections first
-		$list = Section::all(array('parent'=>0,'lang'=>$this->cms->administrator->clean['lang']));
+		$list = Section::all(array('parent'=>0,'lang'=>$this->cms->admin->lang));
 		$this->current['new_item'] = $this->cms->url['add-section'];
 		
 		if( count($list) === 0 )
@@ -77,7 +78,7 @@ class Admin extends Controller
 	private function publish($query=null) 
 	{		
 		// We want users to create sections first
-		if (0 == Section::all(array('lang'=>$this->cms->administrator->clean['lang']))) 
+		if (0 == Section::all(array('lang'=>$this->cms->admin->lang))) 
 		{
 			$this->current['page_title'] = "Publica";
 			require $this->load->view('header', null,  'lib/cms');
@@ -96,7 +97,7 @@ class Admin extends Controller
 	private function edit($query=null) 
 	{		
 		// We want users to create sections first
-		if (0 == Section::all(array('lang'=>$this->cms->administrator->clean['lang']))) 
+		if (0 == Section::all(array('lang'=>$this->cms->admin->lang))) 
 		{
 			$this->current['page_title'] = "Publica";
 			require $this->load->view('header', null,  'lib/cms');
@@ -120,7 +121,7 @@ class Admin extends Controller
 			switch ($query[0]) 
 			{ 
 				case 'index':
-					$list = Post::all(array('status'=>'trash', 'lang'=>$this->cms->administrator->clean['lang']));
+					$list = Post::all(array('status'=>'trash', 'lang'=>$this->cms->admin->lang));
 					$this->current['new_item'] = $this->cms->url['add-post'];
 					$this->current['page'] = 'trash';
 					require $this->load->layout('header', 'lib/cms');
@@ -138,25 +139,20 @@ class Admin extends Controller
 	{	
 		if (isset($_POST['email'],$_POST['password'])) 
 		{
-			$user_data = Admin_user::credentials_valid($_POST['email'], $_POST['password']);
+			$admin_user = Admin_session::credentials_valid($_POST['email'], $_POST['password']);
 			// User is valid
-			if ($user_data) 
+			if ($admin_user) 
 			{
-				Admin_user::log_in($user_data['admin_id']);
+				Admin_session::log_in($admin_user->id);
 				header("Location: ".$this->cms->url['index']);
 				exit;
 			}
-			// Customer or password ain't valid
-			else 
-			{	
-				header("Location: " . $this->cms->url['login-error']);
-				$this->redirect_with_message(array('url'=>$this->cms->url['login-error'],'message'=>'invalid_login'));
-				exit("Either the username or the password is not correct. We could not redirect you to the login page, so please, click <a href=\"/admin/login\">here</a> to try again");
-			}	
+			$this->redirect_with_message(array('url'=>$this->cms->url['login-error'],'message'=>'invalid_login'));
+			exit("Either the username or the password is not correct. We could not redirect you to the login page, so please, click <a href=\"/admin/login\">here</a> to try again");
 		}
 		else 
 		{
-			if (Admin_user::is_logged()) 
+			if (Admin_session::is_logged()) 
 			{
 				$this->redirect_with_message(array('url'=>$this->cms->url['index'],'message'=>'already_logged_in'));
 			}
@@ -172,14 +168,11 @@ class Admin extends Controller
 	 */
 	private function logout()
 	{
-		if (Admin_user::is_logged()) 
+		if (Admin_session::is_logged()) 
 		{
-			Admin_user::log_out();
+			Admin_session::log_out();
 			header("Location: /");
 		}
-		else 
-		{
-			header("Location: /");
-		}
+		header("Location: /");
 	}
 }
