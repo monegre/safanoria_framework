@@ -34,6 +34,10 @@ class Cms extends Safanoria
 				 	
 			 	'add_lang' => '/admin/langs/add',
 			 	'edit_lang' => '/admin/langs/edit',
+
+			 	'add_user' => '/admin/users/add',
+			 	'edit_user' => '/admin/users/edit',
+			 	'remove_user' => '/admin/users/remove',
 				 	
 			 	'settings' => '/admin/settings',
 			 	'users' => '/admin/users',
@@ -53,7 +57,7 @@ class Cms extends Safanoria
 			);
 	
 	private $parents = array('parent','section');
-
+	public $admin; // The current admin user
 	/**
 	 * 
 	 */
@@ -62,19 +66,26 @@ class Cms extends Safanoria
 		$SF =& get_instance();
 		$this->security = $SF->security;
 		$this->upload = $SF->upload;
-		//$this->administrator = $SF->administrator;
 		// Load Image processing class
 		//$this->image = $this->load_class('image', LIB.SYS.LIBS);
 		
 		$this->lang = $this->load_class('lang', LIB.CMS.MODELS);
-		$this->administrator = $this->load_class('admin_user', LIB.CMS.MODELS);
-		// $this->url = $this->load_class('url', LIB.SYS.LIBS);
-		// $this->error = $this->load_class('error', LIB.SYS.CORE);
-		
-		// Load database manually
-		// This should be improved in futre versions
-		$this->DB = $this->load_class('database', LIB.SYS.CORE);
-		$this->DB = $this->DB->connect();
+		$this->add = $this->load_class('add', LIB.CMS.CORE);
+		$this->edit = $this->load_class('edit', LIB.CMS.CORE);
+
+		if (Admin_session::is_logged()) 
+		{
+			$this->admin = $this->_set_administrator($_SESSION['admin_id']);
+		}
+	}
+
+	private function _set_administrator($id = null)
+	{
+		if (isset($id) && $id == $_SESSION['admin_id']) 
+		{
+			$this->admin = Admin_user::find($id);
+		}
+		return $this->admin;
 	}
 	
 	/**
@@ -106,9 +117,9 @@ class Cms extends Safanoria
 		{
 			$args['nice_url'] = to_friendly_url($this->post['nice_url']);	
 		}
-		if( ! isset($this->post['nice_url']) && isset($this->post['title_'.$this->administrator->clean['lang'].''])) 
+		if( ! isset($this->post['nice_url']) && isset($this->post['title_'.$this->admin->lang.''])) 
 		{
-			$args['nice_url'] = to_friendly_url($this->post['title_'.$this->administrator->clean['lang'].'']);
+			$args['nice_url'] = to_friendly_url($this->post['title_'.$this->admin->lang.'']);
 		}
 		
 		if (is_array($type)) // This is a too poor method

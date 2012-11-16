@@ -1,6 +1,6 @@
 <?php if (isset($_POST['nav-select'])) {header("Location: " . $_POST['nav-select']);} ?>
 <!doctype html>
-<html dir="ltr" lang="<?php echo $this->cms->administrator->html['lang']; ?>">
+<html dir="ltr" lang="<?php echo $this->cms->admin->lang; ?>">
 	<head>
 		<meta charset="utf-8" />		
 		<title>Safanòria CMS<?php echo ' | ' . $this->current['page_title']; ?></title>
@@ -31,7 +31,7 @@
 			<head>
 				<nav role="top navigation">
 					<ul id="nav-top">
-						<li>Hola <?php echo $this->cms->administrator->html['first_name']; ?></li>
+						<li>Hola <?php echo $this->cms->admin->first_name; ?></li>
 						<li><a href="<?php echo $this->cms->url['logout']; ?>"><?php echo $this->message('logout'); ?></a></li>
 					</ul>
 				</nav>
@@ -78,6 +78,6 @@
 				<h1><?php echo $this->current['page_title']; ?></h1>
 				<?php if($this->messenger->got_global_message()): ?>
 					<div id="global-message" class="<?php echo $this->messenger->message_class(); ?>">
-						<p><?php echo $this->messenger->global_message($this->cms->administrator->clean['lang']); ?></p>
+						<p><?php echo $this->messenger->global_message($this->cms->admin->lang); ?></p>
 					</div>
 				<?php endif; ?>

@@ -30,7 +30,7 @@
 			<option value="<?php echo $item->section; ?>"><?php echo $item->section; ?></option>
 			<?php foreach($sections as $section): ?>
 				<option value="<?php echo $section->identifier; ?>"><?php echo $section->title; ?></option>
-				<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->cms->administrator->clean['lang'])); ?>
+				<?php $sublists = Section::all(array('parent'=>$section->identifier,'lang'=>$this->cms->admin->lang)); ?>
 				<?php foreach ($sublists as $sublist): ?>
 					<option value="<?php echo $sublist->identifier; ?>">– <?php echo $sublist->title; ?></option>
 				<?php endforeach; ?>
